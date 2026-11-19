@@ -1,0 +1,1430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <title>Admin Dashboard — DermaCare</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="/assets/js/rtl-init.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <style>
+    :root {
+      --ivory: var(--color-ivory);
+      --blue: var(--color-blue);
+      --blue-dark: #3d637d;
+      --sage: var(--color-sage);
+      --champagne: var(--color-champagne);
+      --charcoal: var(--color-charcoal);
+      --charcoal-light: #343940;
+      --charcoal-hover: #3f4650;
+      --sidebar-w: 270px;
+      --topbar-h: 64px;
+      --white: #fff;
+      --text-muted-custom: #8d99a6;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: #f1f4f8; color: #2d3748; }
+
+    /* -- SIDEBAR -- */
+    #sidebar {
+      position: fixed; top: 0; left: 0;
+      width: var(--sidebar-w); height: 100vh;
+      background: var(--charcoal); color: #fff;
+      display: flex; flex-direction: column;
+      overflow-y: auto; z-index: 1050;
+      transition: transform .3s ease;
+    }
+    #sidebar::-webkit-scrollbar { width: 4px; }
+    #sidebar::-webkit-scrollbar-thumb { background: var(--charcoal-hover); border-radius: 4px; }
+    .sidebar-brand {
+      padding: 20px 22px 16px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .sidebar-brand .brand-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700; color: #fff; letter-spacing: .3px;
+    }
+    .sidebar-brand .brand-sub {
+      font-size: .7rem; color: var(--sage); letter-spacing: 1px; text-transform: uppercase;
+    }
+    .sidebar-profile {
+      padding: 18px 22px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      display: flex; align-items: center; gap: 12px;
+    }
+    .sidebar-profile img {
+      width: 44px; height: 44px; border-radius: 50%; object-fit: cover;
+      border: 2px solid var(--blue);
+    }
+    .sidebar-profile .profile-name { font-weight: 600; font-size: .9rem; color: #fff; }
+    .sidebar-profile .super-badge {
+      background: var(--blue); color: #fff;
+      font-size: .65rem; padding: 2px 8px; border-radius: 20px;
+      font-weight: 600; letter-spacing: .5px;
+    }
+    .sidebar-nav { flex: 1; padding: 10px 0; }
+    .nav-label {
+      font-size: .65rem; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--text-muted-custom); padding: 14px 22px 6px; font-weight: 600;
+    }
+    .nav-item-link {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 22px; color: rgba(255,255,255,.75);
+      text-decoration: none; font-size: .875rem; font-weight: 500;
+      border-radius: 0; transition: all .2s;
+      position: relative;
+    }
+    .nav-item-link:hover, .nav-item-link.active {
+      background: var(--blue); color: #fff;
+    }
+    .nav-item-link i { font-size: 1rem; min-width: 20px; }
+    .nav-item-link .nav-badge {
+      margin-left: auto; background: #e74c3c; color: #fff;
+      font-size: .65rem; padding: 2px 7px; border-radius: 20px; font-weight: 700;
+    }
+    .sidebar-footer {
+      padding: 14px 22px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      font-size: .72rem; color: var(--text-muted-custom); text-align: center;
+    }
+
+    /* -- TOPBAR -- */
+    #topbar {
+      position: fixed; top: 0; left: var(--sidebar-w); right: 0;
+      height: var(--topbar-h); background: #fff;
+      border-bottom: 1px solid #e8ecf0;
+      display: flex; align-items: center; gap: 14px;
+      padding: 0 24px; z-index: 1040;
+      box-shadow: 0 1px 8px rgba(0,0,0,.06);
+    }
+    #topbar .topbar-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 600; color: var(--charcoal);
+      white-space: nowrap;
+    }
+    #topbar .search-wrap {
+      flex: 1; max-width: 420px; position: relative;
+    }
+    #topbar .search-wrap input {
+      width: 100%; padding: 8px 16px 8px 40px;
+      border: 1px solid #dde1e7; border-radius: 24px;
+      font-size: .85rem; background: #f5f7fa; outline: none;
+      transition: border-color .2s;
+    }
+    #topbar .search-wrap input:focus { border-color: var(--blue); background: #fff; }
+    #topbar .search-wrap i {
+      position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+      color: var(--text-muted); font-size: .9rem;
+    }
+    .topbar-actions { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+    .topbar-icon-btn {
+      width: 38px; height: 38px; border-radius: 50%; border: none;
+      background: #f5f7fa; color: var(--text-secondary); font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; position: relative; transition: background .2s;
+    }
+    .topbar-icon-btn:hover { background: #e9ecef; }
+    .topbar-icon-btn .badge-dot {
+      position: absolute; top: 5px; right: 5px;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: #e74c3c; color: #fff;
+      font-size: .6rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .admin-avatar { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+    .admin-avatar img {
+      width: 36px; height: 36px; border-radius: 50%; object-fit: cover;
+      border: 2px solid var(--blue);
+    }
+    .admin-avatar .avatar-info .av-name { font-weight: 600; font-size: .82rem; color: var(--charcoal); }
+    .admin-avatar .avatar-info .av-role { font-size: .7rem; color: var(--text-muted); }
+
+    /* -- MAIN CONTENT -- */
+    #main-content {
+      margin-left: var(--sidebar-w);
+      padding-top: var(--topbar-h);
+      min-height: 100vh;
+    }
+    .content-inner { padding: 28px 28px 48px; }
+    .section-block {
+      background: #fff; border-radius: 14px;
+      padding: 24px; margin-bottom: 28px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem; font-weight: 600; color: var(--charcoal);
+      margin-bottom: 20px;
+    }
+    .section-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px; flex-wrap: wrap; gap: 10px;
+    }
+
+    /* -- KPI CARDS -- */
+    .kpi-cards { display: grid; grid-template-columns: repeat(5,1fr); gap: 18px; margin-bottom: 24px; }
+    .kpi-card {
+      background: #fff; border-radius: 14px;
+      padding: 20px; box-shadow: 0 2px 12px rgba(0,0,0,.05);
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .kpi-icon {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; margin-bottom: 4px;
+    }
+    .kpi-value { font-size: 1.6rem; font-weight: 700; color: var(--charcoal); line-height: 1; }
+    .kpi-label { font-size: .78rem; color: var(--text-muted); font-weight: 500; }
+    .kpi-trend { font-size: .78rem; display: flex; align-items: center; gap: 4px; font-weight: 600; }
+    .trend-up { color: #27ae60; }
+    .trend-neutral { color: var(--text-muted); }
+
+    /* -- CHARTS -- */
+    .charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+    .chart-card {
+      background: #fff; border-radius: 14px;
+      padding: 22px; box-shadow: 0 2px 12px rgba(0,0,0,.05);
+    }
+    .chart-title { font-weight: 600; font-size: .95rem; color: var(--charcoal); margin-bottom: 16px; }
+
+    /* -- TABLES -- */
+    .admin-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+    .admin-table th {
+      background: #f8fafc; color: var(--text-muted); font-weight: 600;
+      font-size: .75rem; letter-spacing: .5px; text-transform: uppercase;
+      padding: 10px 14px; border-bottom: 2px solid #edf2f7; white-space: nowrap;
+    }
+    .admin-table th .sort-icon { color: var(--text-muted); margin-left: 4px; cursor: pointer; }
+    .admin-table td { padding: 12px 14px; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+    .admin-table tbody tr:hover { background: #f9fbfc; }
+    .patient-cell { display: flex; align-items: center; gap: 10px; }
+    .patient-avatar {
+      width: 36px; height: 36px; border-radius: 50%; object-fit: cover;
+      flex-shrink: 0;
+    }
+    .patient-name { font-weight: 600; font-size: .86rem; color: var(--charcoal); }
+    .patient-id-text { font-size: .72rem; color: var(--text-muted); }
+    .status-badge {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: .72rem; font-weight: 600; letter-spacing: .3px;
+    }
+    .badge-active { background: #d1fae5; color: #065f46; }
+    .badge-inactive { background: #fee2e2; color: #991b1b; }
+    .badge-new { background: #dbeafe; color: #1e40af; }
+    .badge-confirmed { background: #d1fae5; color: #065f46; }
+    .badge-inprogress { background: #fef3c7; color: #92400e; }
+    .badge-completed { background: #e9d5ff; color: #6b21a8; }
+    .badge-cancelled { background: #fee2e2; color: #991b1b; }
+    .badge-noshow { background: #f1f5f9; color: #64748b; }
+    .badge-available { background: #d1fae5; color: #065f46; }
+    .badge-insession { background: #fef3c7; color: #92400e; }
+    .badge-paid { background: #d1fae5; color: #065f46; }
+    .badge-pending-pay { background: #fef3c7; color: #92400e; }
+    .badge-refunded { background: #fee2e2; color: #991b1b; }
+    .action-btns { display: flex; gap: 6px; }
+    .action-btn {
+      width: 30px; height: 30px; border: none; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: .85rem; transition: all .2s;
+    }
+    .btn-view { background: #eff6ff; color: var(--blue); }
+    .btn-edit { background: #fefce8; color: #a16207; }
+    .btn-delete { background: #fff1f2; color: #e74c3c; }
+    .btn-view:hover { background: var(--blue); color: #fff; }
+    .btn-edit:hover { background: #a16207; color: #fff; }
+    .btn-delete:hover { background: #e74c3c; color: #fff; }
+
+    /* -- ACTION BAR -- */
+    .action-bar {
+      display: flex; gap: 10px; margin-bottom: 18px;
+      flex-wrap: wrap; align-items: center;
+    }
+    .action-bar .form-control, .action-bar .form-select {
+      font-size: .83rem; border-radius: 8px; border: 1px solid #dde1e7;
+      padding: 7px 12px;
+    }
+    .btn-primary-admin {
+      background: var(--blue); color: #fff; border: none;
+      padding: 8px 18px; border-radius: 8px; font-size: .83rem;
+      font-weight: 600; cursor: pointer; display: flex; align-items: center;
+      gap: 6px; transition: background .2s; white-space: nowrap;
+    }
+    .btn-primary-admin:hover { background: var(--blue-dark); }
+    .btn-outline-admin {
+      background: transparent; color: var(--charcoal);
+      border: 1px solid #dde1e7; padding: 7px 14px;
+      border-radius: 8px; font-size: .83rem; cursor: pointer;
+      display: flex; align-items: center; gap: 6px; transition: all .2s;
+    }
+    .btn-outline-admin:hover { border-color: var(--blue); color: var(--blue); }
+
+    /* -- APPOINTMENTS -- */
+    .schedule-header {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 18px; flex-wrap: wrap;
+    }
+    .date-nav { display: flex; align-items: center; gap: 8px; }
+    .date-nav-btn {
+      width: 32px; height: 32px; border-radius: 8px; border: 1px solid #dde1e7;
+      background: #fff; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; font-size: .9rem; transition: all .2s;
+    }
+    .date-nav-btn:hover { border-color: var(--blue); color: var(--blue); }
+    .date-label { font-weight: 600; font-size: .9rem; color: var(--charcoal); }
+    .view-toggle { display: flex; border: 1px solid #dde1e7; border-radius: 8px; overflow: hidden; }
+    .view-btn {
+      padding: 6px 14px; font-size: .82rem; cursor: pointer;
+      border: none; background: #fff; color: var(--text-muted); transition: all .2s;
+    }
+    .view-btn.active { background: var(--blue); color: #fff; }
+    .quick-stats-bar {
+      display: flex; gap: 20px; padding: 14px 20px;
+      background: #f8fafc; border-radius: 10px; margin-bottom: 18px;
+    }
+    .qs-item { display: flex; align-items: center; gap: 8px; font-size: .83rem; }
+    .qs-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .qs-count { font-weight: 700; color: var(--charcoal); }
+    .timeline-grid {
+      display: grid; grid-template-columns: 60px repeat(4, 1fr); gap: 2px;
+      border: 1px solid #edf2f7; border-radius: 10px; overflow: hidden; font-size: .78rem;
+    }
+    .tg-header {
+      background: #f8fafc; padding: 10px 8px;
+      font-weight: 600; font-size: .78rem; color: var(--charcoal); text-align: center;
+      border-bottom: 2px solid #edf2f7;
+    }
+    .tg-time {
+      background: #f8fafc; padding: 6px 6px; text-align: right;
+      color: var(--text-muted); font-size: .72rem; border-bottom: 1px solid #f1f5f9;
+    }
+    .tg-slot {
+      border-bottom: 1px solid #f1f5f9; border-left: 1px solid #f1f5f9;
+      padding: 4px; min-height: 48px; position: relative;
+    }
+    .appt-block {
+      border-radius: 6px; padding: 4px 7px;
+      font-size: .72rem; font-weight: 600; color: #fff; margin-bottom: 2px;
+    }
+    .appt-acne { background: #4A7090; }
+    .appt-laser { background: #8b5cf6; }
+    .appt-antiaging { background: #ec4899; }
+    .appt-hair { background: #f59e0b; }
+    .appt-consult { background: #10b981; }
+    .legend-wrap { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 12px; font-size: .78rem; }
+    .legend-item { display: flex; align-items: center; gap: 5px; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+    /* -- DOCTOR CARDS -- */
+    .doctor-cards-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; margin-bottom: 22px; }
+    .doctor-card {
+      border: 1px solid #edf2f7; border-radius: 14px; padding: 18px;
+      text-align: center; transition: box-shadow .2s;
+    }
+    .doctor-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+    .doctor-card img {
+      width: 70px; height: 70px; border-radius: 50%; object-fit: cover;
+      border: 3px solid var(--blue); margin-bottom: 10px;
+    }
+    .dr-name { font-weight: 700; font-size: .9rem; color: var(--charcoal); }
+    .dr-specialty { font-size: .75rem; color: var(--blue); font-weight: 500; margin-bottom: 8px; }
+    .dr-stats { display: flex; justify-content: center; gap: 14px; margin-bottom: 10px; font-size: .75rem; }
+    .dr-stat-item { text-align: center; }
+    .dr-stat-val { font-weight: 700; color: var(--charcoal); display: block; }
+    .dr-stat-lbl { color: var(--text-muted); font-size: .68rem; }
+    .dr-rating { color: #f59e0b; font-size: .78rem; font-weight: 600; margin-bottom: 8px; }
+    .dr-actions { display: flex; gap: 6px; justify-content: center; }
+
+    /* -- FINANCE -- */
+    .finance-summary { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-bottom: 22px; }
+    .finance-card {
+      border-radius: 14px; padding: 20px; color: #fff;
+    }
+    .finance-card-gross { background: linear-gradient(135deg, #4A7090, #3d637d); }
+    .finance-card-pending { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .finance-card-refund { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+    .fc-label { font-size: .78rem; opacity: .85; margin-bottom: 6px; }
+    .fc-value { font-size: 1.7rem; font-weight: 700; }
+    .pay-method-icon { font-size: 1.1rem; }
+
+    /* -- NOTIFICATIONS -- */
+    .notif-tabs { display: flex; gap: 0; border-bottom: 2px solid #edf2f7; margin-bottom: 16px; }
+    .notif-tab {
+      padding: 8px 18px; cursor: pointer; font-size: .85rem; font-weight: 500;
+      color: var(--text-muted); border-bottom: 2px solid transparent; margin-bottom: -2px;
+      transition: all .2s;
+    }
+    .notif-tab.active { color: var(--blue); border-bottom-color: var(--blue); }
+    .notif-item {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0; border-bottom: 1px solid #f1f5f9;
+    }
+    .notif-icon {
+      width: 38px; height: 38px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .notif-urgent { background: #fff1f2; color: #e74c3c; }
+    .notif-appt { background: #eff6ff; color: var(--blue); }
+    .notif-payment { background: #d1fae5; color: #065f46; }
+    .notif-system { background: #f3f4f6; color: var(--text-muted); }
+    .notif-inventory { background: #fef3c7; color: #92400e; }
+    .notif-body { flex: 1; }
+    .notif-title { font-weight: 600; font-size: .84rem; color: var(--charcoal); }
+    .notif-msg { font-size: .78rem; color: var(--text-muted); margin-top: 2px; }
+    .notif-time { font-size: .72rem; color: var(--text-muted); margin-top: 3px; }
+    .notif-unread-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); flex-shrink: 0; margin-top: 5px; }
+    .btn-mark-read {
+      background: none; border: 1px solid #e2e8f0; border-radius: 6px;
+      color: #64748b; font-size: .75rem; padding: 2px 7px; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center;
+      transition: all .2s;
+    }
+    .btn-mark-read:hover { background: #f1f5f9; color: var(--blue); border-color: var(--blue); }
+    .notif-item.read { opacity: .7; }
+    .notif-item.read .notif-unread-dot { display: none; }
+    .notif-actions-top { display: flex; gap: 8px; margin-bottom: 14px; justify-content: flex-end; }
+
+    /* -- SETTINGS -- */
+    .settings-panel { }
+    .setting-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 0; border-bottom: 1px solid #f1f5f9;
+    }
+    .setting-label { font-size: .85rem; font-weight: 500; color: var(--charcoal); }
+    .setting-sub { font-size: .73rem; color: var(--text-muted); }
+    .form-switch .form-check-input { width: 2.2em; height: 1.2em; cursor: pointer; }
+    .form-check-input:checked { background-color: var(--blue); border-color: var(--blue); }
+    .clinic-hours-grid { display: grid; gap: 6px; margin-bottom: 16px; }
+    .hour-row { display: flex; align-items: center; gap: 10px; font-size: .82rem; }
+    .hour-row .day-name { width: 44px; font-weight: 500; color: var(--charcoal); }
+    .hour-row input[type="time"] {
+      border: 1px solid #dde1e7; border-radius: 6px;
+      padding: 4px 8px; font-size: .8rem; color: var(--charcoal);
+    }
+    .maintenance-warning {
+      background: #fff1f2; border: 1px solid #fca5a5; border-radius: 10px;
+      padding: 12px 16px; margin-top: 10px;
+      font-size: .82rem; color: #991b1b; font-weight: 500;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .slot-radios { display: flex; gap: 10px; flex-wrap: wrap; }
+    .slot-radio label {
+      padding: 5px 14px; border: 1px solid #dde1e7; border-radius: 20px;
+      font-size: .8rem; cursor: pointer; transition: all .2s;
+    }
+    .slot-radio input:checked + label { background: var(--blue); color: #fff; border-color: var(--blue); }
+    .slot-radio input { display: none; }
+
+    /* pagination */
+    .pagination-wrap {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 14px; font-size: .82rem; color: var(--text-muted);
+    }
+    .pagination-btns { display: flex; gap: 4px; }
+    .pg-btn {
+      width: 32px; height: 32px; border-radius: 8px; border: 1px solid #dde1e7;
+      background: #fff; cursor: pointer; font-size: .82rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pg-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    /* -- DARK THEME ADAPTATION -- */
+    [data-theme="dark"] body { background: #131619; color: #e2e8f0; }
+    [data-theme="dark"] #topbar { background: #1c2024; border-color: #2e343b; }
+    [data-theme="dark"] #topbar .topbar-title { color: #fff; }
+    [data-theme="dark"] #topbar .search-wrap input { background: #262c33; border-color: #38414b; color: #fff; }
+    [data-theme="dark"] .topbar-icon-btn { background: #262c33; color: #cbd5e1; }
+    [data-theme="dark"] .admin-avatar .avatar-info .av-name { color: #fff; }
+    [data-theme="dark"] .section-block, [data-theme="dark"] .kpi-card, [data-theme="dark"] .chart-card { background: #1c2024; box-shadow: 0 2px 12px rgba(0,0,0,.25); }
+    [data-theme="dark"] .section-title, [data-theme="dark"] .chart-title, [data-theme="dark"] .kpi-value, [data-theme="dark"] .patient-name, [data-theme="dark"] .dr-name, [data-theme="dark"] .setting-label { color: #fff; }
+    [data-theme="dark"] .admin-table th { background: #242a30; color: #94a3b8; border-color: #333c46; }
+    [data-theme="dark"] .admin-table td { border-color: #283038; color: #cbd5e1; }
+    [data-theme="dark"] .admin-table tbody tr:hover { background: #242a32; }
+    [data-theme="dark"] .quick-stats-bar { background: #242a30; }
+    [data-theme="dark"] .qs-count { color: #fff; }
+    [data-theme="dark"] .timeline-grid { border-color: #333c46; }
+    [data-theme="dark"] .tg-header, [data-theme="dark"] .tg-time { background: #242a30; border-color: #333c46; color: #cbd5e1; }
+    [data-theme="dark"] .tg-slot { border-color: #283038; }
+    [data-theme="dark"] .doctor-card { border-color: #333c46; }
+    [data-theme="dark"] .dr-stat-val { color: #fff; }
+    [data-theme="dark"] .notif-item { border-color: #283038; }
+    [data-theme="dark"] .notif-title { color: #fff; }
+    [data-theme="dark"] .setting-row { border-color: #283038; }
+    [data-theme="dark"] .action-bar .form-control, [data-theme="dark"] .action-bar .form-select, [data-theme="dark"] .clinic-hours-grid input { background: #262c33; border-color: #38414b; color: #fff; }
+    [data-theme="dark"] .date-nav-btn, [data-theme="dark"] .view-btn, [data-theme="dark"] .btn-outline-admin, [data-theme="dark"] .pg-btn, [data-theme="dark"] .btn-mark-read { background: #262c33; border-color: #38414b; color: #cbd5e1; }
+
+    /* -- RESPONSIVE -- */
+    @media (max-width: 1200px) {
+      .kpi-cards { grid-template-columns: repeat(3,1fr); }
+      .charts-row { grid-template-columns: 1fr; }
+      .doctor-cards-row { grid-template-columns: repeat(2,1fr); }
+      .finance-summary { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 991px) {
+      #sidebar { transform: translateX(-100%); }
+      #sidebar.open { transform: translateX(0); }
+      #topbar { left: 0; }
+      #main-content { margin-left: 0; }
+      .kpi-cards { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 576px) {
+      .kpi-cards { grid-template-columns: 1fr 1fr; }
+      .doctor-cards-row { grid-template-columns: 1fr; }
+      .finance-summary { grid-template-columns: 1fr; }
+    }
+  </style>
+<link rel="stylesheet" href="/assets/css/responsive.css" />
+</head>
+<body>
+
+<!-- ======================================
+     SIDEBAR
+====================================== -->
+<aside id="sidebar">
+  <div class="sidebar-brand">
+    <div class="d-flex align-items-center gap-2">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <circle cx="14" cy="14" r="14" fill="#4A7090"/>
+        <path d="M14 7v14M7 14h14" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+      <div>
+        <div class="brand-name">DermaCare</div>
+        <div class="brand-sub">Skin &amp; Wellness Clinic</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sidebar-profile">
+    <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=100&h=100&fit=crop&crop=faces" alt="Dr. Admin" />
+    <div>
+      <div class="profile-name">Dr. Admin</div>
+      <div class="mt-1"><span class="super-badge">Super Admin</span></div>
+    </div>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-label">Main</div>
+    <a href="#" class="nav-item-link active"><i class="bi bi-grid-1x2-fill"></i> Dashboard</a>
+    <a href="#" class="nav-item-link"><i class="bi bi-bar-chart-fill"></i> Analytics</a>
+
+    <div class="nav-label">Patients</div>
+    <a href="#" class="nav-item-link"><i class="bi bi-people-fill"></i> All Patients</a>
+    <a href="#" class="nav-item-link"><i class="bi bi-person-plus-fill"></i> Add Patient</a>
+    <a href="#" class="nav-item-link"><i class="bi bi-folder2-open"></i> Patient Records</a>
+
+    <div class="nav-label">Medical</div>
+    <a href="#" class="nav-item-link"><i class="bi bi-person-badge-fill"></i> Doctors</a>
+    <a href="#" class="nav-item-link"><i class="bi bi-calendar2-check-fill"></i> Appointments</a>
+    <a href="#" class="nav-item-link"><i class="bi bi-bandaid-fill"></i> Treatments</a>
+    <a href="#" class="nav-item-link"><i class="bi bi-capsule-pill"></i> Prescriptions</a>
+
+    <div class="nav-label">Finance</div>
+    <a href="#" class="nav-item-link"><i class="bi bi-credit-card-fill"></i> Payments</a>
+    <a href="#" class="nav-item-link"><i class="bi bi-receipt-cutoff"></i> Invoices</a>
+    <a href="#" class="nav-item-link"><i class="bi bi-graph-up-arrow"></i> Reports</a>
+
+    <div class="nav-label">System</div>
+    <a href="#" class="nav-item-link">
+      <i class="bi bi-bell-fill"></i> Notifications
+      <span class="nav-badge">7</span>
+    </a>
+    <a href="#" class="nav-item-link"><i class="bi bi-gear-fill"></i> Settings</a>
+    <a href="#" class="nav-item-link"><i class="bi bi-question-circle-fill"></i> Help</a>
+  </nav>
+
+  <div class="sidebar-footer">v2.4.1 &nbsp;·&nbsp; © 2026 DermaCare</div>
+</aside>
+
+<!-- ======================================
+     TOPBAR
+====================================== -->
+<header id="topbar">
+  <button class="topbar-icon-btn" id="sidebarToggle" onclick="document.getElementById('sidebar').classList.toggle('open')">
+    <i class="bi bi-list"></i>
+  </button>
+  <span class="topbar-title">DermaCare Admin</span>
+
+  <div class="search-wrap ms-3">
+    <i class="bi bi-search"></i>
+    <input type="text" placeholder="Search patients, appointments, invoices…" />
+  </div>
+
+  <div class="topbar-actions">
+    <button class="topbar-icon-btn" title="Notifications">
+      <i class="bi bi-bell-fill"></i>
+      <span class="badge-dot">7</span>
+    </button>
+    <button class="topbar-icon-btn" id="darkToggle" data-theme-toggle title="Toggle dark mode">
+      <i class="bi bi-moon-stars-fill" data-theme-icon></i>
+    </button>
+    <div class="dropdown">
+      <div class="admin-avatar" data-bs-toggle="dropdown">
+        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=80&h=80&fit=crop&crop=faces" alt="Admin" />
+        <div class="avatar-info d-none d-md-block">
+          <div class="av-name">Dr. Admin</div>
+          <div class="av-role">Super Admin</div>
+        </div>
+        <i class="bi bi-chevron-down ms-1" style="font-size:.7rem;color:var(--text-muted);"></i>
+      </div>
+      <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0 mt-2">
+        <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>My Profile</a></li>
+        <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i>Settings</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<!-- ======================================
+     MAIN CONTENT
+====================================== -->
+<main id="main-content">
+<div class="content-inner">
+
+  <!-- Page Header -->
+  <div class="d-flex align-items-center justify-content-between mb-4 page-header">
+    <div>
+      <h1 style="font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:700;color:var(--charcoal);">Dashboard Overview</h1>
+      <p style="font-size:.82rem;color:var(--text-muted);margin:2px 0 0;">Wednesday, November 18, 2026 &nbsp;·&nbsp; Welcome back, Dr. Admin</p>
+    </div>
+    <button class="btn-primary-admin"><i class="bi bi-plus-lg"></i> Quick Action</button>
+  </div>
+
+  <!-- ================================
+       SECTION 1 — KPI OVERVIEW
+  ================================ -->
+  <div class="kpi-cards">
+    <div class="kpi-card">
+      <div class="kpi-icon" style="background:#eff6ff;color:var(--blue)"><i class="bi bi-people-fill"></i></div>
+      <div class="kpi-value">5,284</div>
+      <div class="kpi-label">Total Patients</div>
+      <div class="kpi-trend trend-up"><i class="bi bi-arrow-up-short"></i> 12% this month</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon" style="background:#fef3c7;color:#d97706"><i class="bi bi-calendar2-check-fill"></i></div>
+      <div class="kpi-value">24</div>
+      <div class="kpi-label">Appointments Today</div>
+      <div class="kpi-trend trend-neutral"><i class="bi bi-clock"></i> 8 pending</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon" style="background:#d1fae5;color:#065f46"><i class="bi bi-currency-dollar"></i></div>
+      <div class="kpi-value">$48,320</div>
+      <div class="kpi-label">Revenue This Month</div>
+      <div class="kpi-trend trend-up"><i class="bi bi-arrow-up-short"></i> 8% vs last month</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon" style="background:#f3e8ff;color:#7c3aed"><i class="bi bi-bandaid-fill"></i></div>
+      <div class="kpi-value">142</div>
+      <div class="kpi-label">Active Treatments</div>
+      <div class="kpi-trend trend-neutral"><i class="bi bi-activity"></i> 18 new this week</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon" style="background:#fce7f3;color:#db2777"><i class="bi bi-person-badge-fill"></i></div>
+      <div class="kpi-value">11/15</div>
+      <div class="kpi-label">Doctor Availability</div>
+      <div class="kpi-trend trend-up"><i class="bi bi-circle-fill" style="font-size:.5rem;"></i> Doctors online</div>
+    </div>
+  </div>
+
+  <!-- Charts Row -->
+  <div class="charts-row mb-4">
+    <div class="chart-card">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <div class="chart-title">Monthly Revenue — 2026</div>
+        <span style="font-size:.75rem;background:#eff6ff;color:var(--blue);padding:3px 10px;border-radius:20px;font-weight:600;">Jan – Nov</span>
+      </div>
+      <canvas id="revenueChart" height="110"></canvas>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">Appointment Types</div>
+      <canvas id="appointmentChart" height="160"></canvas>
+      <div class="legend-wrap mt-2">
+        <div class="legend-item"><div class="legend-dot" style="background:#4A7090"></div> Acne 25%</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#8b5cf6"></div> Laser 30%</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ec4899"></div> Anti-Aging 20%</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div> Hair 15%</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div> Other 10%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================
+       SECTION 2 — PATIENT MANAGEMENT
+  ================================ -->
+  <div class="section-block">
+    <div class="section-header">
+      <h2 class="section-title mb-0">Patient Management</h2>
+      <button class="btn-primary-admin"><i class="bi bi-person-plus-fill"></i> Add Patient</button>
+    </div>
+
+    <div class="action-bar">
+      <input class="form-control" style="max-width:220px;" type="text" placeholder="Search patients…" />
+      <select class="form-select" style="max-width:160px;">
+        <option>Filter by Doctor</option>
+        <option>Dr. Mitchell</option>
+        <option>Dr. Chen</option>
+        <option>Dr. Sharma</option>
+        <option>Dr. Torres</option>
+      </select>
+      <select class="form-select" style="max-width:170px;">
+        <option>Filter by Treatment</option>
+        <option>Acne Treatment</option>
+        <option>Laser Therapy</option>
+        <option>Anti-Aging</option>
+        <option>Hair &amp; Scalp</option>
+      </select>
+      <div class="ms-auto d-flex gap-2">
+        <button class="btn-outline-admin"><i class="bi bi-filetype-csv"></i> CSV</button>
+        <button class="btn-outline-admin"><i class="bi bi-filetype-pdf"></i> PDF</button>
+      </div>
+    </div>
+
+    <div style="overflow-x:auto;">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th><input type="checkbox" /></th>
+          <th>Patient ID <i class="bi bi-arrow-down-up sort-icon"></i></th>
+          <th>Name <i class="bi bi-arrow-down-up sort-icon"></i></th>
+          <th>Age/Gender <i class="bi bi-arrow-down-up sort-icon"></i></th>
+          <th>Primary Condition</th>
+          <th>Assigned Doctor</th>
+          <th>Last Visit <i class="bi bi-arrow-down-up sort-icon"></i></th>
+          <th>Total Spent <i class="bi bi-arrow-down-up sort-icon"></i></th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td><span class="patient-id-text">#PT-10821</span></td>
+          <td><div class="patient-cell"><img class="patient-avatar" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=60&h=60&fit=crop&crop=faces" alt=""/><div><div class="patient-name">Emily Richardson</div><div class="patient-id-text">emily.r@email.com</div></div></div></td>
+          <td>32 / F</td>
+          <td>Acne Vulgaris</td>
+          <td>Dr. Mitchell</td>
+          <td>Nov 14, 2026</td>
+          <td>$2,840</td>
+          <td><span class="status-badge badge-active">Active</span></td>
+          <td><div class="action-btns"><button class="action-btn btn-view"><i class="bi bi-eye"></i></button><button class="action-btn btn-edit"><i class="bi bi-pencil"></i></button><button class="action-btn btn-delete"><i class="bi bi-trash3"></i></button></div></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td><span class="patient-id-text">#PT-10822</span></td>
+          <td><div class="patient-cell"><img class="patient-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=60&h=60&fit=crop&crop=faces" alt=""/><div><div class="patient-name">James Thornton</div><div class="patient-id-text">j.thornton@email.com</div></div></div></td>
+          <td>45 / M</td>
+          <td>Rosacea</td>
+          <td>Dr. Chen</td>
+          <td>Nov 10, 2026</td>
+          <td>$5,210</td>
+          <td><span class="status-badge badge-active">Active</span></td>
+          <td><div class="action-btns"><button class="action-btn btn-view"><i class="bi bi-eye"></i></button><button class="action-btn btn-edit"><i class="bi bi-pencil"></i></button><button class="action-btn btn-delete"><i class="bi bi-trash3"></i></button></div></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td><span class="patient-id-text">#PT-10823</span></td>
+          <td><div class="patient-cell"><img class="patient-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=60&h=60&fit=crop&crop=faces" alt=""/><div><div class="patient-name">Sarah Kim</div><div class="patient-id-text">sarah.kim@email.com</div></div></div></td>
+          <td>28 / F</td>
+          <td>Hyperpigmentation</td>
+          <td>Dr. Sharma</td>
+          <td>Nov 17, 2026</td>
+          <td>$1,620</td>
+          <td><span class="status-badge badge-new">New</span></td>
+          <td><div class="action-btns"><button class="action-btn btn-view"><i class="bi bi-eye"></i></button><button class="action-btn btn-edit"><i class="bi bi-pencil"></i></button><button class="action-btn btn-delete"><i class="bi bi-trash3"></i></button></div></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td><span class="patient-id-text">#PT-10824</span></td>
+          <td><div class="patient-cell"><img class="patient-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=60&h=60&fit=crop&crop=faces" alt=""/><div><div class="patient-name">Marco Delgado</div><div class="patient-id-text">mdelgado@email.com</div></div></div></td>
+          <td>52 / M</td>
+          <td>Melanoma Screening</td>
+          <td>Dr. Torres</td>
+          <td>Oct 30, 2026</td>
+          <td>$8,490</td>
+          <td><span class="status-badge badge-active">Active</span></td>
+          <td><div class="action-btns"><button class="action-btn btn-view"><i class="bi bi-eye"></i></button><button class="action-btn btn-edit"><i class="bi bi-pencil"></i></button><button class="action-btn btn-delete"><i class="bi bi-trash3"></i></button></div></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td><span class="patient-id-text">#PT-10825</span></td>
+          <td><div class="patient-cell"><img class="patient-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=60&h=60&fit=crop&crop=faces" alt=""/><div><div class="patient-name">Priya Nair</div><div class="patient-id-text">priya.n@email.com</div></div></div></td>
+          <td>36 / F</td>
+          <td>Anti-Aging / Botox</td>
+          <td>Dr. Mitchell</td>
+          <td>Nov 05, 2026</td>
+          <td>$4,120</td>
+          <td><span class="status-badge badge-active">Active</span></td>
+          <td><div class="action-btns"><button class="action-btn btn-view"><i class="bi bi-eye"></i></button><button class="action-btn btn-edit"><i class="bi bi-pencil"></i></button><button class="action-btn btn-delete"><i class="bi bi-trash3"></i></button></div></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td><span class="patient-id-text">#PT-10826</span></td>
+          <td><div class="patient-cell"><img class="patient-avatar" src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=60&h=60&fit=crop&crop=faces" alt=""/><div><div class="patient-name">Oliver Bennett</div><div class="patient-id-text">o.bennett@email.com</div></div></div></td>
+          <td>41 / M</td>
+          <td>Psoriasis</td>
+          <td>Dr. Chen</td>
+          <td>Sep 22, 2026</td>
+          <td>$3,760</td>
+          <td><span class="status-badge badge-inactive">Inactive</span></td>
+          <td><div class="action-btns"><button class="action-btn btn-view"><i class="bi bi-eye"></i></button><button class="action-btn btn-edit"><i class="bi bi-pencil"></i></button><button class="action-btn btn-delete"><i class="bi bi-trash3"></i></button></div></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td><span class="patient-id-text">#PT-10827</span></td>
+          <td><div class="patient-cell"><img class="patient-avatar" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=60&h=60&fit=crop&crop=faces" alt=""/><div><div class="patient-name">Aisha Patel</div><div class="patient-id-text">a.patel@email.com</div></div></div></td>
+          <td>24 / F</td>
+          <td>Laser Hair Removal</td>
+          <td>Dr. Sharma</td>
+          <td>Nov 16, 2026</td>
+          <td>$980</td>
+          <td><span class="status-badge badge-new">New</span></td>
+          <td><div class="action-btns"><button class="action-btn btn-view"><i class="bi bi-eye"></i></button><button class="action-btn btn-edit"><i class="bi bi-pencil"></i></button><button class="action-btn btn-delete"><i class="bi bi-trash3"></i></button></div></td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" /></td>
+          <td><span class="patient-id-text">#PT-10828</span></td>
+          <td><div class="patient-cell"><img class="patient-avatar" src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=60&h=60&fit=crop&crop=faces" alt=""/><div><div class="patient-name">David Huang</div><div class="patient-id-text">d.huang@email.com</div></div></div></td>
+          <td>60 / M</td>
+          <td>Eczema Management</td>
+          <td>Dr. Torres</td>
+          <td>Nov 12, 2026</td>
+          <td>$6,320</td>
+          <td><span class="status-badge badge-active">Active</span></td>
+          <td><div class="action-btns"><button class="action-btn btn-view"><i class="bi bi-eye"></i></button><button class="action-btn btn-edit"><i class="bi bi-pencil"></i></button><button class="action-btn btn-delete"><i class="bi bi-trash3"></i></button></div></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="pagination-wrap">
+      <span>Showing 1–8 of 5,284 patients</span>
+      <div class="pagination-btns">
+        <button class="pg-btn"><i class="bi bi-chevron-left"></i></button>
+        <button class="pg-btn active">1</button>
+        <button class="pg-btn">2</button>
+        <button class="pg-btn">3</button>
+        <button class="pg-btn">…</button>
+        <button class="pg-btn">661</button>
+        <button class="pg-btn"><i class="bi bi-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================
+       SECTION 3 — APPOINTMENTS
+  ================================ -->
+  <div class="section-block">
+    <div class="section-header">
+      <h2 class="section-title mb-0">Today's Schedule &amp; Appointments</h2>
+      <button class="btn-primary-admin"><i class="bi bi-plus-lg"></i> Add Appointment</button>
+    </div>
+
+    <div class="schedule-header">
+      <div class="date-nav">
+        <button class="date-nav-btn"><i class="bi bi-chevron-left"></i></button>
+        <span class="date-label">Nov 18, 2026</span>
+        <button class="date-nav-btn"><i class="bi bi-chevron-right"></i></button>
+        <button class="date-nav-btn ms-1" title="Calendar"><i class="bi bi-calendar3"></i></button>
+      </div>
+      <div class="view-toggle ms-auto">
+        <button class="view-btn active" onclick="this.parentElement.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active');document.getElementById('timelineView').style.display='';document.getElementById('listView').style.display='none';">
+          <i class="bi bi-layout-three-columns"></i> Timeline
+        </button>
+        <button class="view-btn" onclick="this.parentElement.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active');document.getElementById('timelineView').style.display='none';document.getElementById('listView').style.display='';">
+          <i class="bi bi-list-ul"></i> List
+        </button>
+      </div>
+    </div>
+
+    <div class="quick-stats-bar">
+      <div class="qs-item"><div class="qs-dot" style="background:#4A7090"></div><span class="qs-count">24</span>&nbsp;Total</div>
+      <div class="qs-item"><div class="qs-dot" style="background:#f59e0b"></div><span class="qs-count">8</span>&nbsp;Pending</div>
+      <div class="qs-item"><div class="qs-dot" style="background:#10b981"></div><span class="qs-count">12</span>&nbsp;Confirmed</div>
+      <div class="qs-item"><div class="qs-dot" style="background:#8b5cf6"></div><span class="qs-count">4</span>&nbsp;Completed</div>
+      <div class="qs-item"><div class="qs-dot" style="background:#e74c3c"></div><span class="qs-count">0</span>&nbsp;Cancelled</div>
+    </div>
+
+    <!-- Timeline View -->
+    <div id="timelineView" style="overflow-x:auto;">
+      <div class="timeline-grid">
+        <!-- Headers -->
+        <div class="tg-header" style="background:#f8fafc;">Time</div>
+        <div class="tg-header">Dr. Mitchell<br><small style="font-weight:400;color:var(--text-muted);">Dermatology</small></div>
+        <div class="tg-header">Dr. Chen<br><small style="font-weight:400;color:var(--text-muted);">Laser Therapy</small></div>
+        <div class="tg-header">Dr. Sharma<br><small style="font-weight:400;color:var(--text-muted);">Anti-Aging</small></div>
+        <div class="tg-header">Dr. Torres<br><small style="font-weight:400;color:var(--text-muted);">Hair &amp; Scalp</small></div>
+        <!-- 9 AM -->
+        <div class="tg-time">9:00</div>
+        <div class="tg-slot"><div class="appt-block appt-acne">Emily R.<br>Acne Tx</div></div>
+        <div class="tg-slot"><div class="appt-block appt-laser">J. Thornton<br>Laser</div></div>
+        <div class="tg-slot"></div>
+        <div class="tg-slot"><div class="appt-block appt-hair">D. Huang<br>Scalp</div></div>
+        <!-- 10 AM -->
+        <div class="tg-time">10:00</div>
+        <div class="tg-slot"></div>
+        <div class="tg-slot"><div class="appt-block appt-laser">O. Bennett<br>Laser</div></div>
+        <div class="tg-slot"><div class="appt-block appt-antiaging">Priya N.<br>Botox</div></div>
+        <div class="tg-slot"></div>
+        <!-- 11 AM -->
+        <div class="tg-time">11:00</div>
+        <div class="tg-slot"><div class="appt-block appt-acne">M. Delgado<br>Consult</div></div>
+        <div class="tg-slot"></div>
+        <div class="tg-slot"><div class="appt-block appt-antiaging">New Patient<br>Anti-Aging</div></div>
+        <div class="tg-slot"><div class="appt-block appt-hair">Aisha P.<br>Laser Hair</div></div>
+        <!-- 12 PM -->
+        <div class="tg-time">12:00</div>
+        <div class="tg-slot" style="background:#fafafa;"></div>
+        <div class="tg-slot" style="background:#fafafa;"><span style="font-size:.7rem;color:var(--text-muted);padding:4px;">Lunch</span></div>
+        <div class="tg-slot" style="background:#fafafa;"></div>
+        <div class="tg-slot" style="background:#fafafa;"></div>
+        <!-- 1 PM -->
+        <div class="tg-time">1:00</div>
+        <div class="tg-slot"><div class="appt-block appt-consult">S. Kim<br>Consult</div></div>
+        <div class="tg-slot"><div class="appt-block appt-laser">New Patient<br>Laser Eval</div></div>
+        <div class="tg-slot"></div>
+        <div class="tg-slot"><div class="appt-block appt-hair">Walk-in<br>Scalp Check</div></div>
+        <!-- 2 PM -->
+        <div class="tg-time">2:00</div>
+        <div class="tg-slot"></div>
+        <div class="tg-slot"></div>
+        <div class="tg-slot"><div class="appt-block appt-antiaging">Regular<br>Filler Tx</div></div>
+        <div class="tg-slot"><div class="appt-block appt-hair">P. Nair<br>PRP Hair</div></div>
+        <!-- 3 PM -->
+        <div class="tg-time">3:00</div>
+        <div class="tg-slot"><div class="appt-block appt-acne">Follow-up<br>Acne</div></div>
+        <div class="tg-slot"><div class="appt-block appt-laser">IPL Session<br>Chen</div></div>
+        <div class="tg-slot"></div>
+        <div class="tg-slot"></div>
+        <!-- 4 PM -->
+        <div class="tg-time">4:00</div>
+        <div class="tg-slot"></div>
+        <div class="tg-slot"></div>
+        <div class="tg-slot"><div class="appt-block appt-antiaging">End-of-day<br>Review</div></div>
+        <div class="tg-slot"><div class="appt-block appt-hair">Walk-in<br>Hair Loss</div></div>
+        <!-- 5 PM -->
+        <div class="tg-time">5:00</div>
+        <div class="tg-slot" style="background:#fafafa;"></div>
+        <div class="tg-slot" style="background:#fafafa;"></div>
+        <div class="tg-slot" style="background:#fafafa;"></div>
+        <div class="tg-slot" style="background:#fafafa;"></div>
+      </div>
+      <div class="legend-wrap mt-3">
+        <span style="font-size:.75rem;font-weight:600;color:var(--text-muted);margin-right:4px;">Legend:</span>
+        <div class="legend-item"><div class="legend-dot" style="background:#4A7090"></div> Acne/Consult</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#8b5cf6"></div> Laser Therapy</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#ec4899"></div> Anti-Aging</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div> Hair &amp; Scalp</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div> Consultation</div>
+      </div>
+    </div>
+
+    <!-- List View (hidden by default) -->
+    <div id="listView" style="display:none;overflow-x:auto;">
+      <table class="admin-table">
+        <thead><tr>
+          <th>Time</th><th>Patient</th><th>Doctor</th><th>Treatment</th><th>Duration</th><th>Status</th><th>Actions</th>
+        </tr></thead>
+        <tbody>
+          <tr><td>09:00</td><td>Emily Richardson</td><td>Dr. Mitchell</td><td>Acne Treatment</td><td>45 min</td><td><span class="status-badge badge-inprogress">In Progress</span></td><td><div class="action-btns"><button class="action-btn btn-view"><i class="bi bi-eye"></i></button><button class="action-btn btn-edit"><i class="bi bi-pencil"></i></button></div></td></tr>
+          <tr><td>09:00</td><td>James Thornton</td><td>Dr. Chen</td><td>Laser Resurfacing</td><td>60 min</td><td><span class="status-badge badge-inprogress">In Progress</span></td><td><div class="action-btns"><button class="action-btn btn-view"><i class="bi bi-eye"></i></button><button class="action-btn btn-edit"><i class="bi bi-pencil"></i></button></div></td></tr>
+          <tr><td>09:00</td><td>David Huang</td><td>Dr. Torres</td><td>Scalp Analysis</td><td>30 min</td><td><span class="status-badge badge-completed">Completed</span></td><td><div class="action-btns"><button class="action-btn btn-view"><i class="bi bi-eye"></i></button><button class="action-btn btn-edit"><i class="bi bi-pencil"></i></button></div></td></tr>
+          <tr><td>10:00</td><td>Oliver Bennett</td><td>Dr. Chen</td><td>Laser Therapy</td><td>45 min</td><td><span class="status-badge badge-confirmed">Confirmed</span></td><td><div class="action-btns"><button class="action-btn btn-view"><i class="bi bi-eye"></i></button><button class="action-btn btn-edit"><i class="bi bi-pencil"></i></button></div></td></tr>
+          <tr><td>10:00</td><td>Priya Nair</td><td>Dr. Sharma</td><td>Botox Injection</td><td>30 min</td><td><span class="status-badge badge-confirmed">Confirmed</span></td><td><div class="action-btns"><button class="action-btn btn-view"><i class="bi bi-eye"></i></button><button class="action-btn btn-edit"><i class="bi bi-pencil"></i></button></div></td></tr>
+          <tr><td>11:00</td><td>Aisha Patel</td><td>Dr. Torres</td><td>Laser Hair Removal</td><td>60 min</td><td><span class="status-badge badge-confirmed">Confirmed</span></td><td><div class="action-btns"><button class="action-btn btn-view"><i class="bi bi-eye"></i></button><button class="action-btn btn-edit"><i class="bi bi-pencil"></i></button></div></td></tr>
+          <tr><td>01:00</td><td>Sarah Kim</td><td>Dr. Mitchell</td><td>Consultation</td><td>30 min</td><td><span class="status-badge badge-new" style="background:#dbeafe;color:#1e40af;">Pending</span></td><td><div class="action-btns"><button class="action-btn btn-view"><i class="bi bi-eye"></i></button><button class="action-btn btn-edit"><i class="bi bi-pencil"></i></button></div></td></tr>
+          <tr><td>02:00</td><td>Marco Delgado</td><td>Dr. Torres</td><td>PRP Hair Treatment</td><td>90 min</td><td><span class="status-badge badge-new" style="background:#dbeafe;color:#1e40af;">Pending</span></td><td><div class="action-btns"><button class="action-btn btn-view"><i class="bi bi-eye"></i></button><button class="action-btn btn-edit"><i class="bi bi-pencil"></i></button></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ================================
+       SECTION 4 — DOCTOR MANAGEMENT
+  ================================ -->
+  <div class="section-block">
+    <div class="section-header">
+      <h2 class="section-title mb-0">Medical Staff</h2>
+      <button class="btn-primary-admin"><i class="bi bi-person-plus-fill"></i> Add Doctor</button>
+    </div>
+
+    <div class="doctor-cards-row">
+      <div class="doctor-card">
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=200&h=200&fit=crop&crop=faces" alt="Dr. Mitchell" />
+        <div class="dr-name">Dr. Laura Mitchell</div>
+        <div class="dr-specialty">Clinical Dermatology</div>
+        <div class="mb-2"><span class="status-badge badge-available">Available</span></div>
+        <div class="dr-stats">
+          <div class="dr-stat-item"><span class="dr-stat-val">8</span><span class="dr-stat-lbl">Today</span></div>
+          <div class="dr-stat-item"><span class="dr-stat-val">1,284</span><span class="dr-stat-lbl">Total Pts</span></div>
+        </div>
+        <div class="dr-rating"><i class="bi bi-star-fill me-1"></i>4.9 <span style="color:var(--text-muted);font-weight:400;">(218 reviews)</span></div>
+        <div class="dr-actions">
+          <button class="btn-outline-admin" style="font-size:.75rem;padding:5px 10px;"><i class="bi bi-person"></i> Profile</button>
+          <button class="btn-outline-admin" style="font-size:.75rem;padding:5px 10px;"><i class="bi bi-pencil"></i> Edit</button>
+        </div>
+      </div>
+      <div class="doctor-card">
+          <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=200&h=200&fit=crop&crop=faces" alt="Dr. Chen" />
+        <div class="dr-name">Dr. Kevin Chen</div>
+        <div class="dr-specialty">Laser &amp; Aesthetic</div>
+        <div class="mb-2"><span class="status-badge badge-insession">In Session</span></div>
+        <div class="dr-stats">
+          <div class="dr-stat-item"><span class="dr-stat-val">6</span><span class="dr-stat-lbl">Today</span></div>
+          <div class="dr-stat-item"><span class="dr-stat-val">982</span><span class="dr-stat-lbl">Total Pts</span></div>
+        </div>
+        <div class="dr-rating"><i class="bi bi-star-fill me-1"></i>4.8 <span style="color:var(--text-muted);font-weight:400;">(174 reviews)</span></div>
+        <div class="dr-actions">
+          <button class="btn-outline-admin" style="font-size:.75rem;padding:5px 10px;"><i class="bi bi-person"></i> Profile</button>
+          <button class="btn-outline-admin" style="font-size:.75rem;padding:5px 10px;"><i class="bi bi-pencil"></i> Edit</button>
+        </div>
+      </div>
+      <div class="doctor-card">
+        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=200&h=200&fit=crop&crop=faces" alt="Dr. Sharma" />
+        <div class="dr-name">Dr. Priya Sharma</div>
+        <div class="dr-specialty">Anti-Aging &amp; Filler</div>
+        <div class="mb-2"><span class="status-badge badge-available">Available</span></div>
+        <div class="dr-stats">
+          <div class="dr-stat-item"><span class="dr-stat-val">7</span><span class="dr-stat-lbl">Today</span></div>
+          <div class="dr-stat-item"><span class="dr-stat-val">1,105</span><span class="dr-stat-lbl">Total Pts</span></div>
+        </div>
+        <div class="dr-rating"><i class="bi bi-star-fill me-1"></i>4.9 <span style="color:var(--text-muted);font-weight:400;">(201 reviews)</span></div>
+        <div class="dr-actions">
+          <button class="btn-outline-admin" style="font-size:.75rem;padding:5px 10px;"><i class="bi bi-person"></i> Profile</button>
+          <button class="btn-outline-admin" style="font-size:.75rem;padding:5px 10px;"><i class="bi bi-pencil"></i> Edit</button>
+        </div>
+      </div>
+      <div class="doctor-card">
+        <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=200&h=200&fit=crop&crop=faces" alt="Dr. Torres" />
+        <div class="dr-name">Dr. Carlos Torres</div>
+        <div class="dr-specialty">Hair &amp; Scalp Medicine</div>
+        <div class="mb-2"><span class="status-badge badge-insession">In Session</span></div>
+        <div class="dr-stats">
+          <div class="dr-stat-item"><span class="dr-stat-val">5</span><span class="dr-stat-lbl">Today</span></div>
+          <div class="dr-stat-item"><span class="dr-stat-val">913</span><span class="dr-stat-lbl">Total Pts</span></div>
+        </div>
+        <div class="dr-rating"><i class="bi bi-star-fill me-1"></i>4.7 <span style="color:var(--text-muted);font-weight:400;">(156 reviews)</span></div>
+        <div class="dr-actions">
+          <button class="btn-outline-admin" style="font-size:.75rem;padding:5px 10px;"><i class="bi bi-person"></i> Profile</button>
+          <button class="btn-outline-admin" style="font-size:.75rem;padding:5px 10px;"><i class="bi bi-pencil"></i> Edit</button>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:.95rem;font-weight:600;color:var(--charcoal);margin-bottom:14px;">Staff Performance — November 2026</h3>
+    <div style="overflow-x:auto;">
+    <table class="admin-table">
+      <thead><tr>
+        <th>Doctor</th><th>Patients This Month</th><th>Revenue Generated</th><th>Avg Rating</th><th>Satisfaction Score</th><th>Completion Rate</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>Dr. Laura Mitchell</strong></td><td>124</td><td>$18,240</td><td><i class="bi bi-star-fill me-1"></i>4.9</td><td>97%</td><td><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:6px;background:#edf2f7;border-radius:3px;"><div style="width:98%;height:100%;background:#10b981;border-radius:3px;"></div></div>98%</div></td></tr>
+        <tr><td><strong>Dr. Kevin Chen</strong></td><td>96</td><td>$14,820</td><td><i class="bi bi-star-fill me-1"></i>4.8</td><td>94%</td><td><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:6px;background:#edf2f7;border-radius:3px;"><div style="width:95%;height:100%;background:#10b981;border-radius:3px;"></div></div>95%</div></td></tr>
+        <tr><td><strong>Dr. Priya Sharma</strong></td><td>108</td><td>$16,400</td><td><i class="bi bi-star-fill me-1"></i>4.9</td><td>96%</td><td><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:6px;background:#edf2f7;border-radius:3px;"><div style="width:97%;height:100%;background:#10b981;border-radius:3px;"></div></div>97%</div></td></tr>
+        <tr><td><strong>Dr. Carlos Torres</strong></td><td>88</td><td>$12,100</td><td><i class="bi bi-star-fill me-1"></i>4.7</td><td>91%</td><td><div style="display:flex;align-items:center;gap:8px;"><div style="flex:1;height:6px;background:#edf2f7;border-radius:3px;"><div style="width:91%;height:100%;background:#f59e0b;border-radius:3px;"></div></div>91%</div></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- ================================
+       SECTION 5 — FINANCIAL REPORTS
+  ================================ -->
+  <div class="section-block">
+    <div class="section-header">
+      <h2 class="section-title mb-0">Financial Overview</h2>
+      <div class="d-flex gap-2 flex-wrap">
+        <button class="btn-outline-admin"><i class="bi bi-download"></i> Download CSV</button>
+        <button class="btn-outline-admin"><i class="bi bi-filetype-pdf"></i> Download PDF</button>
+      </div>
+    </div>
+
+    <div class="finance-summary">
+      <div class="finance-card finance-card-gross">
+        <div class="fc-label"><i class="bi bi-graph-up-arrow me-1"></i>Gross Revenue</div>
+        <div class="fc-value">$48,320</div>
+        <div style="font-size:.78rem;opacity:.8;margin-top:4px;"><i class="bi bi-arrow-up-right me-1"></i>8% vs October 2026</div>
+      </div>
+      <div class="finance-card finance-card-pending">
+        <div class="fc-label"><i class="bi bi-clock-history me-1"></i>Pending Payments</div>
+        <div class="fc-value">$3,200</div>
+        <div style="font-size:.78rem;opacity:.8;margin-top:4px;">14 outstanding invoices</div>
+      </div>
+      <div class="finance-card finance-card-refund">
+        <div class="fc-label"><i class="bi bi-arrow-counterclockwise me-1"></i>Refunds Issued</div>
+        <div class="fc-value">$420</div>
+        <div style="font-size:.78rem;opacity:.8;margin-top:4px;">2 refund transactions</div>
+      </div>
+    </div>
+
+    <div class="action-bar mb-3">
+      <input type="date" class="form-control" style="max-width:150px;" value="2026-11-01" />
+      <span style="font-size:.85rem;color:var(--text-muted);">to</span>
+      <input type="date" class="form-control" style="max-width:150px;" value="2026-11-18" />
+      <select class="form-select" style="max-width:160px;">
+        <option>Payment Method</option>
+        <option>Credit Card</option>
+        <option>Cash</option>
+        <option>Insurance</option>
+        <option>Bank Transfer</option>
+      </select>
+      <select class="form-select" style="max-width:130px;">
+        <option>All Status</option>
+        <option>Paid</option>
+        <option>Pending</option>
+        <option>Refunded</option>
+      </select>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-lg-8">
+        <h3 style="font-size:.9rem;font-weight:600;margin-bottom:12px;color:var(--charcoal);">Recent Transactions</h3>
+        <div style="overflow-x:auto;">
+        <table class="admin-table">
+          <thead><tr>
+            <th>Date</th><th>Patient</th><th>Treatment</th><th>Amount</th><th>Method</th><th>Status</th><th>Receipt</th>
+          </tr></thead>
+          <tbody>
+            <tr><td>Nov 18</td><td>Emily Richardson</td><td>Acne Treatment</td><td>$320</td><td><i class="bi bi-credit-card-fill pay-method-icon" style="color:var(--blue);"></i> Card</td><td><span class="status-badge badge-paid">Paid</span></td><td><button class="action-btn btn-view"><i class="bi bi-receipt"></i></button></td></tr>
+            <tr><td>Nov 18</td><td>James Thornton</td><td>Laser Resurfacing</td><td>$1,200</td><td><i class="bi bi-shield-check pay-method-icon" style="color:#10b981;"></i> Insurance</td><td><span class="status-badge badge-paid">Paid</span></td><td><button class="action-btn btn-view"><i class="bi bi-receipt"></i></button></td></tr>
+            <tr><td>Nov 17</td><td>Aisha Patel</td><td>Laser Hair Removal</td><td>$480</td><td><i class="bi bi-credit-card-fill pay-method-icon" style="color:var(--blue);"></i> Card</td><td><span class="status-badge badge-paid">Paid</span></td><td><button class="action-btn btn-view"><i class="bi bi-receipt"></i></button></td></tr>
+            <tr><td>Nov 16</td><td>Priya Nair</td><td>Botox Injection</td><td>$780</td><td><i class="bi bi-cash-stack pay-method-icon" style="color:#f59e0b;"></i> Cash</td><td><span class="status-badge badge-paid">Paid</span></td><td><button class="action-btn btn-view"><i class="bi bi-receipt"></i></button></td></tr>
+            <tr><td>Nov 15</td><td>Marco Delgado</td><td>PRP Treatment</td><td>$950</td><td><i class="bi bi-bank pay-method-icon" style="color:#8b5cf6;"></i> Bank</td><td><span class="status-badge badge-pending-pay">Pending</span></td><td><button class="action-btn btn-view"><i class="bi bi-receipt"></i></button></td></tr>
+            <tr><td>Nov 14</td><td>Sarah Kim</td><td>Consultation</td><td>$150</td><td><i class="bi bi-credit-card-fill pay-method-icon" style="color:var(--blue);"></i> Card</td><td><span class="status-badge badge-paid">Paid</span></td><td><button class="action-btn btn-view"><i class="bi bi-receipt"></i></button></td></tr>
+            <tr><td>Nov 12</td><td>David Huang</td><td>Eczema Management</td><td>$640</td><td><i class="bi bi-shield-check pay-method-icon" style="color:#10b981;"></i> Insurance</td><td><span class="status-badge badge-pending-pay">Pending</span></td><td><button class="action-btn btn-view"><i class="bi bi-receipt"></i></button></td></tr>
+            <tr><td>Nov 10</td><td>Oliver Bennett</td><td>Psoriasis Tx</td><td>$420</td><td><i class="bi bi-credit-card-fill pay-method-icon" style="color:var(--blue);"></i> Card</td><td><span class="status-badge badge-refunded">Refunded</span></td><td><button class="action-btn btn-view"><i class="bi bi-receipt"></i></button></td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <h3 style="font-size:.9rem;font-weight:600;margin-bottom:12px;color:var(--charcoal);">Top Revenue Treatments</h3>
+        <canvas id="revenueByTreatment" height="220"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================================
+       SECTION 6 — NOTIFICATIONS + SETTINGS
+  ================================ -->
+  <div class="row g-4">
+
+    <!-- LEFT: Notifications -->
+    <div class="col-lg-7">
+      <div class="section-block h-100 mb-0">
+        <div class="section-header">
+          <h2 class="section-title mb-0">Notification Center</h2>
+        </div>
+
+        <div class="notif-tabs">
+          <div class="notif-tab active" onclick="switchTab(this,'all')">All <span style="background:#e5e7eb;border-radius:20px;padding:1px 7px;font-size:.72rem;margin-left:4px;">7</span></div>
+          <div class="notif-tab" onclick="switchTab(this,'unread')">Unread <span style="background:#dbeafe;color:var(--blue);border-radius:20px;padding:1px 7px;font-size:.72rem;margin-left:4px;">5</span></div>
+          <div class="notif-tab" onclick="switchTab(this,'system')">System <span style="background:#e5e7eb;border-radius:20px;padding:1px 7px;font-size:.72rem;margin-left:4px;">2</span></div>
+        </div>
+
+        <div class="notif-actions-top">
+          <button class="btn-outline-admin" id="markAllReadBtn" style="font-size:.78rem;padding:5px 12px;" onclick="markAllNotificationsRead()"><i class="bi bi-check2-all"></i> Mark All Read</button>
+          <button class="btn-outline-admin" id="clearAllBtn" style="font-size:.78rem;padding:5px 12px;color:#e74c3c;border-color:#fca5a5;" onclick="clearAllNotifications()"><i class="bi bi-trash3"></i> Clear All</button>
+        </div>
+
+        <div id="notifList">
+          <div class="notif-item unread urgent" data-type="urgent">
+            <div class="notif-icon notif-urgent"><i class="bi bi-exclamation-triangle-fill"></i></div>
+            <div class="notif-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="notif-title"><i class="bi bi-exclamation-octagon-fill me-1"></i>Urgent — Patient Emergency Contact</div>
+                <button class="btn-mark-read" title="Mark as read" onclick="markSingleRead(this)"><i class="bi bi-check2"></i></button>
+              </div>
+              <div class="notif-msg">Patient Marco Delgado (#PT-10824) requested emergency callback. Contact: +1 (555) 982-4411.</div>
+              <div class="notif-time">2 minutes ago &nbsp;·&nbsp; <span class="badge bg-danger-subtle text-danger" style="font-size:.68rem;">Urgent</span></div>
+            </div>
+            <div class="notif-unread-dot"></div>
+          </div>
+          <div class="notif-item unread appt" data-type="appointment">
+            <div class="notif-icon notif-appt"><i class="bi bi-calendar2-check-fill"></i></div>
+            <div class="notif-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="notif-title">Appointment Confirmed</div>
+                <button class="btn-mark-read" title="Mark as read" onclick="markSingleRead(this)"><i class="bi bi-check2"></i></button>
+              </div>
+              <div class="notif-msg">Emily Richardson confirmed her 9:00 AM Acne Treatment appointment for today.</div>
+              <div class="notif-time">18 minutes ago &nbsp;·&nbsp; <span class="badge bg-primary-subtle text-primary" style="font-size:.68rem;">Appointment</span></div>
+            </div>
+            <div class="notif-unread-dot"></div>
+          </div>
+          <div class="notif-item unread payment" data-type="payment">
+            <div class="notif-icon notif-payment"><i class="bi bi-credit-card-fill"></i></div>
+            <div class="notif-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="notif-title">Payment Received</div>
+                <button class="btn-mark-read" title="Mark as read" onclick="markSingleRead(this)"><i class="bi bi-check2"></i></button>
+              </div>
+              <div class="notif-msg">$1,200 received from James Thornton for Laser Resurfacing session. Invoice #INV-2941.</div>
+              <div class="notif-time">1 hour ago &nbsp;·&nbsp; <span class="badge bg-success-subtle text-success" style="font-size:.68rem;">Payment</span></div>
+            </div>
+            <div class="notif-unread-dot"></div>
+          </div>
+          <div class="notif-item unread system" data-type="system">
+            <div class="notif-icon notif-inventory"><i class="bi bi-box-seam-fill"></i></div>
+            <div class="notif-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="notif-title"><i class="bi bi-exclamation-triangle-fill me-1"></i>Low Inventory Alert</div>
+                <button class="btn-mark-read" title="Mark as read" onclick="markSingleRead(this)"><i class="bi bi-check2"></i></button>
+              </div>
+              <div class="notif-msg">Hyaluronic Acid Filler (1mL) stock below minimum threshold — 3 units remaining. Reorder needed.</div>
+              <div class="notif-time">3 hours ago &nbsp;·&nbsp; <span class="badge bg-warning-subtle text-warning-emphasis" style="font-size:.68rem;">Inventory</span></div>
+            </div>
+            <div class="notif-unread-dot"></div>
+          </div>
+          <div class="notif-item unread payment" data-type="payment">
+            <div class="notif-icon notif-payment"><i class="bi bi-credit-card-fill"></i></div>
+            <div class="notif-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="notif-title">Payment Received</div>
+                <button class="btn-mark-read" title="Mark as read" onclick="markSingleRead(this)"><i class="bi bi-check2"></i></button>
+              </div>
+              <div class="notif-msg">$480 received from Aisha Patel for Laser Hair Removal. Invoice #INV-2940.</div>
+              <div class="notif-time">Yesterday, 5:14 PM &nbsp;·&nbsp; <span class="badge bg-success-subtle text-success" style="font-size:.68rem;">Payment</span></div>
+            </div>
+            <div class="notif-unread-dot"></div>
+          </div>
+          <div class="notif-item read system" data-type="system">
+            <div class="notif-icon notif-system"><i class="bi bi-arrow-repeat"></i></div>
+            <div class="notif-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="notif-title">System Update Available</div>
+                <button class="btn-mark-read" title="Mark as read" onclick="markSingleRead(this)"><i class="bi bi-check2"></i></button>
+              </div>
+              <div class="notif-msg">DermaCare EHR v2.5.0 is ready to install. Schedule the update during off-hours for minimal disruption.</div>
+              <div class="notif-time">Nov 17, 2026 — 10:00 PM &nbsp;·&nbsp; <span class="badge bg-secondary-subtle text-secondary" style="font-size:.68rem;">System</span></div>
+            </div>
+          </div>
+          <div class="notif-item read system" data-type="system">
+            <div class="notif-icon notif-system"><i class="bi bi-shield-check"></i></div>
+            <div class="notif-body">
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="notif-title">Security Audit Complete</div>
+                <button class="btn-mark-read" title="Mark as read" onclick="markSingleRead(this)"><i class="bi bi-check2"></i></button>
+              </div>
+              <div class="notif-msg">Scheduled HIPAA security audit completed successfully. Report available in System &gt; Reports.</div>
+              <div class="notif-time">Nov 17, 2026 — 6:00 AM &nbsp;·&nbsp; <span class="badge bg-secondary-subtle text-secondary" style="font-size:.68rem;">System</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Quick Settings -->
+    <div class="col-lg-5">
+      <div class="section-block h-100 mb-0">
+        <h2 class="section-title">Quick Settings</h2>
+
+        <div style="font-size:.8rem;font-weight:600;color:var(--charcoal);margin-bottom:8px;">Clinic Hours</div>
+        <div class="clinic-hours-grid">
+          <div class="hour-row"><span class="day-name">Mon</span><input type="time" value="09:00" /><span style="color:var(--text-muted);">–</span><input type="time" value="18:00" /></div>
+          <div class="hour-row"><span class="day-name">Tue</span><input type="time" value="09:00" /><span style="color:var(--text-muted);">–</span><input type="time" value="18:00" /></div>
+          <div class="hour-row"><span class="day-name">Wed</span><input type="time" value="09:00" /><span style="color:var(--text-muted);">–</span><input type="time" value="18:00" /></div>
+          <div class="hour-row"><span class="day-name">Thu</span><input type="time" value="09:00" /><span style="color:var(--text-muted);">–</span><input type="time" value="18:00" /></div>
+          <div class="hour-row"><span class="day-name">Fri</span><input type="time" value="09:00" /><span style="color:var(--text-muted);">–</span><input type="time" value="17:00" /></div>
+          <div class="hour-row"><span class="day-name">Sat</span><input type="time" value="10:00" /><span style="color:var(--text-muted);">–</span><input type="time" value="14:00" /></div>
+          <div class="hour-row">
+            <span class="day-name">Sun</span>
+            <div class="form-check form-switch ms-1">
+              <input class="form-check-input" type="checkbox" id="sunToggle" />
+              <label class="form-check-label" for="sunToggle" style="font-size:.78rem;color:var(--text-muted);">Closed</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <div><div class="setting-label">Appointment Slot Duration</div></div>
+          <div class="slot-radios">
+            <div class="slot-radio"><input type="radio" name="slot" id="s15" /><label for="s15">15 min</label></div>
+            <div class="slot-radio"><input type="radio" name="slot" id="s30" checked /><label for="s30">30 min</label></div>
+            <div class="slot-radio"><input type="radio" name="slot" id="s45" /><label for="s45">45 min</label></div>
+            <div class="slot-radio"><input type="radio" name="slot" id="s60" /><label for="s60">60 min</label></div>
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <div><div class="setting-label">Auto-Confirmation</div><div class="setting-sub">Automatically confirm appointments on booking</div></div>
+          <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="autoConfirm" checked /></div>
+        </div>
+        <div class="setting-row">
+          <div><div class="setting-label">Email Notifications</div><div class="setting-sub">Send appointment reminders via email</div></div>
+          <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="emailNotif" checked /></div>
+        </div>
+        <div class="setting-row">
+          <div><div class="setting-label">SMS Reminders</div><div class="setting-sub">Send SMS 24h before appointments</div></div>
+          <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="smsRemind" checked /></div>
+        </div>
+        <div class="setting-row">
+          <div><div class="setting-label">Maintenance Mode</div><div class="setting-sub">Take site offline for maintenance</div></div>
+          <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="maintenanceToggle" onchange="toggleMaintenanceWarning(this)" /></div>
+        </div>
+
+        <div id="maintenanceWarning" class="maintenance-warning" style="display:none;">
+          <i class="bi bi-exclamation-octagon-fill" style="font-size:1.2rem;"></i>
+          <div><strong>Warning!</strong> Enabling Maintenance Mode will make the patient portal and booking system inaccessible to all users. Confirm before saving.</div>
+        </div>
+
+        <button class="btn-primary-admin w-100 mt-3" style="justify-content:center;">
+          <i class="bi bi-floppy-fill"></i> Save Settings
+        </button>
+      </div>
+    </div>
+
+  </div><!-- /.row -->
+</div><!-- /.content-inner -->
+</main>
+
+<!-- ======================================
+     SCRIPTS
+====================================== -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/main.js"></script>
+<script>
+// -- Revenue Bar Chart --
+new Chart(document.getElementById('revenueChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov'],
+    datasets: [{
+      label: 'Revenue ($)',
+      data: [28000,32000,29000,35000,38000,41000,36000,44000,42000,46000,48320],
+      backgroundColor: 'rgba(84,124,155,0.75)',
+      borderColor: '#4A7090',
+      borderWidth: 0,
+      borderRadius: 6,
+      hoverBackgroundColor: '#4A7090'
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: {
+        beginAtZero: true,
+        ticks: {
+          callback: v => '$' + (v/1000).toFixed(0) + 'k',
+          font: { size: 11 }
+        },
+        grid: { color: '#f1f5f9' }
+      },
+      x: { grid: { display: false }, ticks: { font: { size: 11 } } }
+    }
+  }
+});
+
+// -- Appointment Doughnut Chart --
+new Chart(document.getElementById('appointmentChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Acne','Laser','Anti-Aging','Hair','Other'],
+    datasets: [{
+      data: [25,30,20,15,10],
+      backgroundColor: ['#4A7090','#8b5cf6','#ec4899','#f59e0b','#10b981'],
+      borderWidth: 0,
+      hoverOffset: 6
+    }]
+  },
+  options: {
+    responsive: true,
+    cutout: '65%',
+    plugins: {
+      legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + '%' } }
+    }
+  }
+});
+
+// -- Revenue by Treatment Horizontal Bar --
+new Chart(document.getElementById('revenueByTreatment'), {
+  type: 'bar',
+  data: {
+    labels: ['Laser','Botox','PRP','Peels','Consult'],
+    datasets: [{
+      data: [18000,12000,8000,6000,4000],
+      backgroundColor: ['#4A7090','#8b5cf6','#ec4899','#f59e0b','#10b981'],
+      borderRadius: 6
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: {
+        ticks: { callback: v => '$' + (v/1000) + 'k', font: { size: 10 } },
+        grid: { color: '#f1f5f9' }
+      },
+      y: { grid: { display: false }, ticks: { font: { size: 11 } } }
+    }
+  }
+});
+
+// -- Maintenance Warning Toggle --
+function toggleMaintenanceWarning(el) {
+  document.getElementById('maintenanceWarning').style.display = el.checked ? 'flex' : 'none';
+}
+
+// -- Notification Tab Switcher & Functions --
+function switchTab(el, tab) {
+  document.querySelectorAll('.notif-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const items = document.querySelectorAll('#notifList .notif-item');
+  items.forEach(item => {
+    if (tab === 'all') {
+      item.style.display = 'flex';
+    } else if (tab === 'unread') {
+      item.style.display = item.classList.contains('unread') ? 'flex' : 'none';
+    } else if (tab === 'system') {
+      item.style.display = item.dataset.type === 'system' ? 'flex' : 'none';
+    }
+  });
+}
+
+function markSingleRead(btn) {
+  const item = btn.closest('.notif-item');
+  if (item) {
+    item.classList.remove('unread');
+    item.classList.add('read');
+    btn.innerHTML = '<i class="bi bi-check-all text-success"></i>';
+    btn.disabled = true;
+  }
+}
+
+function markAllNotificationsRead() {
+  document.querySelectorAll('#notifList .notif-item').forEach(item => {
+    item.classList.remove('unread');
+    item.classList.add('read');
+    const btn = item.querySelector('.btn-mark-read');
+    if (btn) {
+      btn.innerHTML = '<i class="bi bi-check-all text-success"></i>';
+      btn.disabled = true;
+    }
+  });
+}
+
+function clearAllNotifications() {
+  const list = document.getElementById('notifList');
+  if (list) {
+    list.innerHTML = '<div class="text-center py-4 text-muted" style="font-size:.85rem;"><i class="bi bi-bell-slash mb-2 d-block" style="font-size:1.5rem;"></i>No notifications to display</div>';
+  }
+}
+
+// -- Sidebar Toggle (mobile) --
+document.addEventListener('click', function(e) {
+  const sidebar = document.getElementById('sidebar');
+  const toggle = document.getElementById('sidebarToggle');
+  if (window.innerWidth <= 991 && !sidebar.contains(e.target) && e.target !== toggle && !toggle.contains(e.target)) {
+    sidebar.classList.remove('open');
+  }
+});
+</script>
+
+</body>
+</html>

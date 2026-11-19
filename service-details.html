@@ -1,0 +1,1447 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <title>Advanced Laser Resurfacing | DermaCare Dermatology & Skin Clinic</title>
+  <meta name="description" content="Discover Advanced Laser Resurfacing at DermaCare — FDA-approved Fraxel and CO2 laser technology for smoother, younger-looking skin. Book your session today." />
+
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="/assets/js/rtl-init.js"></script>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="/assets/css/style.css" />
+
+  <style>
+    /* =========================================================
+       SERVICE DETAIL PAGE — LOCAL STYLES
+    ========================================================= */
+
+    /* ---- Detail Hero ---- */
+    .detail-hero {
+      background:
+        linear-gradient(180deg, rgba(16,22,29,0.76) 0%, rgba(16,22,29,0.88) 100%),
+        url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1600&h=900&fit=crop') center/cover no-repeat;
+      padding: 150px 0 100px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .detail-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 55%, rgba(84,124,155,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .detail-hero .container { position: relative; z-index: 2; }
+    .detail-hero .breadcrumb { justify-content: center; }
+    .detail-hero .breadcrumb-item + .breadcrumb-item::before { color: rgba(255,255,255,.45); }
+    .breadcrumb-link { color: #cfe4f2; text-decoration: none; }
+    .detail-hero .breadcrumb-item.active { color: #fff; }
+    .detail-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 4vw, 3rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .detail-hero h1 span { color: #9cc3de; }
+    .detail-hero p {
+      font-size: .97rem;
+      color: rgba(255,255,255,0.84);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin: 28px 0;
+    }
+    .stat-pill {
+      display: flex;
+      align-items: center;
+      text-align: left;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid rgba(84,124,155,.15);
+      border-radius: 12px;
+      padding: 10px 18px;
+      box-shadow: 0 2px 10px rgba(84,124,155,.07);
+    }
+    .stat-pill .stat-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--blue), #6fa0bf);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: .95rem;
+    }
+    .stat-pill .stat-val { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1rem; color: var(--charcoal); line-height:1.1; }
+    .stat-pill .stat-lbl { font-size: .72rem; color: var(--text-secondary); }
+    .hero-cta-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: center; }
+    .btn-primary-hero {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 28px;
+      font-weight: 700;
+      font-size: .95rem;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: all .25s;
+    }
+    .btn-primary-hero:hover { background: #3f6680; color: #fff; }
+    .btn-secondary-hero {
+      background: transparent;
+      color: var(--blue);
+      border: 2px solid var(--blue);
+      border-radius: 12px;
+      padding: 12px 24px;
+      font-weight: 700;
+      font-size: .95rem;
+      text-decoration: none;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: all .25s;
+    }
+    .btn-secondary-hero:hover { background: var(--blue); color: #fff; }
+    .detail-hero .btn-secondary-hero { color:#fff; border-color:rgba(255,255,255,.65); }
+    .detail-hero .btn-secondary-hero:hover { background:#fff; color:var(--charcoal); border-color:#fff; }
+    .hero-img-col { position: relative; }
+    .hero-treatment-img {
+      width: 100%;
+      border-radius: 24px;
+      box-shadow: 0 20px 60px rgba(84,124,155,.18);
+      aspect-ratio: 4/5;
+      object-fit: cover;
+    }
+    .included-card {
+      position: static;
+      display: inline-block;
+      text-align: left;
+      margin: 30px auto 0;
+      background: #fff;
+      border-radius: 18px;
+      padding: 20px 22px;
+      box-shadow: 0 12px 36px rgba(84,124,155,.18);
+      border: 1px solid rgba(84,124,155,.12);
+      min-width: 260px;
+    }
+    .included-card h6 { font-family:'Playfair Display',serif; font-size:.9rem; font-weight:700; color:var(--charcoal); margin-bottom:12px; }
+    .included-item { display:flex; align-items:center; gap:8px; font-size:.8rem; color:var(--text-secondary); padding:4px 0; }
+    .included-item i { color:var(--sage); }
+
+    /* ---- Treatment Tabs ---- */
+    .treatment-tabs-section {
+      padding: 90px 0;
+      background: #fff;
+    }
+    .nav-tabs { border-bottom: 2px solid #dce4ec; gap: 4px; flex-wrap: wrap; }
+    .nav-tabs .nav-link {
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: .88rem;
+      border: none;
+      border-bottom: 3px solid transparent;
+      border-radius: 0;
+      padding: 10px 20px;
+      transition: all .2s;
+      margin-bottom: -2px;
+    }
+    .nav-tabs .nav-link:hover { color: var(--blue); }
+    .nav-tabs .nav-link.active { color: var(--blue); border-bottom-color: var(--blue); background: transparent; }
+    .tab-content { padding-top: 36px; }
+    .tab-content p { font-size: .92rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px; }
+    .tech-badge {
+      display: inline-block;
+      background: #e0edf7; color: #2d6e9e;
+      border-radius: 8px; padding: 6px 16px;
+      font-size: .82rem; font-weight: 700;
+      margin: 4px;
+    }
+    .benefit-list { list-style: none; padding: 0; margin: 0; }
+    .benefit-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f4f7;
+      font-size: .9rem; color: var(--text-secondary);
+    }
+    .benefit-list li:last-child { border-bottom: none; }
+    .benefit-list li .bi { color: var(--blue); flex-shrink: 0; margin-top: 2px; font-size: 1rem; }
+    .procedure-step {
+      display: flex; gap: 20px;
+      padding: 18px 0;
+      border-bottom: 1px solid #f0f4f7;
+      align-items: flex-start;
+    }
+    .procedure-step:last-child { border-bottom: none; }
+    .procedure-step .step-num {
+      width: 40px; height: 40px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--blue), #6fa0bf);
+      border-radius: 50%;
+      color: #fff; font-weight: 800; font-size: .85rem;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .procedure-step h6 { font-weight: 700; color: var(--charcoal); margin-bottom: 4px; font-size: .92rem; }
+    .procedure-step p { font-size: .85rem; color: var(--text-secondary); margin: 0; line-height: 1.6; }
+    .recovery-timeline { position: relative; padding-left: 32px; }
+    .recovery-timeline::before {
+      content: ''; position: absolute; left: 10px; top: 8px; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--blue), var(--sage));
+    }
+    .recovery-item { position: relative; margin-bottom: 24px; }
+    .recovery-item::before {
+      content: ''; position: absolute; left: -26px; top: 6px;
+      width: 12px; height: 12px;
+      background: var(--blue); border-radius: 50%;
+      border: 3px solid #fff; box-shadow: 0 0 0 2px var(--blue);
+    }
+    .recovery-item strong { font-size: .9rem; color: var(--blue); display: block; margin-bottom: 4px; }
+    .recovery-item p { font-size: .85rem; color: var(--text-secondary); margin: 0; line-height: 1.6; }
+    .detail-faq .accordion-item { border-radius: 10px !important; margin-bottom: 8px; border: 1px solid #dce4ec !important; }
+    .detail-faq .accordion-button { font-size: .88rem; font-weight: 600; }
+
+    /* ---- Before & After ---- */
+    .before-after-section {
+      padding: 90px 0;
+      background: linear-gradient(180deg, #f0f5f9 0%, var(--ivory) 100%);
+    }
+    .ba-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(220,228,236,.6);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .ba-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(84,124,155,.12); }
+    .ba-images {
+      position: relative;
+      width: 100%; height: 220px;
+      overflow: hidden;
+      cursor: col-resize;
+    }
+    .ba-before, .ba-after {
+      position: absolute; inset: 0;
+      background-size: cover;
+      background-position: center;
+      width: 100%; height: 100%;
+    }
+    .ba-before { filter: grayscale(60%) brightness(0.9); }
+    .ba-after { clip-path: inset(0 50% 0 0); }
+    .ba-divider {
+      position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 3px; background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 10;
+    }
+    .ba-handle {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #fff; border: 3px solid var(--blue);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .7rem; color: var(--blue); font-weight: 800;
+      box-shadow: 0 4px 12px rgba(84,124,155,.25);
+    }
+    .ba-labels {
+      position: absolute; bottom: 10px; left: 0; right: 0;
+      display: flex; justify-content: space-between; padding: 0 12px;
+    }
+    .ba-label {
+      font-size: .68rem; font-weight: 800; letter-spacing: .08em;
+      text-transform: uppercase; padding: 3px 10px;
+      border-radius: 4px; color: #fff;
+    }
+    .ba-label.before-lbl { background: rgba(0,0,0,.55); }
+    .ba-label.after-lbl { background: rgba(84,124,155,.8); }
+    .ba-body { padding: 20px 22px; }
+    .ba-body h6 { font-family:'Playfair Display',serif; font-size:1rem; font-weight:600; color:var(--charcoal); margin-bottom:6px; }
+    .ba-meta { display:flex; gap:12px; font-size:.78rem; color:var(--text-secondary); margin-bottom:8px; }
+    .ba-meta span { display:flex; align-items:center; gap:4px; }
+    .ba-meta i { color:var(--blue); }
+    .ba-disclaimer { font-size:.72rem; color:var(--text-muted); line-height:1.5; }
+    .privacy-note {
+      background: #f0f7fc;
+      border-left: 4px solid var(--blue);
+      border-radius: 8px;
+      padding: 14px 20px;
+      font-size: .82rem; color: var(--text-secondary);
+      margin-top: 36px;
+    }
+
+    /* ---- Pricing ---- */
+    .pricing-section {
+      padding: 90px 0;
+      background: #fff;
+    }
+    .pricing-card {
+      background: var(--ivory);
+      border-radius: 20px;
+      padding: 32px 28px;
+      border: 2px solid rgba(220,228,236,.5);
+      position: relative;
+      transition: transform .3s, box-shadow .3s;
+      height: 100%;
+      display: flex; flex-direction: column;
+    }
+    .pricing-card:hover { transform: translateY(-5px); box-shadow: 0 20px 50px rgba(84,124,155,.12); }
+    .pricing-card.best-value {
+      border-color: var(--blue);
+      background: #fff;
+      box-shadow: 0 8px 32px rgba(84,124,155,.15);
+    }
+    .best-value-badge {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--blue); color: #fff;
+      font-size: .72rem; font-weight: 800; letter-spacing: .08em;
+      padding: 5px 18px; border-radius: 50px;
+      text-transform: uppercase; white-space: nowrap;
+    }
+    .pricing-card h5 { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; color:var(--charcoal); margin-bottom:4px; }
+    .pricing-price { font-family:'Playfair Display',serif; font-size:2.2rem; font-weight:700; color:var(--blue); line-height:1; margin-bottom:4px; }
+    .pricing-price sup { font-size:1rem; vertical-align:top; margin-top:5px; }
+    .savings-tag { font-size:.78rem; color: #2d7a5c; font-weight: 600; background:#e8f4f0; padding:3px 10px; border-radius:50px; display:inline-block; margin-bottom:16px; }
+    .pricing-features { list-style:none; padding:0; margin-bottom:24px; flex:1; }
+    .pricing-features li { display:flex; align-items:center; gap:8px; font-size:.85rem; color:var(--text-secondary); padding:7px 0; border-bottom:1px solid #eef2f6; }
+    .pricing-features li:last-child { border-bottom: none; }
+    .pricing-features li i { color:var(--sage); }
+    .btn-pricing {
+      display: block; text-align: center;
+      padding: 12px; border-radius: 10px;
+      background: var(--blue); color: #fff;
+      font-weight: 700; font-size: .88rem;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: all .25s; width: 100%;
+    }
+    .btn-pricing:hover { background: #3f6680; color: #fff; }
+    .pricing-card.best-value .btn-pricing {
+      background: linear-gradient(90deg, var(--blue), #3f6680);
+    }
+
+    /* Comparison table */
+    .comparison-table {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid #dce4ec;
+      margin-top: 48px;
+    }
+    .comparison-table th {
+      background: var(--blue); color: #fff;
+      font-size: .82rem; font-weight: 700;
+      text-align: center; padding: 14px 10px;
+    }
+    .comparison-table th:first-child { text-align: left; background: #3a5e78; }
+    .comparison-table td {
+      text-align: center; padding: 12px 10px;
+      font-size: .82rem; color: var(--text-secondary);
+      border-bottom: 1px solid #f0f4f7;
+    }
+    .comparison-table td:first-child { text-align: left; font-weight: 600; color: var(--charcoal); padding-left: 20px; }
+    .comparison-table tbody tr:hover { background: #f7fafc; }
+    .comparison-table .check { color: #2d7a5c; font-size: 1.1rem; }
+    .comparison-table .cross { color: #c44f4f; font-size: 1.1rem; }
+
+    /* ---- Related ---- */
+    .related-section {
+      padding: 90px 0;
+      background: linear-gradient(180deg, #f0f5f9 0%, var(--ivory) 100%);
+    }
+    .related-card {
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(220,228,236,.5);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .related-card:hover { transform: translateY(-5px); box-shadow: 0 18px 44px rgba(84,124,155,.12); }
+    .related-img { width:100%; height:180px; object-fit:cover; }
+    .related-body { padding: 20px 22px; }
+    .related-body h6 { font-family:'Playfair Display',serif; font-size:1rem; font-weight:600; color:var(--charcoal); margin-bottom:6px; }
+    .related-body p { font-size:.82rem; color:var(--text-secondary); line-height:1.6; margin-bottom:12px; }
+    .related-price { font-weight:700; color:var(--blue); font-size:.9rem; margin-bottom:12px; }
+    .btn-learn { display:inline-flex; align-items:center; gap:6px; color:var(--blue); font-weight:700; font-size:.85rem; text-decoration:none; border-bottom: 1px solid transparent; transition: border-color .2s; }
+    .btn-learn:hover { border-color: var(--blue); }
+
+    /* ---- Booking + Reviews ---- */
+    .booking-reviews-section {
+      padding: 90px 0;
+      background: #fff;
+    }
+    .booking-form-wrap {
+      background: var(--ivory);
+      border-radius: 24px;
+      padding: 40px 36px;
+      border: 1px solid rgba(220,228,236,.5);
+    }
+    .booking-form-wrap h3 { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; color:var(--charcoal); margin-bottom:6px; }
+    .booking-form-wrap p { font-size:.88rem; color:var(--text-secondary); margin-bottom:28px; }
+    .form-label { font-size:.84rem; font-weight:600; color:var(--charcoal); margin-bottom:6px; }
+    .form-control, .form-select {
+      border: 1.5px solid #dce4ec;
+      border-radius: 10px;
+      font-size: .88rem;
+      color: var(--charcoal);
+      padding: 11px 14px;
+      transition: border-color .2s;
+      background: #fff;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(84,124,155,.12);
+      outline: none;
+    }
+    .btn-confirm {
+      background: var(--blue); color: #fff;
+      border: none; border-radius: 12px;
+      padding: 14px 32px; font-weight: 700; font-size: .95rem;
+      width: 100%; cursor: pointer;
+      transition: all .25s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn-confirm:hover { background: #3f6680; }
+    .reviews-col h3 { font-family:'Playfair Display',serif; font-size:1.5rem; font-weight:700; color:var(--charcoal); margin-bottom:6px; }
+    .overall-rating {
+      display: flex; align-items: center; gap: 16px;
+      background: linear-gradient(135deg, var(--blue) 0%, #3f6680 100%);
+      border-radius: 16px; padding: 20px 24px; color: #fff;
+      margin-bottom: 28px;
+    }
+    .rating-big { font-family:'Playfair Display',serif; font-size:3rem; font-weight:700; line-height:1; }
+    .rating-stars { color: #ffd700; font-size: 1.2rem; letter-spacing: .05em; }
+    .rating-count { font-size: .82rem; opacity: .85; }
+    .review-card {
+      background: var(--ivory);
+      border-radius: 16px; padding: 20px 22px;
+      border: 1px solid rgba(220,228,236,.5);
+      margin-bottom: 16px;
+    }
+    .review-header { display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+    .reviewer-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: .9rem; color: #fff;
+      flex-shrink: 0;
+    }
+    .reviewer-name { font-weight: 700; font-size: .88rem; color: var(--charcoal); margin-bottom: 2px; }
+    .review-date { font-size: .72rem; color: var(--text-muted); }
+    .review-stars { color: #f4a924; font-size: .85rem; margin-bottom: 8px; }
+    .review-text { font-size: .84rem; color: var(--text-secondary); line-height: 1.65; margin: 0; }
+    .treatment-verified { font-size: .72rem; color: #2d7a5c; font-weight: 600; }
+
+    /* Section utilities */
+    .section-label {
+      font-size: .78rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700; color: var(--charcoal);
+      line-height: 1.25; margin-bottom: 16px;
+    }
+
+    /* Dark mode */
+    [data-theme="dark"] .detail-hero {
+      background:
+        linear-gradient(180deg, rgba(9,12,16,0.88) 0%, rgba(9,12,16,0.92) 100%),
+        url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1600&h=900&fit=crop') center/cover no-repeat;
+    }
+    [data-theme="dark"] .detail-hero h1 { color: #e0e8f0; }
+    [data-theme="dark"] .detail-hero p { color: rgba(255,255,255,0.84); }
+    [data-theme="dark"] .stat-pill { background: #242830; border-color: rgba(84,124,155,.25); }
+    [data-theme="dark"] .stat-pill .stat-val { color: #e0e8f0; }
+    [data-theme="dark"] .included-card { background: #242830; border-color: rgba(84,124,155,.25); }
+    [data-theme="dark"] .included-card h6, [data-theme="dark"] .included-item { color: #c8d4de; }
+    [data-theme="dark"] .treatment-tabs-section { background: #1e2228; }
+    [data-theme="dark"] .nav-tabs .nav-link { color: var(--text-secondary); }
+    [data-theme="dark"] .nav-tabs .nav-link.active { color: var(--blue); }
+    [data-theme="dark"] .tab-content p { color: var(--text-secondary); }
+    [data-theme="dark"] .before-after-section { background: #1a1d21; }
+    [data-theme="dark"] .ba-card { background: #242830; }
+    [data-theme="dark"] .ba-body h6 { color: #e0e8f0; }
+    [data-theme="dark"] .pricing-section { background: #1e2228; }
+    [data-theme="dark"] .pricing-card { background: #242830; border-color: rgba(84,124,155,.25); }
+    [data-theme="dark"] .pricing-card h5 { color: #e0e8f0; }
+    [data-theme="dark"] .related-section { background: #1a1d21; }
+    [data-theme="dark"] .related-card { background: #242830; }
+    [data-theme="dark"] .related-body h6 { color: #e0e8f0; }
+    [data-theme="dark"] .booking-reviews-section { background: #1e2228; }
+    [data-theme="dark"] .booking-form-wrap { background: #242830; }
+    [data-theme="dark"] .booking-form-wrap h3, [data-theme="dark"] .reviews-col h3 { color: #e0e8f0; }
+    [data-theme="dark"] .form-control, [data-theme="dark"] .form-select { background: #1a1d21; border-color: rgba(84,124,155,.3); color: #c8d4de; }
+    [data-theme="dark"] .review-card { background: #242830; }
+    [data-theme="dark"] .reviewer-name { color: #e0e8f0; }
+    [data-theme="dark"] .section-title { color: #e0e8f0; }
+    [data-theme="dark"] .comparison-table td { color: var(--text-secondary); background: #242830; }
+    [data-theme="dark"] .comparison-table td:first-child { color: #c8d4de; }
+    [data-theme="dark"] .comparison-table tbody tr:hover { background: #1e2630; }
+  </style>
+<link rel="stylesheet" href="/assets/css/responsive.css" />
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR
+============================================================ -->
+<nav class="navbar navbar-expand-lg sticky-top navbar-glass" id="mainNavbar">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="/index.html">
+      <svg width="34" height="34" viewBox="0 0 34 34" fill="none">
+        <circle cx="17" cy="17" r="17" fill="#4A7090" fill-opacity="0.12"/>
+        <path d="M17 7C17 7 11 11.5 11 17.5C11 21.09 13.69 24 17 24C20.31 24 23 21.09 23 17.5C23 11.5 17 7 17 7Z" fill="#4A7090"/>
+        <path d="M14 17.5C14 15.5 15.5 13.5 17 12C18.5 13.5 20 15.5 20 17.5C20 19.16 18.66 20.5 17 20.5C15.34 20.5 14 19.16 14 17.5Z" fill="white" fill-opacity="0.9"/>
+        <path d="M17 24V27" stroke="#4A7090" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-name">DermaCare</span>
+    </a>
+
+    <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="hamburger-icon"><span></span><span></span><span></span></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link" href="/index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/home2.html">Home 2</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/services.html">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="/blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contact.html">Contact</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/patient-dashboard.html"><i class="bi bi-person-circle me-2"></i>User Dashboard</a></li>
+            <li><a class="dropdown-item" href="/admin-dashboard.html"><i class="bi bi-shield-lock me-2"></i>Admin Dashboard</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="d-flex align-items-center gap-3">
+        <button class="theme-toggle" id="themeToggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+          <i class="bi bi-moon-stars-fill" id="themeIcon" data-theme-icon></i>
+        </button>
+        <a href="/login.html" class="nav-login-btn"><i class="bi bi-box-arrow-in-right"></i>Login</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     SECTION 1 — SERVICE DETAIL HERO
+============================================================ -->
+<section class="detail-hero">
+  <div class="container position-relative">
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/index.html" class="breadcrumb-link"><i class="bi bi-house-fill me-1"></i>Home</a></li>
+        <li class="breadcrumb-item"><a href="/services.html" class="breadcrumb-link">Services</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Laser Resurfacing</li>
+      </ol>
+    </nav>
+
+    <div class="row justify-content-center">
+
+      <div class="col-lg-10 col-xl-9">
+        <div class="d-inline-flex align-items-center gap-2 mb-3 px-3 py-2 rounded-pill" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);">
+          <span style="width:8px;height:8px;background:#9cc3de;border-radius:50%;display:inline-block;"></span>
+          <small style="color:#dcecf7;font-weight:600;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;">Laser Treatment</small>
+        </div>
+        <h1>Advanced<br><span>Laser Resurfacing</span></h1>
+        <p>
+          Advanced Laser Resurfacing is a state-of-the-art, clinically proven procedure that uses fractional CO2 and Fraxel laser technology to precisely remove damaged outer skin layers, stimulate natural collagen production, and dramatically improve overall skin texture, tone, and clarity.
+        </p>
+        <p>
+          Unlike traditional ablative lasers, our fractional approach treats only a fraction of the skin at a time, leaving surrounding tissue intact for faster healing and reduced downtime. The result is visibly smoother, firmer, and more luminous skin — typically after just 3–6 sessions.
+        </p>
+
+        <!-- Treatment Stats -->
+        <div class="stats-row">
+          <div class="stat-pill">
+            <div class="stat-icon"><i class="bi bi-clock-fill"></i></div>
+            <div>
+              <div class="stat-val">45–60 min</div>
+              <div class="stat-lbl">Session Duration</div>
+            </div>
+          </div>
+          <div class="stat-pill">
+            <div class="stat-icon"><i class="bi bi-arrow-repeat"></i></div>
+            <div>
+              <div class="stat-val">3–6 Sessions</div>
+              <div class="stat-lbl">Recommended Course</div>
+            </div>
+          </div>
+          <div class="stat-pill">
+            <div class="stat-icon"><i class="bi bi-emoji-smile-fill"></i></div>
+            <div>
+              <div class="stat-val">95%</div>
+              <div class="stat-lbl">Satisfaction Rate</div>
+            </div>
+          </div>
+          <div class="stat-pill">
+            <div class="stat-icon"><i class="bi bi-shield-check"></i></div>
+            <div>
+              <div class="stat-val">FDA</div>
+              <div class="stat-lbl">Approved</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="hero-cta-row">
+          <a href="#booking-form" class="btn-primary-hero">
+            <i class="bi bi-calendar2-heart-fill"></i> Book This Treatment
+          </a>
+          <a href="#" class="btn-secondary-hero">
+            <i class="bi bi-file-earmark-arrow-down"></i> Download Brochure
+          </a>
+        </div>
+
+        <!-- What's Included Card -->
+        <div class="included-card">
+          <h6><i class="bi bi-stars me-1" style="color:var(--blue);"></i>What's Included</h6>
+          <div class="included-item"><i class="bi bi-check-circle-fill"></i>Pre-treatment skin analysis</div>
+          <div class="included-item"><i class="bi bi-check-circle-fill"></i>Topical numbing application</div>
+          <div class="included-item"><i class="bi bi-check-circle-fill"></i>Fractional laser session</div>
+          <div class="included-item"><i class="bi bi-check-circle-fill"></i>Cooling &amp; calming mask</div>
+          <div class="included-item"><i class="bi bi-check-circle-fill"></i>Aftercare kit &amp; instructions</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 2 — TREATMENT OVERVIEW TABS
+============================================================ -->
+<section class="treatment-tabs-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <div class="text-center mb-5">
+          <div class="section-label">In Depth</div>
+          <h2 class="section-title">Everything About Laser Resurfacing</h2>
+        </div>
+
+        <!-- Nav Tabs -->
+        <ul class="nav nav-tabs" id="treatmentTabs" role="tablist">
+          <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#overview">Overview</button></li>
+          <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#benefits">Benefits</button></li>
+          <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#procedure">Procedure</button></li>
+          <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#recovery">Recovery</button></li>
+          <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#faqs">FAQs</button></li>
+        </ul>
+
+        <div class="tab-content" id="treatmentTabsContent">
+
+          <!-- OVERVIEW -->
+          <div class="tab-pane fade show active" id="overview">
+            <div class="row g-5 align-items-start">
+              <div class="col-md-8">
+                <h4 style="font-family:'Playfair Display',serif;color:var(--charcoal);margin-bottom:16px;">What is Laser Resurfacing?</h4>
+                <p>
+                  Laser skin resurfacing is a medical aesthetic procedure that uses concentrated beams of light energy to remove damaged skin layers precisely, cell by cell. It simultaneously triggers the skin's natural wound-healing response, stimulating the production of new collagen and elastin fibres.
+                </p>
+                <p>
+                  At DermaCare, we use a combination of two gold-standard technologies to customise your treatment based on your unique skin profile and aesthetic goals.
+                </p>
+                <h6 style="font-weight:700;color:var(--charcoal);margin-bottom:12px;">Technologies We Use</h6>
+                <div class="mb-3">
+                  <span class="tech-badge">Fraxel® DUAL 1550/1927</span>
+                  <span class="tech-badge">CO2 Fractional Laser</span>
+                  <span class="tech-badge">Erbium YAG</span>
+                  <span class="tech-badge">PicoSure Pro</span>
+                </div>
+                <h6 style="font-weight:700;color:var(--charcoal);margin-top:24px;margin-bottom:12px;">Suitable Skin Types</h6>
+                <p>
+                  This treatment is suitable for Fitzpatrick skin types I–IV. Patients with darker skin tones may be candidates for modified protocols. A thorough assessment by our dermatologist will determine the most appropriate laser type, wavelength, and intensity for your skin.
+                </p>
+                <p>
+                  Ideal candidates include individuals concerned about fine lines, wrinkles, sun damage, acne scarring, uneven pigmentation, enlarged pores, or general skin laxity.
+                </p>
+              </div>
+              <div class="col-md-4">
+                <div style="background:linear-gradient(135deg,var(--blue),#3f6680);border-radius:18px;padding:28px;color:#fff;">
+                  <div style="font-size:1.5rem;margin-bottom:12px;"><i class="bi bi-trophy-fill"></i></div>
+                  <h6 style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:16px;">Quick Facts</h6>
+                  <ul style="list-style:none;padding:0;margin:0;font-size:.82rem;opacity:.9;">
+                    <li class="mb-2"><i class="bi bi-dot me-1"></i>Non-surgical skin renewal</li>
+                    <li class="mb-2"><i class="bi bi-dot me-1"></i>Minimal anaesthesia required</li>
+                    <li class="mb-2"><i class="bi bi-dot me-1"></i>Sessions: 45–60 minutes</li>
+                    <li class="mb-2"><i class="bi bi-dot me-1"></i>Downtime: 5–7 days</li>
+                    <li class="mb-2"><i class="bi bi-dot me-1"></i>Results last 2–5 years</li>
+                    <li class="mb-2"><i class="bi bi-dot me-1"></i>Visible after 2–4 weeks</li>
+                    <li class="mb-2"><i class="bi bi-dot me-1"></i>FDA-cleared technology</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BENEFITS -->
+          <div class="tab-pane fade" id="benefits">
+            <h4 style="font-family:'Playfair Display',serif;color:var(--charcoal);margin-bottom:24px;">8 Key Benefits of Laser Resurfacing</h4>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <ul class="benefit-list">
+                  <li><i class="bi bi-stars"></i><div><strong style="display:block;color:var(--charcoal);margin-bottom:2px;">Wrinkle Reduction</strong>Visibly smooths fine lines, crow's feet, and perioral wrinkles through collagen remodelling.</div></li>
+                  <li><i class="bi bi-palette"></i><div><strong style="display:block;color:var(--charcoal);margin-bottom:2px;">Pigmentation Correction</strong>Breaks down melanin deposits from sun damage, age spots, and melasma for even tone.</div></li>
+                  <li><i class="bi bi-circle-square"></i><div><strong style="display:block;color:var(--charcoal);margin-bottom:2px;">Pore Minimisation</strong>Significantly reduces enlarged pores by tightening surrounding skin tissue.</div></li>
+                  <li><i class="bi bi-layers"></i><div><strong style="display:block;color:var(--charcoal);margin-bottom:2px;">Texture Improvement</strong>Resurfacing removes rough, uneven outer skin layers revealing smooth, refined skin below.</div></li>
+                </ul>
+              </div>
+              <div class="col-md-6">
+                <ul class="benefit-list">
+                  <li><i class="bi bi-shield-plus"></i><div><strong style="display:block;color:var(--charcoal);margin-bottom:2px;">Acne Scar Reduction</strong>Softens shallow and rolling acne scars for a more uniform skin surface.</div></li>
+                  <li><i class="bi bi-arrow-up-circle"></i><div><strong style="display:block;color:var(--charcoal);margin-bottom:2px;">Skin Tightening</strong>Stimulates new collagen for firmer, more lifted skin — especially around the jaw and eye area.</div></li>
+                  <li><i class="bi bi-droplet-half"></i><div><strong style="display:block;color:var(--charcoal);margin-bottom:2px;">Enhanced Radiance</strong>Removes dull, dead skin cells to reveal a brighter, more luminous complexion.</div></li>
+                  <li><i class="bi bi-graph-up-arrow"></i><div><strong style="display:block;color:var(--charcoal);margin-bottom:2px;">Long-lasting Results</strong>Benefits last 2–5 years with proper sun protection and a consistent skincare regimen.</div></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- PROCEDURE -->
+          <div class="tab-pane fade" id="procedure">
+            <h4 style="font-family:'Playfair Display',serif;color:var(--charcoal);margin-bottom:24px;">What Happens During Your Session?</h4>
+            <div class="procedure-step">
+              <div class="step-num">1</div>
+              <div>
+                <h6>Consultation & Skin Assessment</h6>
+                <p>Your dermatologist reviews your medical history, assesses your skin type using the Fitzpatrick scale, and photographs your treatment area for before/after comparison. Treatment parameters are discussed and confirmed.</p>
+              </div>
+            </div>
+            <div class="procedure-step">
+              <div class="step-num">2</div>
+              <div>
+                <h6>Cleansing & Preparation</h6>
+                <p>Your skin is thoroughly cleansed to remove all makeup, oils, and impurities. A sterile draping is applied around the treatment zone to maintain a clean field.</p>
+              </div>
+            </div>
+            <div class="procedure-step">
+              <div class="step-num">3</div>
+              <div>
+                <h6>Topical Numbing Cream Application</h6>
+                <p>Medical-grade topical anaesthetic (lidocaine 4%) is applied to the treatment area and left for 30–45 minutes to ensure your comfort throughout the procedure.</p>
+              </div>
+            </div>
+            <div class="procedure-step">
+              <div class="step-num">4</div>
+              <div>
+                <h6>Protective Eye Shields Applied</h6>
+                <p>Protective eye shields are carefully placed to protect your eyes from the laser energy. You may feel slight pressure but no discomfort.</p>
+              </div>
+            </div>
+            <div class="procedure-step">
+              <div class="step-num">5</div>
+              <div>
+                <h6>Fractional Laser Passes</h6>
+                <p>Your dermatologist systematically passes the laser handpiece over the treatment area in overlapping rows. You may feel a warm, tingling sensation. The laser creates thousands of microscopic columns in the skin, stimulating intense healing activity.</p>
+              </div>
+            </div>
+            <div class="procedure-step">
+              <div class="step-num">6</div>
+              <div>
+                <h6>Cooling & Calming Treatment</h6>
+                <p>A cooling device or cold compress is applied immediately after the laser to calm the skin, reduce redness, and minimise discomfort. A soothing serum is then gently applied.</p>
+              </div>
+            </div>
+            <div class="procedure-step">
+              <div class="step-num">7</div>
+              <div>
+                <h6>Aftercare Application & Instructions</h6>
+                <p>A barrier-protecting post-laser moisturiser and broad-spectrum SPF 50+ are applied. Your nurse provides detailed written aftercare instructions and your recovery kit to take home.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- RECOVERY -->
+          <div class="tab-pane fade" id="recovery">
+            <div class="row g-5">
+              <div class="col-md-7">
+                <h4 style="font-family:'Playfair Display',serif;color:var(--charcoal);margin-bottom:24px;">Recovery Timeline</h4>
+                <div class="recovery-timeline">
+                  <div class="recovery-item">
+                    <strong>Day 1–3: Redness & Warmth</strong>
+                    <p>Expect significant redness (similar to a sunburn), warmth, and mild swelling — especially around the eyes. Cold compresses and prescribed barrier creams provide comfort. Social downtime recommended.</p>
+                  </div>
+                  <div class="recovery-item">
+                    <strong>Day 4–7: Peeling & Bronzing</strong>
+                    <p>Skin begins to bronze and peel as treated columns shed. Do not pick or rub — allow the skin to shed naturally. Keep skin hydrated with prescribed emollients and avoid makeup.</p>
+                  </div>
+                  <div class="recovery-item">
+                    <strong>Week 2: Visible Improvement</strong>
+                    <p>Redness fades to a soft pink. New skin feels smoother and looks noticeably brighter. Most patients feel comfortable returning to work with mineral makeup. Continued SPF 50+ use is essential.</p>
+                  </div>
+                  <div class="recovery-item">
+                    <strong>Month 1: Progressive Collagen Building</strong>
+                    <p>Collagen remodelling continues over 4–6 weeks. Texture and tone improvements become increasingly apparent. The full effect of each session reveals itself progressively.</p>
+                  </div>
+                  <div class="recovery-item">
+                    <strong>Month 2–6: Full Results</strong>
+                    <p>After completing all recommended sessions, you will enjoy the full cumulative benefit: significantly smoother, tighter, more radiant skin with diminished scarring, pigmentation, and wrinkles.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div style="background:var(--ivory);border-radius:18px;padding:28px;border:1px solid rgba(220,228,236,.5);">
+                  <h6 style="font-family:'Playfair Display',serif;font-weight:700;color:var(--charcoal);margin-bottom:16px;"><i class="bi bi-info-circle-fill me-2" style="color:var(--blue);"></i>Recovery Tips</h6>
+                  <ul style="list-style:none;padding:0;margin:0;font-size:.84rem;color:var(--text-secondary);">
+                    <li class="mb-3 d-flex gap-2"><i class="bi bi-check-lg" style="color:var(--sage);flex-shrink:0;"></i>Apply SPF 50+ sunscreen every 2 hours outdoors</li>
+                    <li class="mb-3 d-flex gap-2"><i class="bi bi-check-lg" style="color:var(--sage);flex-shrink:0;"></i>Keep skin continuously moisturised with prescribed emollient</li>
+                    <li class="mb-3 d-flex gap-2"><i class="bi bi-check-lg" style="color:var(--sage);flex-shrink:0;"></i>Avoid direct sun exposure for 4 weeks post-treatment</li>
+                    <li class="mb-3 d-flex gap-2"><i class="bi bi-check-lg" style="color:var(--sage);flex-shrink:0;"></i>Do not pick, rub, or exfoliate during the peeling phase</li>
+                    <li class="mb-3 d-flex gap-2"><i class="bi bi-check-lg" style="color:var(--sage);flex-shrink:0;"></i>Avoid heat — saunas, hot yoga — for 7–10 days</li>
+                    <li class="mb-3 d-flex gap-2"><i class="bi bi-check-lg" style="color:var(--sage);flex-shrink:0;"></i>Sleep elevated (extra pillow) for the first 3 nights</li>
+                    <li class="d-flex gap-2"><i class="bi bi-check-lg" style="color:var(--sage);flex-shrink:0;"></i>Stay well-hydrated and eat an antioxidant-rich diet</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FAQs -->
+          <div class="tab-pane fade" id="faqs">
+            <h4 style="font-family:'Playfair Display',serif;color:var(--charcoal);margin-bottom:24px;">Frequently Asked Questions</h4>
+            <div class="accordion detail-faq" id="detailFaq">
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#df1">
+                    Is laser resurfacing painful?
+                  </button>
+                </h2>
+                <div id="df1" class="accordion-collapse collapse show" data-bs-parent="#detailFaq">
+                  <div class="accordion-body">
+                    Most patients describe the sensation as a warm, tingling feeling — similar to a mild sunburn — rather than sharp pain. We apply a medical-grade topical anaesthetic 30–45 minutes before the procedure to ensure your comfort. For more aggressive treatments, oral sedation can be discussed with your dermatologist.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#df2">
+                    How many sessions will I need?
+                  </button>
+                </h2>
+                <div id="df2" class="accordion-collapse collapse" data-bs-parent="#detailFaq">
+                  <div class="accordion-body">
+                    The optimal number of sessions depends on your skin concerns and goals. Most patients benefit from 3–6 sessions spaced 4–6 weeks apart. Mild concerns (tone, mild texture) may resolve in 2–3 sessions, while acne scarring or significant photoageing may require a full 6-session course.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#df3">
+                    When will I see results?
+                  </button>
+                </h2>
+                <div id="df3" class="accordion-collapse collapse" data-bs-parent="#detailFaq">
+                  <div class="accordion-body">
+                    Many patients notice an improvement in skin radiance and texture as early as 2 weeks after their first session. Significant results, particularly in wrinkle reduction and scar improvement, typically become visible at the 4–8 week mark as new collagen matures.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#df4">
+                    Is the treatment safe for all skin tones?
+                  </button>
+                </h2>
+                <div id="df4" class="accordion-collapse collapse" data-bs-parent="#detailFaq">
+                  <div class="accordion-body">
+                    Our standard protocol is best suited for Fitzpatrick types I–IV. For darker skin tones (types V–VI), we offer modified protocols using non-ablative wavelengths and lower energy settings to minimise the risk of post-inflammatory hyperpigmentation. A thorough skin assessment will determine the safest approach for you.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#df5">
+                    How long do results last?
+                  </button>
+                </h2>
+                <div id="df5" class="accordion-collapse collapse" data-bs-parent="#detailFaq">
+                  <div class="accordion-body">
+                    Results typically last 2–5 years, depending on sun exposure, skincare habits, and lifestyle factors. Sun protection (SPF 50+ daily) is the single most important factor in preserving your results. Annual maintenance sessions can extend and enhance the longevity of your outcomes.
+                  </div>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#df6">
+                    Can I combine laser resurfacing with other treatments?
+                  </button>
+                </h2>
+                <div id="df6" class="accordion-collapse collapse" data-bs-parent="#detailFaq">
+                  <div class="accordion-body">
+                    Yes! Laser resurfacing pairs excellently with Botox (to relax dynamic wrinkles), PRP (to accelerate healing and boost collagen), and medical-grade facials. We often design combination programmes for synergistic results. Your dermatologist will recommend the ideal sequencing of treatments.
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3 — BEFORE & AFTER
+============================================================ -->
+<section class="before-after-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-label">Real Results</div>
+      <h2 class="section-title">Real Results from Real Patients</h2>
+      <p style="color:var(--text-secondary);max-width:500px;margin:0 auto;">These authentic patient outcomes demonstrate the transformative potential of Advanced Laser Resurfacing at DermaCare.</p>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- BA Card 1 -->
+      <div class="col-md-4">
+        <div class="ba-card reveal">
+          <div class="ba-images" id="ba1">
+            <div class="ba-before" style="background-image:url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&h=600&fit=crop&crop=faces');"></div>
+            <div class="ba-after" style="background-image:url('https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&h=600&fit=crop&crop=faces');"></div>
+            <div class="ba-divider"><div class="ba-handle"><i class="bi bi-arrow-left-right"></i></div></div>
+            <div class="ba-labels">
+              <span class="ba-label before-lbl">Before</span>
+              <span class="ba-label after-lbl">After</span>
+            </div>
+          </div>
+          <div class="ba-body">
+            <h6>Textural Resurfacing & Pore Reduction</h6>
+            <div class="ba-meta">
+              <span><i class="bi bi-arrow-repeat"></i>4 Sessions</span>
+              <span><i class="bi bi-person"></i>Age 38–44</span>
+            </div>
+            <p class="ba-disclaimer">Individual results may vary. These images represent one patient's outcome and are not a guarantee of results.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- BA Card 2 -->
+      <div class="col-md-4">
+        <div class="ba-card reveal">
+          <div class="ba-images" id="ba2">
+            <div class="ba-before" style="background-image:url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800&h=600&fit=crop&crop=faces');"></div>
+            <div class="ba-after" style="background-image:url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800&h=600&fit=crop&crop=faces');"></div>
+            <div class="ba-divider"><div class="ba-handle"><i class="bi bi-arrow-left-right"></i></div></div>
+            <div class="ba-labels">
+              <span class="ba-label before-lbl">Before</span>
+              <span class="ba-label after-lbl">After</span>
+            </div>
+          </div>
+          <div class="ba-body">
+            <h6>Sun Damage & Pigmentation Clearance</h6>
+            <div class="ba-meta">
+              <span><i class="bi bi-arrow-repeat"></i>3 Sessions</span>
+              <span><i class="bi bi-person"></i>Age 44–50</span>
+            </div>
+            <p class="ba-disclaimer">Individual results may vary. These images represent one patient's outcome and are not a guarantee of results.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- BA Card 3 -->
+      <div class="col-md-4">
+        <div class="ba-card reveal">
+          <div class="ba-images" id="ba3">
+            <div class="ba-before" style="background-image:url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&h=600&fit=crop&crop=faces');"></div>
+            <div class="ba-after" style="background-image:url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&h=600&fit=crop&crop=faces');"></div>
+            <div class="ba-divider"><div class="ba-handle"><i class="bi bi-arrow-left-right"></i></div></div>
+            <div class="ba-labels">
+              <span class="ba-label before-lbl">Before</span>
+              <span class="ba-label after-lbl">After</span>
+            </div>
+          </div>
+          <div class="ba-body">
+            <h6>Acne Scarring & Wrinkle Reduction</h6>
+            <div class="ba-meta">
+              <span><i class="bi bi-arrow-repeat"></i>6 Sessions</span>
+              <span><i class="bi bi-person"></i>Age 29–35</span>
+            </div>
+            <p class="ba-disclaimer">Individual results may vary. These images represent one patient's outcome and are not a guarantee of results.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="privacy-note">
+      <i class="bi bi-lock-fill me-2" style="color:var(--blue);"></i>
+      <strong>Patient Privacy:</strong> All before/after images are shared with full written consent from our patients. Face and identifying features may be cropped or obscured to protect privacy. Results are real, unedited, and unfiltered.
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="#" class="btn btn-outline-custom">View All Results Gallery <i class="bi bi-arrow-right ms-1"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4 — PRICING & PACKAGES
+============================================================ -->
+<section class="pricing-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-label">Transparent Pricing</div>
+      <h2 class="section-title">Pricing & Packages</h2>
+      <p style="color:var(--text-secondary);max-width:520px;margin:0 auto;">Choose the package that fits your goals. All packages include a complimentary consultation and aftercare kit.</p>
+    </div>
+
+    <div class="row g-4 justify-content-center mb-4">
+
+      <!-- Single Session -->
+      <div class="col-md-4">
+        <div class="pricing-card">
+          <h5>Single Session</h5>
+          <div class="pricing-price"><sup>$</sup>350</div>
+          <div class="mb-3" style="font-size:.8rem;color:var(--text-secondary);">Per treatment session</div>
+          <ul class="pricing-features">
+            <li><i class="bi bi-check-circle-fill"></i>1 Fractional Laser Session</li>
+            <li><i class="bi bi-check-circle-fill"></i>Pre-treatment consultation</li>
+            <li><i class="bi bi-check-circle-fill"></i>Topical numbing included</li>
+            <li><i class="bi bi-check-circle-fill"></i>Basic aftercare kit</li>
+            <li><i class="bi bi-dash me-1" style="color:var(--text-muted);"></i>No follow-up included</li>
+            <li><i class="bi bi-dash me-1" style="color:var(--text-muted);"></i>No payment plan</li>
+          </ul>
+          <a href="#booking-form" class="btn-pricing">Book Single Session</a>
+          <p style="font-size:.72rem;color:var(--text-muted);text-align:center;margin-top:12px;">Pay per session, no commitment</p>
+        </div>
+      </div>
+
+      <!-- 3-Session Package -->
+      <div class="col-md-4">
+        <div class="pricing-card">
+          <h5>3-Session Package</h5>
+          <div class="pricing-price"><sup>$</sup>900</div>
+          <div class="savings-tag"><i class="bi bi-piggy-bank me-1"></i>Save $150</div>
+          <ul class="pricing-features">
+            <li><i class="bi bi-check-circle-fill"></i>3 Fractional Laser Sessions</li>
+            <li><i class="bi bi-check-circle-fill"></i>Comprehensive consultation</li>
+            <li><i class="bi bi-check-circle-fill"></i>Topical numbing included</li>
+            <li><i class="bi bi-check-circle-fill"></i>Premium aftercare kit</li>
+            <li><i class="bi bi-check-circle-fill"></i>1 Free follow-up visit</li>
+            <li><i class="bi bi-check-circle-fill"></i>3-month payment plan</li>
+          </ul>
+          <a href="#booking-form" class="btn-pricing">Book 3-Session Package</a>
+          <p style="font-size:.72rem;color:var(--text-muted);text-align:center;margin-top:12px;">From $300/session</p>
+        </div>
+      </div>
+
+      <!-- 6-Session Package — BEST VALUE -->
+      <div class="col-md-4">
+        <div class="pricing-card best-value">
+          <div class="best-value-badge"><i class="bi bi-trophy-fill"></i> Best Value</div>
+          <h5>6-Session Package</h5>
+          <div class="pricing-price"><sup>$</sup>1,600</div>
+          <div class="savings-tag"><i class="bi bi-piggy-bank me-1"></i>Save $500</div>
+          <ul class="pricing-features">
+            <li><i class="bi bi-check-circle-fill"></i>6 Fractional Laser Sessions</li>
+            <li><i class="bi bi-check-circle-fill"></i>Comprehensive consultation</li>
+            <li><i class="bi bi-check-circle-fill"></i>Topical numbing included</li>
+            <li><i class="bi bi-check-circle-fill"></i>Deluxe aftercare & skincare kit</li>
+            <li><i class="bi bi-check-circle-fill"></i>Unlimited follow-up visits</li>
+            <li><i class="bi bi-check-circle-fill"></i>6-month 0% payment plan</li>
+          </ul>
+          <a href="#booking-form" class="btn-pricing">Book 6-Session Package</a>
+          <p style="font-size:.72rem;color:var(--text-muted);text-align:center;margin-top:12px;">From $267/session</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="comparison-table">
+      <table class="table table-hover mb-0">
+        <thead>
+          <tr>
+            <th>What's Included</th>
+            <th>Single Session</th>
+            <th>3-Session</th>
+            <th>6-Session</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Laser Treatment Sessions</td><td>1</td><td>3</td><td>6</td></tr>
+          <tr><td>Pre-Treatment Consultation</td><td><i class="bi bi-check-circle-fill check"></i></td><td><i class="bi bi-check-circle-fill check"></i></td><td><i class="bi bi-check-circle-fill check"></i></td></tr>
+          <tr><td>Topical Numbing</td><td><i class="bi bi-check-circle-fill check"></i></td><td><i class="bi bi-check-circle-fill check"></i></td><td><i class="bi bi-check-circle-fill check"></i></td></tr>
+          <tr><td>Aftercare Kit</td><td>Basic</td><td>Premium</td><td>Deluxe</td></tr>
+          <tr><td>Follow-Up Visits</td><td><i class="bi bi-x-circle-fill cross"></i></td><td>1 Free</td><td>Unlimited</td></tr>
+          <tr><td>Progress Photography</td><td><i class="bi bi-x-circle-fill cross"></i></td><td><i class="bi bi-check-circle-fill check"></i></td><td><i class="bi bi-check-circle-fill check"></i></td></tr>
+          <tr><td>Payment Plan Option</td><td><i class="bi bi-x-circle-fill cross"></i></td><td>3 months</td><td>6 months (0% interest)</td></tr>
+          <tr><td>Dedicated Case Manager</td><td><i class="bi bi-x-circle-fill cross"></i></td><td><i class="bi bi-x-circle-fill cross"></i></td><td><i class="bi bi-check-circle-fill check"></i></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 5 — RELATED TREATMENTS
+============================================================ -->
+<section class="related-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-label">Explore More</div>
+      <h2 class="section-title">You Might Also Consider</h2>
+      <p style="color:var(--text-secondary);max-width:500px;margin:0 auto;">These complementary treatments pair excellently with laser resurfacing for comprehensive skin renewal.</p>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- Chemical Peel -->
+      <div class="col-md-4">
+        <div class="related-card reveal">
+          <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=600&h=420&fit=crop&crop=faces" alt="Chemical Peel" class="related-img" loading="lazy">
+          <div class="related-body">
+            <div class="category-badge badge-rejuv mb-2">Rejuvenation</div>
+            <h6>Chemical Peels</h6>
+            <p>Medical-grade exfoliation solutions that remove damaged outer skin layers to reveal brighter, smoother skin. Perfect for maintaining results between laser sessions.</p>
+            <div class="related-price">From $150 / session</div>
+            <a href="/service-details.html" class="btn-learn">Learn More <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- IPL Photofacial -->
+      <div class="col-md-4">
+        <div class="related-card reveal">
+          <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=600&h=420&fit=crop&crop=faces" alt="IPL Photofacial" class="related-img" loading="lazy">
+          <div class="related-body">
+            <div class="category-badge badge-laser mb-2">Laser</div>
+            <h6>IPL Photofacial</h6>
+            <p>Intense pulsed light therapy targeting redness, rosacea, and sun-induced pigmentation. A gentler light-based alternative for maintenance and mild concerns.</p>
+            <div class="related-price">From $240 / session</div>
+            <a href="/service-details.html" class="btn-learn">Learn More <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRP Rejuvenation -->
+      <div class="col-md-4">
+        <div class="related-card reveal">
+          <img src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=600&h=420&fit=crop" alt="PRP Rejuvenation" class="related-img" loading="lazy">
+          <div class="related-body">
+            <div class="category-badge badge-rejuv mb-2">Rejuvenation</div>
+            <h6>PRP Skin Rejuvenation</h6>
+            <p>Platelet-rich plasma therapy accelerates healing and amplifies collagen production — often combined with laser resurfacing for synergistic results.</p>
+            <div class="related-price">From $420 / session</div>
+            <a href="/service-details.html" class="btn-learn">Learn More <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 6 — BOOKING WIDGET + REVIEWS
+============================================================ -->
+<section class="booking-reviews-section" id="booking-form">
+  <div class="container">
+    <div class="row g-5">
+
+      <!-- Left — Booking Form -->
+      <div class="col-lg-6">
+        <div class="booking-form-wrap">
+          <div class="section-label">Book Now</div>
+          <h3>Book Your Laser Resurfacing</h3>
+          <p>Fill in your details below and our team will confirm your appointment within 2 business hours.</p>
+
+          <form id="appointmentForm" novalidate>
+            <div class="row g-3">
+              <div class="col-sm-6">
+                <label class="form-label" for="bookName">Full Name *</label>
+                <input type="text" class="form-control" id="bookName" placeholder="Jane Smith" required>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="bookEmail">Email Address *</label>
+                <input type="email" class="form-control" id="bookEmail" placeholder="jane@email.com" required>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="bookPhone">Phone Number *</label>
+                <input type="tel" class="form-control" id="bookPhone" placeholder="+1 (555) 000-0000" required>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="bookDate">Preferred Date *</label>
+                <input type="date" class="form-control" id="bookDate" required>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="bookTime">Preferred Time *</label>
+                <select class="form-select" id="bookTime" required>
+                  <option value="" disabled selected>Select time slot</option>
+                  <option>8:00 AM</option>
+                  <option>9:00 AM</option>
+                  <option>10:00 AM</option>
+                  <option>11:00 AM</option>
+                  <option>12:00 PM</option>
+                  <option>1:00 PM</option>
+                  <option>2:00 PM</option>
+                  <option>3:00 PM</option>
+                  <option>4:00 PM</option>
+                  <option>5:00 PM</option>
+                  <option>6:00 PM</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label" for="bookDoctor">Doctor Preference</label>
+                <select class="form-select" id="bookDoctor">
+                  <option value="" selected>No preference</option>
+                  <option>Dr. Amelia Chen</option>
+                  <option>Dr. Marcus Reid</option>
+                  <option>Dr. Priya Sharma</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label" for="bookPackage">Treatment Package</label>
+                <select class="form-select" id="bookPackage">
+                  <option value="" selected>Select package</option>
+                  <option>Single Session ($350)</option>
+                  <option>3-Session Package ($900)</option>
+                  <option>6-Session Package ($1,600)</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <label class="form-label" for="bookNotes">Special Notes / Concerns</label>
+                <textarea class="form-control" id="bookNotes" rows="3" placeholder="Any allergies, medications, previous treatments, or skin concerns..."></textarea>
+              </div>
+              <div class="col-12">
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" id="bookConsent" required>
+                  <label class="form-check-label" style="font-size:.82rem;color:var(--text-secondary);" for="bookConsent">
+                    I consent to DermaCare contacting me regarding my appointment. I have read the <a href="#" style="color:var(--blue);">privacy policy</a>.
+                  </label>
+                </div>
+                <button type="submit" class="btn-confirm">
+                  <i class="bi bi-calendar2-check-fill"></i> Confirm Booking
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right — Reviews -->
+      <div class="col-lg-6 reviews-col">
+        <div class="section-label">Patient Stories</div>
+        <h3>What Our Patients Say</h3>
+        <p style="font-size:.88rem;color:var(--text-secondary);margin-bottom:24px;">Genuine reviews from verified patients who have undergone Advanced Laser Resurfacing at DermaCare.</p>
+
+        <!-- Overall Rating -->
+        <div class="overall-rating">
+          <div class="rating-big">4.8</div>
+          <div>
+            <div class="rating-stars"><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i></div>
+            <div class="rating-count">Based on 127 verified patient reviews</div>
+            <div style="font-size:.78rem;opacity:.75;margin-top:4px;">Advanced Laser Resurfacing</div>
+          </div>
+        </div>
+
+        <!-- Review 1 -->
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-avatar" style="background:linear-gradient(135deg,#4A7090,#3f6680);">SL</div>
+            <div>
+              <div class="reviewer-name">Sarah L.</div>
+              <div class="review-date">October 2026 &nbsp;·&nbsp; <span class="treatment-verified"><i class="bi bi-patch-check-fill me-1"></i>Verified Patient</span></div>
+            </div>
+          </div>
+          <div class="review-stars"><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i></div>
+          <p class="review-text">
+            "After years of hiding my acne scars with heavy makeup, I finally decided to try laser resurfacing with Dr. Chen. After just 4 sessions, my scars have significantly faded and my skin feels completely transformed. The team at DermaCare walked me through every step and I always felt safe and informed. Worth every penny."
+          </p>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-avatar" style="background:linear-gradient(135deg,#A8B9A5,#7a9476);">JM</div>
+            <div>
+              <div class="reviewer-name">James M.</div>
+              <div class="review-date">September 2026 &nbsp;·&nbsp; <span class="treatment-verified"><i class="bi bi-patch-check-fill me-1"></i>Verified Patient</span></div>
+            </div>
+          </div>
+          <div class="review-stars"><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i></div>
+          <p class="review-text">
+            "I was nervous about laser treatment but the consultation with Dr. Reid put me completely at ease. The recovery was straightforward — the clinic sends follow-up messages daily during the first week which I found incredibly reassuring. My sun damage has visibly cleared and people keep asking if I've had a holiday!"
+          </p>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-avatar" style="background:linear-gradient(135deg,#D8C5A5,#b0906a);">RP</div>
+            <div>
+              <div class="reviewer-name">Rebecca P.</div>
+              <div class="review-date">August 2026 &nbsp;·&nbsp; <span class="treatment-verified"><i class="bi bi-patch-check-fill me-1"></i>Verified Patient</span></div>
+            </div>
+          </div>
+          <div class="review-stars"><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i></div>
+          <p class="review-text">
+            "The 6-session package was the best investment I've made in my skin. The results are beyond what I expected — fine lines dramatically reduced, pores visibly smaller, and my skin looks at least 10 years younger. Dr. Sharma tailored every session to exactly what I needed. DermaCare is genuinely exceptional."
+          </p>
+        </div>
+
+        <!-- Review 4 -->
+        <div class="review-card">
+          <div class="review-header">
+            <div class="reviewer-avatar" style="background:linear-gradient(135deg,#9b7cb8,#7a4a9e);">AT</div>
+            <div>
+              <div class="reviewer-name">Aisha T.</div>
+              <div class="review-date">July 2026 &nbsp;·&nbsp; <span class="treatment-verified"><i class="bi bi-patch-check-fill me-1"></i>Verified Patient</span></div>
+            </div>
+          </div>
+          <div class="review-stars"><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star"></i></div>
+          <p class="review-text">
+            "Very professional clinic with knowledgeable doctors. I had concerns about laser on my medium skin tone but the team was thorough in customising the settings. The recovery was a bit more than expected (7 days downtime for me), but the results at week 4 were amazing. Giving 4 stars only because parking was challenging!"
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="dc-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="dc-logo">
+          <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="15" fill="rgba(84,124,155,0.2)" stroke="#4A7090" stroke-width="1.5"/>
+            <path d="M16 8c0 0-6 4-6 10a6 6 0 0 0 12 0C22 12 16 8 16 8z" fill="#4A7090" opacity="0.9"/>
+          </svg>DermaCare
+        </div>
+        <p class="dc-desc">Premium dermatological care combining clinical excellence with personalised attention. Your skin's health is our commitment.</p>
+        <div class="d-flex gap-3 mt-3">
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-instagram"></i></a>
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-facebook"></i></a>
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-sm-6">
+        <div class="dc-heading">Services</div>
+        <ul class="dc-links">
+          <li><a href="/services.html">Acne Treatment</a></li>
+          <li><a href="/services.html">Laser Therapy</a></li>
+          <li><a href="/services.html">Skin Rejuvenation</a></li>
+          <li><a href="/services.html">Pigmentation Care</a></li>
+          <li><a href="/services.html">Anti-Aging</a></li>
+          <li><a href="/services.html">Hair &amp; Scalp</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-sm-6">
+        <div class="dc-heading">Company</div>
+        <ul class="dc-links">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/home2.html">Home 2</a></li>
+          <li><a href="/about.html">About Us</a></li>
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/blog.html">Blog</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/appointment.html">Book Appointment</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <div class="dc-heading">Contact</div>
+        <ul class="dc-links">
+          <li><i class="bi bi-geo-alt me-2"></i>123 Wellness Avenue, Suite 400</li>
+          <li><i class="bi bi-telephone me-2"></i>+1 (800) DERMA-00</li>
+          <li><i class="bi bi-envelope me-2"></i>hello@dermacare.clinic</li>
+          <li class="mt-2"><i class="bi bi-clock me-2"></i>Mon–Sat: 8 AM – 7 PM</li>
+          <li><span style="padding-left:1.4rem;">Sun: 10 AM – 4 PM</span></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="dc-divider" />
+    <div class="d-flex flex-wrap justify-content-between align-items-center dc-bottom">
+      <span>© 2024 DermaCare Clinic. All rights reserved.</span>
+      <span class="d-flex gap-3">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/main.js"></script>
+
+<script>
+  // === Before / After drag slider ===
+  document.querySelectorAll('.ba-images').forEach(container => {
+    const afterEl = container.querySelector('.ba-after');
+    const divider = container.querySelector('.ba-divider');
+    let isDragging = false;
+
+    function setPosition(x) {
+      const rect = container.getBoundingClientRect();
+      let pct = ((x - rect.left) / rect.width) * 100;
+      pct = Math.max(5, Math.min(95, pct));
+      afterEl.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+      divider.style.left = pct + '%';
+    }
+
+    container.addEventListener('mousedown', e => { isDragging = true; setPosition(e.clientX); });
+    document.addEventListener('mousemove', e => { if (isDragging) setPosition(e.clientX); });
+    document.addEventListener('mouseup', () => { isDragging = false; });
+
+    container.addEventListener('touchstart', e => { isDragging = true; setPosition(e.touches[0].clientX); }, { passive: true });
+    document.addEventListener('touchmove', e => { if (isDragging) setPosition(e.touches[0].clientX); }, { passive: true });
+    document.addEventListener('touchend', () => { isDragging = false; });
+  });
+
+  // === Booking form submit ===
+  document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!this.checkValidity()) {
+      this.classList.add('was-validated');
+      return;
+    }
+    const btn = this.querySelector('.btn-confirm');
+    btn.innerHTML = '<i class="bi bi-check2-circle"></i> Booking Confirmed!';
+    btn.style.background = '#2d7a5c';
+    setTimeout(() => {
+      btn.innerHTML = '<i class="bi bi-calendar2-check-fill"></i> Confirm Booking';
+      btn.style.background = '';
+      this.reset();
+      this.classList.remove('was-validated');
+    }, 3000);
+  });
+
+  // Set min date for date picker to today
+  const dateInput = document.getElementById('bookDate');
+  if (dateInput) {
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.min = today;
+  }
+</script>
+</body>
+</html>

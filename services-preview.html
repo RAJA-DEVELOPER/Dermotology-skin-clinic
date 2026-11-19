@@ -1,0 +1,1280 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <title>Our Services | DermaCare Dermatology & Skin Clinic</title>
+  <meta name="description" content="Explore our comprehensive range of evidence-based dermatology treatments including laser therapy, acne control, anti-aging, PRP, chemical peels, and more." />
+
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="/assets/js/rtl-init.js"></script>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <style>
+    /* =========================================================
+       SERVICES PAGE â€” LOCAL OVERRIDES
+    ========================================================= */
+
+    /* ---- Hero ---- */
+    .services-hero {
+      background:
+        linear-gradient(180deg, rgba(16,22,29,0.74) 0%, rgba(16,22,29,0.86) 100%),
+        url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1600&h=900&fit=crop') center/cover no-repeat;
+      padding: 150px 0 100px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .services-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 55%, rgba(84,124,155,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .services-hero .breadcrumb { justify-content: center; }
+    .services-hero .breadcrumb-item + .breadcrumb-item::before { color: rgba(255,255,255,.45); }
+    .services-hero .breadcrumb-item a { color: #cfe4f2; text-decoration: none; }
+    .services-hero .breadcrumb-item.active { color: #fff; }
+    .services-hero .breadcrumb-separator { color: rgba(255,255,255,.45); }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+    }
+    .hero-title span { color: #9cc3de; }
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.84);
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border: 1px solid rgba(84,124,155,.18);
+      border-radius: 50px;
+      padding: 10px 22px;
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      box-shadow: 0 2px 12px rgba(84,124,155,.08);
+    }
+    .trust-badge .badge-icon {
+      width: 32px; height: 32px;
+      background: var(--blue);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: .85rem;
+    }
+
+    /* ---- Filter + Grid ---- */
+    .services-grid-section {
+      padding: 90px 0;
+      background: var(--ivory);
+    }
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 50px;
+    }
+    .filter-btn {
+      padding: 9px 24px;
+      border-radius: 50px;
+      border: 2px solid #dce4ec;
+      background: transparent;
+      color: var(--text-secondary);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: all .25s ease;
+    }
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(84,124,155,.35);
+    }
+    .service-card {
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(220,228,236,.6);
+      transition: transform .3s ease, box-shadow .3s ease;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(84,124,155,.14);
+    }
+    .service-card-img {
+      width: 100%; height: 200px;
+      object-fit: cover;
+    }
+    .service-card-body {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .category-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .badge-acne       { background: #fde8e8; color: #c44f4f; }
+    .badge-laser      { background: #e0edf7; color: #2d6e9e; }
+    .badge-rejuv      { background: #e8f4f0; color: #2d7a5c; }
+    .badge-pigment    { background: #fef3e0; color: #b07a1a; }
+    .badge-antiaging  { background: #f0e8f7; color: #7a3d99; }
+    .badge-hair       { background: #e8f0fe; color: #2d4fc4; }
+    .service-card h5 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+    }
+    .service-card p {
+      font-size: .88rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+    .service-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: .82rem;
+      color: var(--text-secondary);
+      margin-bottom: 14px;
+    }
+    .service-meta i { color: var(--blue); }
+    .service-rating { color: #f4a924; font-size: .85rem; letter-spacing: .02em; }
+    .btn-view {
+      display: block;
+      text-align: center;
+      padding: 10px 0;
+      border-radius: 10px;
+      border: 2px solid var(--blue);
+      color: var(--blue);
+      font-weight: 600;
+      font-size: .88rem;
+      text-decoration: none;
+      transition: all .25s;
+      margin-top: auto;
+    }
+    .btn-view:hover {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    /* ---- How It Works ---- */
+    .how-it-works {
+      padding: 90px 0;
+      background: #fff;
+    }
+    .steps-track {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 0;
+      position: relative;
+    }
+    .step-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      padding: 0 16px;
+    }
+    .step-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 36px;
+      left: calc(50% + 36px);
+      width: calc(100% - 72px);
+      border-top: 2px dashed rgba(84,124,155,.35);
+    }
+    .step-icon {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), #6fa0bf);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 1.6rem;
+      box-shadow: 0 8px 24px rgba(84,124,155,.28);
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+    }
+    .step-number {
+      position: absolute;
+      top: -6px; right: -6px;
+      width: 24px; height: 24px;
+      background: var(--champagne);
+      border-radius: 50%;
+      font-size: .7rem;
+      font-weight: 800;
+      color: #7a5c28;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid #fff;
+    }
+    .step-item h5 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+    }
+    .step-item p {
+      font-size: .85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      max-width: 180px;
+    }
+
+    /* ---- Packages ---- */
+    .packages-section {
+      padding: 90px 0;
+      background: linear-gradient(180deg, #f0f5f9 0%, var(--ivory) 100%);
+    }
+    .package-card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 36px 30px;
+      border: 2px solid rgba(220,228,236,.6);
+      position: relative;
+      transition: transform .3s, box-shadow .3s;
+      height: 100%;
+      display: flex; flex-direction: column;
+    }
+    .package-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(84,124,155,.12);
+    }
+    .package-card.popular {
+      border-color: var(--champagne);
+      box-shadow: 0 12px 40px rgba(216,197,165,.35);
+    }
+    .popular-badge {
+      position: absolute;
+      top: -14px; left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, var(--champagne), #c8a87a);
+      color: #5a3d12;
+      font-size: .75rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      padding: 6px 20px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .package-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 4px;
+    }
+    .package-duration {
+      font-size: .82rem;
+      color: var(--blue);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 20px;
+    }
+    .package-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1;
+      margin-bottom: 24px;
+    }
+    .package-price sup { font-size: 1.2rem; vertical-align: top; margin-top: 6px; }
+    .package-items { list-style: none; padding: 0; margin-bottom: 28px; flex: 1; }
+    .package-items li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: .88rem; color: var(--text-secondary);
+      padding: 7px 0;
+      border-bottom: 1px solid #f0f4f7;
+    }
+    .package-items li:last-child { border-bottom: none; }
+    .package-items li i { color: var(--sage); flex-shrink: 0; margin-top: 2px; }
+    .btn-package {
+      display: block;
+      text-align: center;
+      padding: 13px;
+      border-radius: 12px;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 700;
+      font-size: .9rem;
+      text-decoration: none;
+      transition: all .25s;
+      border: none; cursor: pointer;
+      width: 100%;
+    }
+    .btn-package:hover { background: #3f6680; color: #fff; }
+    .package-card.popular .btn-package {
+      background: linear-gradient(90deg, var(--champagne), #c8a87a);
+      color: #3d2a0a;
+    }
+    .package-card.popular .btn-package:hover {
+      background: linear-gradient(90deg, #c8a87a, #b0906a);
+      color: #fff;
+    }
+
+    /* ---- Doctors ---- */
+    .doctors-section {
+      padding: 90px 0;
+      background: #fff;
+    }
+    .doctor-card {
+      background: var(--ivory);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid rgba(220,228,236,.5);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .doctor-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 50px rgba(84,124,155,.14);
+    }
+    .doctor-img {
+      width: 100%; height: 240px;
+      object-fit: cover;
+      object-position: center;
+    }
+    .doctor-body { padding: 26px; }
+    .doctor-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--charcoal);
+      margin-bottom: 4px;
+    }
+    .doctor-specialty {
+      font-size: .82rem;
+      color: var(--blue);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 16px;
+    }
+    .treatment-tags { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 20px; }
+    .treatment-tag {
+      background: #e8f0f7;
+      color: var(--blue);
+      border-radius: 50px;
+      font-size: .75rem;
+      font-weight: 600;
+      padding: 5px 14px;
+    }
+    .btn-book-dr {
+      display: block;
+      text-align: center;
+      padding: 11px;
+      border-radius: 10px;
+      border: 2px solid var(--blue);
+      color: var(--blue);
+      font-weight: 700;
+      font-size: .88rem;
+      text-decoration: none;
+      transition: all .25s;
+    }
+    .btn-book-dr:hover { background: var(--blue); color: #fff; }
+
+    /* ---- FAQ + CTA ---- */
+    .faq-cta-section {
+      padding: 90px 0;
+      background: linear-gradient(135deg, #eef4f8 0%, var(--ivory) 100%);
+    }
+    .section-label {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 10px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 700;
+      color: var(--charcoal);
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+    .accordion-item {
+      border: 1px solid #dce4ec !important;
+      border-radius: 12px !important;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .accordion-button {
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: .95rem;
+      color: var(--charcoal) !important;
+      background: #fff !important;
+    }
+    .accordion-button:not(.collapsed) {
+      color: var(--blue) !important;
+      box-shadow: none !important;
+      background: #f0f7fc !important;
+    }
+    .accordion-button::after {
+      filter: hue-rotate(190deg) saturate(.7);
+    }
+    .accordion-body {
+      font-size: .88rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      background: #fff;
+    }
+    .cta-card {
+      background: linear-gradient(135deg, var(--blue) 0%, #3f6680 100%);
+      border-radius: 24px;
+      padding: 44px 36px;
+      color: #fff;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-card::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 180px; height: 180px;
+      background: rgba(255,255,255,.07);
+      border-radius: 50%;
+    }
+    .cta-card::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -20px;
+      width: 140px; height: 140px;
+      background: rgba(255,255,255,.05);
+      border-radius: 50%;
+    }
+    .cta-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .cta-card p { font-size: .92rem; opacity: .88; margin-bottom: 28px; }
+    .btn-cta-white {
+      background: #fff;
+      color: var(--blue);
+      border: none;
+      border-radius: 12px;
+      padding: 13px 30px;
+      font-weight: 700;
+      font-size: .95rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: all .25s;
+      margin-bottom: 20px;
+    }
+    .btn-cta-white:hover { background: var(--champagne); color: #3d2a0a; }
+    .cta-contact-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+    .cta-contact-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: .88rem; opacity: .9;
+    }
+    .cta-contact-item i { font-size: 1rem; }
+    .clinic-hours {
+      background: rgba(255,255,255,.12);
+      border-radius: 10px;
+      padding: 14px 20px;
+      margin-top: 20px;
+      font-size: .82rem;
+      text-align: left;
+    }
+    .clinic-hours strong { display: block; margin-bottom: 6px; font-size: .88rem; }
+
+    /* Dark mode */
+    [data-theme="dark"] .services-hero {
+      background:
+        linear-gradient(180deg, rgba(9,12,16,0.88) 0%, rgba(9,12,16,0.92) 100%),
+        url('https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1600&h=900&fit=crop') center/cover no-repeat;
+    }
+    [data-theme="dark"] .trust-badge { background: #242830; border-color: rgba(84,124,155,.3); color: #c8d4de; }
+    [data-theme="dark"] .services-grid-section { background: #1a1d21; }
+    [data-theme="dark"] .service-card { background: #242830; border-color: rgba(84,124,155,.2); }
+    [data-theme="dark"] .service-card h5 { color: #e0e8f0; }
+    [data-theme="dark"] .service-card p { color: var(--text-secondary); }
+    [data-theme="dark"] .how-it-works { background: #1e2228; }
+    [data-theme="dark"] .packages-section { background: #1a1d21; }
+    [data-theme="dark"] .package-card { background: #242830; border-color: rgba(84,124,155,.25); }
+    [data-theme="dark"] .doctors-section { background: #1e2228; }
+    [data-theme="dark"] .doctor-card { background: #242830; }
+    [data-theme="dark"] .faq-cta-section { background: #1a1d21; }
+    [data-theme="dark"] .accordion-button { background: #242830 !important; color: #c8d4de !important; }
+    [data-theme="dark"] .accordion-body { background: #242830; color: var(--text-secondary); }
+    [data-theme="dark"] .accordion-item { border-color: rgba(84,124,155,.3) !important; }
+    [data-theme="dark"] .hero-title { color: #e0e8f0; }
+    [data-theme="dark"] .section-title { color: #e0e8f0; }
+    [data-theme="dark"] .package-name { color: #e0e8f0; }
+    [data-theme="dark"] .doctor-name { color: #e0e8f0; }
+    [data-theme="dark"] .hero-subtitle { color: rgba(255,255,255,0.84); }
+    [data-theme="dark"] .step-item h5 { color: #e0e8f0; }
+
+    /* Responsive */
+    @media (max-width: 991px) {
+      .steps-track { flex-direction: column; align-items: center; gap: 30px; }
+      .step-item:not(:last-child)::after { display: none; }
+      .step-item p { max-width: 280px; }
+    }
+  </style>
+<link rel="stylesheet" href="/assets/css/responsive.css" />
+</head>
+<body>
+
+<!-- ============================================================
+     NAVBAR
+============================================================ -->
+<nav class="navbar navbar-expand-lg sticky-top navbar-glass" id="mainNavbar">
+  <div class="container">
+    <!-- Logo -->
+    <a class="navbar-brand d-flex align-items-center gap-2" href="/index.html">
+      <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="17" cy="17" r="17" fill="#4A7090" fill-opacity="0.12"/>
+        <path d="M17 7C17 7 11 11.5 11 17.5C11 21.09 13.69 24 17 24C20.31 24 23 21.09 23 17.5C23 11.5 17 7 17 7Z" fill="#4A7090"/>
+        <path d="M14 17.5C14 15.5 15.5 13.5 17 12C18.5 13.5 20 15.5 20 17.5C20 19.16 18.66 20.5 17 20.5C15.34 20.5 14 19.16 14 17.5Z" fill="white" fill-opacity="0.9"/>
+        <path d="M17 24V27" stroke="#4A7090" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <span class="brand-name">DermaCare</span>
+    </a>
+
+    <!-- Hamburger -->
+    <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="hamburger-icon">
+        <span></span><span></span><span></span>
+      </span>
+    </button>
+
+    <!-- Nav Links -->
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link" href="/index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/home2.html">Home 2</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/services.html">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="/blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="/contact.html">Contact</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/patient-dashboard.html"><i class="bi bi-person-circle me-2"></i>User Dashboard</a></li>
+            <li><a class="dropdown-item" href="/admin-dashboard.html"><i class="bi bi-shield-lock me-2"></i>Admin Dashboard</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="d-flex align-items-center gap-3">
+        <button class="theme-toggle" id="themeToggle" type="button" data-theme-toggle aria-label="Toggle dark mode">
+          <i class="bi bi-moon-stars-fill" id="themeIcon" data-theme-icon></i>
+        </button>
+        <a href="/login.html" class="nav-login-btn"><i class="bi bi-box-arrow-in-right"></i>Login</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================================================
+     SECTION 1 â€” SERVICES HERO
+============================================================ -->
+<section class="services-hero">
+  <div class="container position-relative">
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="mb-4">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/index.html"><i class="bi bi-house-fill me-1"></i>Home</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Services</li>
+      </ol>
+    </nav>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-xl-9 text-center">
+        <div class="d-inline-flex align-items-center gap-2 mb-3 px-3 py-2 rounded-pill" style="background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.24);">
+          <span style="width:8px;height:8px;background:#9cc3de;border-radius:50%;display:inline-block;"></span>
+          <small style="color:#dcecf7;font-weight:600;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;">Evidence-Based Dermatology</small>
+        </div>
+        <h1 class="hero-title mb-4">
+          Comprehensive<br>
+          <span>Skin Care</span> Solutions
+        </h1>
+        <p class="hero-subtitle mb-5">
+          From cutting-edge laser therapies to personalized skin protocols, our board-certified specialists deliver clinically proven treatments tailored to your unique skin needs.
+        </p>
+        <!-- Trust Badges -->
+        <div class="d-flex flex-wrap gap-3 justify-content-center text-start">
+          <div class="trust-badge">
+            <div class="badge-icon"><i class="bi bi-clipboard2-pulse-fill"></i></div>
+            <div>
+              <div style="font-size:.7rem;color:var(--text-secondary);font-weight:400;">Total Treatments</div>
+              <div>50+ Treatments</div>
+            </div>
+          </div>
+          <div class="trust-badge">
+            <div class="badge-icon"><i class="bi bi-patch-check-fill"></i></div>
+            <div>
+              <div style="font-size:.7rem;color:var(--text-secondary);font-weight:400;">Medical Staff</div>
+              <div>Board-Certified Doctors</div>
+            </div>
+          </div>
+          <div class="trust-badge">
+            <div class="badge-icon"><i class="bi bi-shield-check"></i></div>
+            <div>
+              <div style="font-size:.7rem;color:var(--text-secondary);font-weight:400;">Safety Standard</div>
+              <div>FDA-Approved Procedures</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 2 â€” FILTER + SERVICE GRID
+============================================================ -->
+<section class="services-grid-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-label">Our Treatments</div>
+      <h2 class="section-title">Browse Our Services</h2>
+      <p style="color:var(--text-secondary);max-width:520px;margin:0 auto;">Discover the full range of expert skin treatments we offer, each customised for your individual concern.</p>
+    </div>
+
+    <!-- Filter Tabs -->
+    <div class="filter-tabs" id="filterTabs">
+      <button class="filter-btn active" data-filter="all">All Treatments</button>
+      <button class="filter-btn" data-filter="acne">Acne</button>
+      <button class="filter-btn" data-filter="laser">Laser</button>
+      <button class="filter-btn" data-filter="antiaging">Anti-Aging</button>
+      <button class="filter-btn" data-filter="pigmentation">Pigmentation</button>
+      <button class="filter-btn" data-filter="hair">Hair</button>
+      <button class="filter-btn" data-filter="rejuvenation">Rejuvenation</button>
+    </div>
+
+    <!-- Service Cards Grid -->
+    <div class="row g-4" id="serviceGrid">
+
+      <!-- 1. Acne & Blemish Control -->
+      <div class="col-md-6 col-lg-4 service-item" data-category="acne">
+        <div class="service-card reveal">
+          <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=800&h=420&fit=crop&crop=faces" alt="Acne Treatment" class="service-card-img" loading="lazy">
+          <div class="service-card-body">
+            <span class="category-badge badge-acne">Acne</span>
+            <h5>Acne & Blemish Control</h5>
+            <p>Advanced multi-modal approach targeting active breakouts and preventing future blemishes through targeted therapies and prescription protocols.</p>
+            <div class="service-meta">
+              <span><i class="bi bi-clock me-1"></i>45â€“60 min</span>
+              <span><i class="bi bi-currency-dollar me-1"></i>From $180</span>
+            </div>
+            <div class="service-rating mb-3"><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i> <span style="color:var(--text-secondary);font-size:.8rem;">(4.9)</span></div>
+            <a href="/service-details.html" class="btn-view">View Details <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Advanced Laser Resurfacing -->
+      <div class="col-md-6 col-lg-4 service-item" data-category="laser">
+        <div class="service-card reveal">
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=420&fit=crop" alt="Laser Resurfacing" class="service-card-img" loading="lazy">
+          <div class="service-card-body">
+            <span class="category-badge badge-laser">Laser</span>
+            <h5>Advanced Laser Resurfacing</h5>
+            <p>State-of-the-art fractional CO2 and Fraxel laser technology that stimulates collagen production and dramatically improves skin texture and tone.</p>
+            <div class="service-meta">
+              <span><i class="bi bi-clock me-1"></i>45â€“90 min</span>
+              <span><i class="bi bi-currency-dollar me-1"></i>From $350</span>
+            </div>
+            <div class="service-rating mb-3"><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i> <span style="color:var(--text-secondary);font-size:.8rem;">(4.9)</span></div>
+            <a href="/service-details.html" class="btn-view">View Details <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. PRP Skin Rejuvenation -->
+      <div class="col-md-6 col-lg-4 service-item" data-category="rejuvenation">
+        <div class="service-card reveal">
+          <img src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=800&h=420&fit=crop" alt="PRP Skin Rejuvenation" class="service-card-img" loading="lazy">
+          <div class="service-card-body">
+            <span class="category-badge badge-rejuv">Rejuvenation</span>
+            <h5>PRP Skin Rejuvenation</h5>
+            <p>Harness the healing power of your own platelet-rich plasma to revitalise skin, reduce fine lines, and restore a youthful radiance naturally.</p>
+            <div class="service-meta">
+              <span><i class="bi bi-clock me-1"></i>60â€“90 min</span>
+              <span><i class="bi bi-currency-dollar me-1"></i>From $420</span>
+            </div>
+            <div class="service-rating mb-3"><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i> <span style="color:var(--text-secondary);font-size:.8rem;">(4.8)</span></div>
+            <a href="/service-details.html" class="btn-view">View Details <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Melasma & Pigmentation -->
+      <div class="col-md-6 col-lg-4 service-item" data-category="pigmentation">
+        <div class="service-card reveal">
+          <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&h=420&fit=crop" alt="Melasma Treatment" class="service-card-img" loading="lazy">
+          <div class="service-card-body">
+            <span class="category-badge badge-pigment">Pigmentation</span>
+            <h5>Melasma & Pigmentation</h5>
+            <p>Comprehensive pigmentation correction combining topical agents, chemical peels, and laser therapy for even, luminous skin tone restoration.</p>
+            <div class="service-meta">
+              <span><i class="bi bi-clock me-1"></i>30â€“45 min</span>
+              <span><i class="bi bi-currency-dollar me-1"></i>From $220</span>
+            </div>
+            <div class="service-rating mb-3"><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i> <span style="color:var(--text-secondary);font-size:.8rem;">(4.7)</span></div>
+            <a href="/service-details.html" class="btn-view">View Details <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Botox & Fillers -->
+      <div class="col-md-6 col-lg-4 service-item" data-category="antiaging">
+        <div class="service-card reveal">
+          <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800&h=420&fit=crop&crop=faces" alt="Botox and Fillers" class="service-card-img" loading="lazy">
+          <div class="service-card-body">
+            <span class="category-badge badge-antiaging">Anti-Aging</span>
+            <h5>Botox & Fillers</h5>
+            <p>Precision-injected neuromodulators and dermal fillers to smooth dynamic wrinkles and restore facial volume for natural, refreshed results.</p>
+            <div class="service-meta">
+              <span><i class="bi bi-clock me-1"></i>30â€“45 min</span>
+              <span><i class="bi bi-currency-dollar me-1"></i>From $280</span>
+            </div>
+            <div class="service-rating mb-3"><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i> <span style="color:var(--text-secondary);font-size:.8rem;">(4.9)</span></div>
+            <a href="/service-details.html" class="btn-view">View Details <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Hair Loss PRP -->
+      <div class="col-md-6 col-lg-4 service-item" data-category="hair">
+        <div class="service-card reveal">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&h=420&fit=crop&crop=faces" alt="Hair Loss PRP" class="service-card-img" loading="lazy">
+          <div class="service-card-body">
+            <span class="category-badge badge-hair">Hair</span>
+            <h5>Hair Loss (PRP)</h5>
+            <p>Clinically proven platelet-rich plasma injections revitalise dormant hair follicles, reduce shedding and promote thicker, healthier hair growth.</p>
+            <div class="service-meta">
+              <span><i class="bi bi-clock me-1"></i>45â€“60 min</span>
+              <span><i class="bi bi-currency-dollar me-1"></i>From $380</span>
+            </div>
+            <div class="service-rating mb-3"><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i> <span style="color:var(--text-secondary);font-size:.8rem;">(4.8)</span></div>
+            <a href="/service-details.html" class="btn-view">View Details <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Chemical Peels -->
+      <div class="col-md-6 col-lg-4 service-item" data-category="rejuvenation">
+        <div class="service-card reveal">
+          <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&h=420&fit=crop&crop=faces" alt="Chemical Peel" class="service-card-img" loading="lazy">
+          <div class="service-card-body">
+            <span class="category-badge badge-rejuv">Rejuvenation</span>
+            <h5>Chemical Peels</h5>
+            <p>Medical-grade chemical exfoliation solutions removing damaged outer skin layers to reveal smoother, brighter and more youthful skin beneath.</p>
+            <div class="service-meta">
+              <span><i class="bi bi-clock me-1"></i>30â€“60 min</span>
+              <span><i class="bi bi-currency-dollar me-1"></i>From $150</span>
+            </div>
+            <div class="service-rating mb-3"><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i> <span style="color:var(--text-secondary);font-size:.8rem;">(4.8)</span></div>
+            <a href="/service-details.html" class="btn-view">View Details <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. IPL Photofacial -->
+      <div class="col-md-6 col-lg-4 service-item" data-category="laser">
+        <div class="service-card reveal">
+          <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&h=420&fit=crop&crop=faces" alt="IPL Photofacial" class="service-card-img" loading="lazy">
+          <div class="service-card-body">
+            <span class="category-badge badge-laser">Laser</span>
+            <h5>IPL Photofacial</h5>
+            <p>Intense pulsed light therapy targeting sun damage, redness, rosacea and uneven pigmentation for a clearer, more even and radiant complexion.</p>
+            <div class="service-meta">
+              <span><i class="bi bi-clock me-1"></i>30â€“45 min</span>
+              <span><i class="bi bi-currency-dollar me-1"></i>From $240</span>
+            </div>
+            <div class="service-rating mb-3"><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i> <span style="color:var(--text-secondary);font-size:.8rem;">(4.7)</span></div>
+            <a href="/service-details.html" class="btn-view">View Details <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Sensitive Skin Protocol -->
+      <div class="col-md-6 col-lg-4 service-item" data-category="acne">
+        <div class="service-card reveal">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=800&h=420&fit=crop&crop=faces" alt="Sensitive Skin Protocol" class="service-card-img" loading="lazy">
+          <div class="service-card-body">
+            <span class="category-badge badge-acne">Acne</span>
+            <h5>Sensitive Skin Protocol</h5>
+            <p>Gentle, barrier-focused care for reactive, rosacea-prone or sensitised skin using hypoallergenic formulations and calming clinical therapies.</p>
+            <div class="service-meta">
+              <span><i class="bi bi-clock me-1"></i>45â€“60 min</span>
+              <span><i class="bi bi-currency-dollar me-1"></i>From $195</span>
+            </div>
+            <div class="service-rating mb-3"><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill me-1"></i><i class="bi bi-star-fill"></i> <span style="color:var(--text-secondary);font-size:.8rem;">(4.9)</span></div>
+            <a href="/service-details.html" class="btn-view">View Details <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /row -->
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 3 â€” HOW IT WORKS
+============================================================ -->
+<section class="how-it-works">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-label">The Process</div>
+      <h2 class="section-title">Your Treatment Journey</h2>
+      <p style="color:var(--text-secondary);max-width:500px;margin:0 auto;">From your first consultation to long-term skin health, we guide you at every step.</p>
+    </div>
+
+    <div class="steps-track">
+      <!-- Step 1 -->
+      <div class="step-item">
+        <div class="step-icon">
+          <i class="bi bi-chat-dots-fill"></i>
+          <span class="step-number">1</span>
+        </div>
+        <h5>Initial Consultation</h5>
+        <p>45-min comprehensive skin assessment with a board-certified dermatologist.</p>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="step-item">
+        <div class="step-icon">
+          <i class="bi bi-clipboard2-pulse-fill"></i>
+          <span class="step-number">2</span>
+        </div>
+        <h5>Personalised Plan</h5>
+        <p>Custom treatment protocol designed specifically for your skin type and goals.</p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="step-item">
+        <div class="step-icon">
+          <i class="bi bi-stars"></i>
+          <span class="step-number">3</span>
+        </div>
+        <h5>Treatment Sessions</h5>
+        <p>Expert-administered procedures using FDA-approved technology in our clinic.</p>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="step-item">
+        <div class="step-icon">
+          <i class="bi bi-heart-pulse-fill"></i>
+          <span class="step-number">4</span>
+        </div>
+        <h5>Ongoing Care</h5>
+        <p>Scheduled follow-ups and maintenance plans to sustain and enhance results.</p>
+      </div>
+    </div>
+
+    <!-- CTA Row -->
+    <div class="text-center mt-5">
+      <a href="/contact.html#booking" class="btn btn-primary-custom me-3">Start Your Journey</a>
+      <a href="/about.html" class="btn btn-outline-custom">Learn About Our Team</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 4 â€” TREATMENT PACKAGES
+============================================================ -->
+<section class="packages-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-label">Save More</div>
+      <h2 class="section-title">Value Treatment Packages</h2>
+      <p style="color:var(--text-secondary);max-width:500px;margin:0 auto;">Bundled programmes that deliver better results at outstanding value. All packages include a free initial consultation.</p>
+    </div>
+
+    <div class="row g-4 justify-content-center">
+
+      <!-- Starter Glow -->
+      <div class="col-md-4">
+        <div class="package-card h-100">
+          <div class="package-name">Starter Glow</div>
+          <div class="package-duration"><i class="bi bi-calendar3 me-1"></i>1-Month Programme</div>
+          <div class="package-price"><sup>$</sup>299</div>
+          <ul class="package-items">
+            <li><i class="bi bi-check-circle-fill"></i>Initial Skin Consultation</li>
+            <li><i class="bi bi-check-circle-fill"></i>1Ã— Medical-Grade Chemical Peel</li>
+            <li><i class="bi bi-check-circle-fill"></i>Personalised Skincare Kit</li>
+            <li><i class="bi bi-check-circle-fill"></i>Post-Treatment Follow-Up</li>
+            <li><i class="bi bi-check-circle-fill"></i>Digital Skin Analysis Report</li>
+          </ul>
+          <a href="/contact.html#booking" class="btn-package">Book Starter Glow</a>
+        </div>
+      </div>
+
+      <!-- Transformation â€” POPULAR -->
+      <div class="col-md-4">
+        <div class="package-card popular h-100">
+          <div class="popular-badge"><i class="bi bi-fire me-1"></i>Most Popular</div>
+          <div class="package-name">Transformation</div>
+          <div class="package-duration"><i class="bi bi-calendar3 me-1"></i>3-Month Programme</div>
+          <div class="package-price"><sup>$</sup>999</div>
+          <ul class="package-items">
+            <li><i class="bi bi-check-circle-fill"></i>Comprehensive Consultation</li>
+            <li><i class="bi bi-check-circle-fill"></i>6Ã— Fractional Laser Sessions</li>
+            <li><i class="bi bi-check-circle-fill"></i>1Ã— PRP Skin Rejuvenation</li>
+            <li><i class="bi bi-check-circle-fill"></i>Monthly Progress Reviews</li>
+            <li><i class="bi bi-check-circle-fill"></i>Personalised Home Care Protocol</li>
+            <li><i class="bi bi-check-circle-fill"></i>Priority Appointment Booking</li>
+          </ul>
+          <a href="/contact.html#booking" class="btn-package">Book Transformation</a>
+        </div>
+      </div>
+
+      <!-- Complete Renewal -->
+      <div class="col-md-4">
+        <div class="package-card h-100">
+          <div class="package-name">Complete Renewal</div>
+          <div class="package-duration"><i class="bi bi-calendar3 me-1"></i>6-Month Programme</div>
+          <div class="package-price"><sup>$</sup>1,999</div>
+          <ul class="package-items">
+            <li><i class="bi bi-check-circle-fill"></i>Full Skin Health Assessment</li>
+            <li><i class="bi bi-check-circle-fill"></i>Complete Multi-Modal Protocol</li>
+            <li><i class="bi bi-check-circle-fill"></i>Unlimited Follow-Up Visits</li>
+            <li><i class="bi bi-check-circle-fill"></i>Premium Skincare Product Set</li>
+            <li><i class="bi bi-check-circle-fill"></i>Before & After Photography</li>
+            <li><i class="bi bi-check-circle-fill"></i>Dedicated Case Manager</li>
+            <li><i class="bi bi-check-circle-fill"></i>24/7 Patient Support Line</li>
+          </ul>
+          <a href="/contact.html#booking" class="btn-package">Book Complete Renewal</a>
+        </div>
+      </div>
+
+    </div>
+
+    <p class="text-center mt-4" style="font-size:.82rem;color:var(--text-secondary);">* Prices are indicative. Final pricing confirmed after initial consultation. Payment plans available.</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 5 â€” SPECIALIST DOCTORS
+============================================================ -->
+<section class="doctors-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-label">Our Experts</div>
+      <h2 class="section-title">Treatments by Our Specialists</h2>
+      <p style="color:var(--text-secondary);max-width:500px;margin:0 auto;">Our team of board-certified dermatologists bring decades of combined experience to every treatment.</p>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- Dr. Amelia Chen -->
+      <div class="col-md-4">
+        <div class="doctor-card reveal">
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=700&h=520&fit=crop&crop=faces" alt="Dr. Amelia Chen" class="doctor-img">
+          <div class="doctor-body">
+            <div class="doctor-name">Dr. Amelia Chen</div>
+            <div class="doctor-specialty">Laser & Resurfacing Specialist</div>
+            <div class="treatment-tags">
+              <span class="treatment-tag">Laser Resurfacing</span>
+              <span class="treatment-tag">IPL Photofacial</span>
+              <span class="treatment-tag">Chemical Peels</span>
+            </div>
+            <a href="/contact.html#booking" class="btn-book-dr">Book with Dr. Chen <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dr. Marcus Reid -->
+      <div class="col-md-4">
+        <div class="doctor-card reveal">
+          <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=700&h=520&fit=crop&crop=faces" alt="Dr. Marcus Reid" class="doctor-img">
+          <div class="doctor-body">
+            <div class="doctor-name">Dr. Marcus Reid</div>
+            <div class="doctor-specialty">Anti-Aging & Injectables Expert</div>
+            <div class="treatment-tags">
+              <span class="treatment-tag">Botox & Fillers</span>
+              <span class="treatment-tag">PRP Rejuvenation</span>
+              <span class="treatment-tag">Skin Tightening</span>
+            </div>
+            <a href="/contact.html#booking" class="btn-book-dr">Book with Dr. Reid <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dr. Priya Sharma -->
+      <div class="col-md-4">
+        <div class="doctor-card reveal">
+          <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=700&h=520&fit=crop&crop=faces" alt="Dr. Priya Sharma" class="doctor-img">
+          <div class="doctor-body">
+            <div class="doctor-name">Dr. Priya Sharma</div>
+            <div class="doctor-specialty">Acne & Pigmentation Specialist</div>
+            <div class="treatment-tags">
+              <span class="treatment-tag">Acne Control</span>
+              <span class="treatment-tag">Melasma Treatment</span>
+              <span class="treatment-tag">Hair PRP</span>
+            </div>
+            <a href="/contact.html#booking" class="btn-book-dr">Book with Dr. Sharma <i class="bi bi-arrow-right ms-1"></i></a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 6 â€” PRICING FAQ + CTA
+============================================================ -->
+<section class="faq-cta-section">
+  <div class="container">
+    <div class="row g-5 align-items-start">
+
+      <!-- Left â€” FAQ -->
+      <div class="col-lg-7">
+        <div class="section-label">Common Questions</div>
+        <h2 class="section-title">Pricing & Policy FAQ</h2>
+        <p style="color:var(--text-secondary);margin-bottom:32px;">Everything you need to know before booking your treatment.</p>
+
+        <div class="accordion" id="pricingFaq">
+
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                <i class="bi bi-shield-check me-2" style="color:var(--blue);"></i>
+                Does insurance cover dermatology treatments?
+              </button>
+            </h2>
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#pricingFaq">
+              <div class="accordion-body">
+                Medical dermatology treatments (such as acne, eczema, and skin cancer screenings) may be covered by health insurance. Aesthetic and cosmetic procedures are generally not covered. We recommend checking with your insurer prior to booking. Our patient coordinators can provide detailed cost breakdowns and help you understand your coverage.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                <i class="bi bi-credit-card me-2" style="color:var(--blue);"></i>
+                Are payment plans or financing available?
+              </button>
+            </h2>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#pricingFaq">
+              <div class="accordion-body">
+                Yes! We offer flexible 0% interest payment plans through our financing partners for treatments over $500. Plans can be spread across 3, 6, or 12 months. We also accept all major credit cards, HSA/FSA funds, and bank transfers. Ask about our financing options when you book your consultation.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                <i class="bi bi-calendar-check me-2" style="color:var(--blue);"></i>
+                How much does a consultation cost?
+              </button>
+            </h2>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#pricingFaq">
+              <div class="accordion-body">
+                Your first consultation is completely free when you book a treatment package. Standalone consultations are priced at $75 for a 45-minute session. This fee is fully credited toward any treatment you proceed with. Follow-up consultations are complimentary for all active patients within their treatment programme.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                <i class="bi bi-x-circle me-2" style="color:var(--blue);"></i>
+                What is the cancellation and rescheduling policy?
+              </button>
+            </h2>
+            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#pricingFaq">
+              <div class="accordion-body">
+                We kindly ask for at least 24 hours' notice for cancellations or rescheduling. Cancellations with less than 24 hours' notice may incur a $50 late-cancellation fee. No-shows are charged 50% of the treatment cost. Exceptions are made for genuine medical emergencies. You can reschedule via our online portal, by phone, or WhatsApp at no charge with adequate notice.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                <i class="bi bi-info-circle me-2" style="color:var(--blue);"></i>
+                What should I do before and after my treatment?
+              </button>
+            </h2>
+            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#pricingFaq">
+              <div class="accordion-body">
+                Pre-treatment care varies by procedure. Generally, avoid sun exposure for 2 weeks prior, discontinue retinoids 5â€“7 days before, and arrive with clean, make-up-free skin. Post-treatment, follow the specific aftercare protocol provided by your dermatologist. This typically includes sun protection (SPF 50+), gentle moisturisation, and avoiding heat/exercise for 24â€“48 hours. Detailed written aftercare instructions are provided after every session.
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /accordion -->
+      </div>
+
+      <!-- Right â€” CTA Card -->
+      <div class="col-lg-5">
+        <div class="cta-card">
+          <div style="font-size:2.5rem;margin-bottom:16px;"><i class="bi bi-stars"></i></div>
+          <h3>Ready to Start Your Skin Journey?</h3>
+          <p>Book a free consultation today and let our specialists create a personalised treatment plan just for you.</p>
+          <a href="/contact.html#booking" class="btn-cta-white">
+            <i class="bi bi-calendar2-heart me-2"></i>Book Free Consultation
+          </a>
+          <div class="cta-contact-row">
+            <div class="cta-contact-item">
+              <i class="bi bi-telephone-fill"></i>
+              <span>+1 (555) 234-5678</span>
+            </div>
+            <div class="cta-contact-item">
+              <i class="bi bi-whatsapp"></i>
+              <span>WhatsApp Us</span>
+            </div>
+          </div>
+          <div class="clinic-hours">
+            <strong><i class="bi bi-clock me-1"></i>Clinic Hours</strong>
+            <div>Monâ€“Fri: 8:00 AM â€“ 7:00 PM</div>
+            <div>Saturday: 9:00 AM â€“ 5:00 PM</div>
+            <div>Sunday: By Appointment Only</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+============================================================ -->
+<footer class="dc-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="dc-logo">
+          <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="15" fill="rgba(84,124,155,0.2)" stroke="#4A7090" stroke-width="1.5"/>
+            <path d="M16 8c0 0-6 4-6 10a6 6 0 0 0 12 0C22 12 16 8 16 8z" fill="#4A7090" opacity="0.9"/>
+          </svg>DermaCare
+        </div>
+        <p class="dc-desc">Premium dermatological care combining clinical excellence with personalised attention. Your skin's health is our commitment.</p>
+        <div class="d-flex gap-3 mt-3">
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-instagram"></i></a>
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-facebook"></i></a>
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-sm-6">
+        <div class="dc-heading">Services</div>
+        <ul class="dc-links">
+          <li><a href="/services.html">Acne Treatment</a></li>
+          <li><a href="/services.html">Laser Therapy</a></li>
+          <li><a href="/services.html">Skin Rejuvenation</a></li>
+          <li><a href="/services.html">Pigmentation Care</a></li>
+          <li><a href="/services.html">Anti-Aging</a></li>
+          <li><a href="/services.html">Hair &amp; Scalp</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-sm-6">
+        <div class="dc-heading">Company</div>
+        <ul class="dc-links">
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/home2.html">Home 2</a></li>
+          <li><a href="/about.html">About Us</a></li>
+          <li><a href="/services.html">Services</a></li>
+          <li><a href="/blog.html">Blog</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/appointment.html">Book Appointment</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <div class="dc-heading">Contact</div>
+        <ul class="dc-links">
+          <li><i class="bi bi-geo-alt me-2"></i>123 Wellness Avenue, Suite 400</li>
+          <li><i class="bi bi-telephone me-2"></i>+1 (800) DERMA-00</li>
+          <li><i class="bi bi-envelope me-2"></i>hello@dermacare.clinic</li>
+          <li class="mt-2"><i class="bi bi-clock me-2"></i>Monâ€“Sat: 8 AM â€“ 7 PM</li>
+          <li><span style="padding-left:1.4rem;">Sun: 10 AM â€“ 4 PM</span></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="dc-divider" />
+    <div class="d-flex flex-wrap justify-content-between align-items-center dc-bottom">
+      <span>Â© 2024 DermaCare Clinic. All rights reserved.</span>
+      <span class="d-flex gap-3">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script>
+
+<script>
+  // === Service filter tabs ===
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      const filter = this.dataset.filter;
+      document.querySelectorAll('.service-item').forEach(item => {
+        if (filter === 'all' || item.dataset.category === filter) {
+          item.style.display = '';
+          item.style.animation = 'fadeInUp .4s ease both';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>
+

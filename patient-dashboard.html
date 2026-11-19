@@ -1,0 +1,2527 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <title>Patient Dashboard — DermaCare Portal</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="/assets/js/rtl-init.js"></script>
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- Shared Styles -->
+  <link rel="stylesheet" href="/assets/css/style.css" />
+
+  <style>
+    /* ============================================================
+       DASHBOARD — SCOPED STYLES
+    ============================================================ */
+    :root {
+      --ivory: var(--color-ivory);
+      --blue: var(--color-blue);
+      --blue-dark: #3d607a;
+      --blue-light: #d4e4f0;
+      --sage: var(--color-sage);
+      --sage-light: #e8f0e7;
+      --champagne: var(--color-champagne);
+      --champagne-light: #f5ede0;
+      --charcoal: var(--color-charcoal);
+      --sidebar-w: 260px;
+      --topbar-h: 68px;
+      --card-radius: 14px;
+      --transition: all .25s ease;
+      --shadow-sm: 0 2px 10px rgba(41,45,50,.07);
+      --shadow-md: 0 6px 24px rgba(41,45,50,.10);
+      --shadow-lg: 0 12px 40px rgba(41,45,50,.14);
+
+      /* Light theme */
+      --bg: #F2F0ED;
+      --bg-card: #FFFFFF;
+      --text-main: #292D32;
+      --text-muted: #5F6B7A;
+      --border: #e5e1db;
+      --sidebar-bg: #FFFFFF;
+      --topbar-bg: rgba(255,255,255,0.95);
+    }
+
+    [data-theme="dark"] {
+      --bg: #15181d;
+      --bg-card: #1e2229;
+      --text-main: #e8e6e3;
+      --text-muted: #9AA1AD;
+      --border: #2e3340;
+      --sidebar-bg: #1a1d24;
+      --topbar-bg: rgba(26,29,36,0.97);
+      --ivory: #15181d;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      transition: background .3s, color .3s;
+    }
+
+    h1, h2, h3, h4, h5 { font-family: 'Playfair Display', serif; }
+
+    /* ---- TOPBAR ---- */
+    .dash-topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--topbar-h);
+      background: var(--topbar-bg);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 16px;
+      z-index: 1000;
+      transition: var(--transition);
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--blue);
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .topbar-brand svg { flex-shrink: 0; }
+
+    .topbar-search {
+      flex: 1;
+      max-width: 420px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .topbar-search input {
+      width: 100%;
+      padding: 9px 16px 9px 42px;
+      border: 1.5px solid var(--border);
+      border-radius: 50px;
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: 'DM Sans', sans-serif;
+      font-size: .875rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .topbar-search input:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(84,124,155,.12); }
+    .topbar-search input::placeholder { color: var(--text-muted); }
+
+    .topbar-search .search-icon {
+      position: absolute;
+      left: 14px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: .9rem;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-left: auto;
+    }
+
+    .topbar-icon-btn {
+      width: 40px; height: 40px;
+      border: none;
+      background: var(--bg);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      position: relative;
+      transition: var(--transition);
+      border: 1px solid var(--border);
+    }
+
+    .topbar-icon-btn:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    .notif-badge {
+      position: absolute;
+      top: 4px; right: 4px;
+      width: 16px; height: 16px;
+      background: #ef4444;
+      border-radius: 50%;
+      font-size: .6rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid var(--bg-card);
+    }
+
+    .topbar-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 50px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      transition: var(--transition);
+    }
+
+    .topbar-user:hover { border-color: var(--blue); }
+
+    .topbar-avatar {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--sage));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: .85rem;
+    }
+
+    .topbar-user-name {
+      font-size: .875rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    /* ---- LAYOUT ---- */
+    .dash-layout {
+      display: flex;
+      padding-top: var(--topbar-h);
+      min-height: 100vh;
+    }
+
+    /* ---- SIDEBAR ---- */
+    .dash-sidebar {
+      width: var(--sidebar-w);
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      position: fixed;
+      top: var(--topbar-h);
+      left: 0;
+      bottom: 0;
+      overflow-y: auto;
+      transition: var(--transition);
+      z-index: 900;
+      display: flex;
+      flex-direction: column;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+
+    .sidebar-profile {
+      padding: 28px 20px 20px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .sidebar-avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--sage));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: #fff;
+      margin: 0 auto 12px;
+      border: 3px solid var(--blue-light);
+    }
+
+    .sidebar-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .sidebar-pid {
+      font-size: .75rem;
+      color: var(--text-muted);
+      background: var(--bg);
+      padding: 3px 10px;
+      border-radius: 20px;
+      display: inline-block;
+    }
+
+    .sidebar-nav {
+      padding: 16px 12px;
+      flex: 1;
+    }
+
+    .sidebar-nav-label {
+      font-size: .68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text-muted);
+      padding: 12px 8px 6px;
+    }
+
+    .sidebar-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 11px 14px;
+      border-radius: 10px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: .875rem;
+      font-weight: 500;
+      transition: var(--transition);
+      margin-bottom: 2px;
+      cursor: pointer;
+    }
+
+    .sidebar-nav-item i { font-size: 1.1rem; width: 20px; text-align: center; }
+
+    .sidebar-nav-item:hover,
+    .sidebar-nav-item.active {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .sidebar-nav-item .nav-badge {
+      margin-left: auto;
+      background: #ef4444;
+      color: #fff;
+      border-radius: 20px;
+      font-size: .65rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    .sidebar-nav-item:hover .nav-badge,
+    .sidebar-nav-item.active .nav-badge {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .sidebar-logout {
+      padding: 16px 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ---- MAIN CONTENT ---- */
+    .dash-main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      padding: 32px 32px 60px;
+      min-width: 0;
+    }
+
+    /* ---- SECTION HEADER ---- */
+    .section-header {
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .section-sub {
+      font-size: .875rem;
+      color: var(--text-muted);
+    }
+
+    /* ---- CARDS ---- */
+    .dash-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .dash-card:hover { box-shadow: var(--shadow-md); }
+
+    /* ---- STAT CARDS ---- */
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+    .stat-icon {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .stat-icon.blue { background: var(--blue-light); color: var(--blue); }
+    .stat-icon.sage { background: var(--sage-light); color: #5a8057; }
+    .stat-icon.champagne { background: var(--champagne-light); color: #9a7a4e; }
+    .stat-icon.green { background: #d1fae5; color: #059669; }
+
+    .stat-label {
+      font-size: .78rem;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    .stat-meta {
+      font-size: .78rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .stat-trend { color: #059669; font-weight: 600; }
+
+    /* ---- CHART CARD ---- */
+    .chart-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--card-radius);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .chart-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    /* ---- BOOKING FORM ---- */
+    .form-label-dash {
+      font-size: .8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .form-control-dash {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: 'DM Sans', sans-serif;
+      font-size: .9rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .form-control-dash:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(84,124,155,.12); }
+    .form-control-dash::placeholder { color: var(--text-muted); }
+
+    select.form-control-dash { cursor: pointer; }
+    textarea.form-control-dash { resize: vertical; min-height: 90px; }
+
+    .time-slots {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .time-slot {
+      padding: 9px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      text-align: center;
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text-muted);
+      background: var(--bg);
+      user-select: none;
+    }
+
+    .time-slot:hover { border-color: var(--blue); color: var(--blue); }
+    .time-slot.selected { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    .btn-confirm {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 13px 28px;
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+    }
+
+    .btn-confirm:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(84,124,155,.3); }
+
+    /* ---- UPCOMING APPTS ---- */
+    .appt-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-bottom: 12px;
+      background: var(--bg);
+      transition: var(--transition);
+    }
+
+    .appt-item:hover { border-color: var(--blue); }
+
+    .appt-dot {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    /* ---- TABLE ---- */
+    .dash-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: .875rem;
+    }
+
+    .dash-table thead th {
+      padding: 12px 16px;
+      text-align: left;
+      font-size: .75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+    }
+
+    .dash-table tbody td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-main);
+      vertical-align: middle;
+    }
+
+    .dash-table tbody tr:last-child td { border-bottom: none; }
+    .dash-table tbody tr:hover td { background: var(--bg); }
+
+    /* ---- BADGES ---- */
+    .status-badge {
+      padding: 4px 11px;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 700;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .badge-green { background: #d1fae5; color: #065f46; }
+    .badge-blue { background: var(--blue-light); color: var(--blue-dark); }
+    .badge-red { background: #fee2e2; color: #991b1b; }
+    .badge-grey { background: #f3f4f6; color: var(--text-muted); }
+
+    /* ---- FILTER ROW ---- */
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    .filter-input {
+      flex: 1;
+      min-width: 180px;
+      padding: 9px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg);
+      color: var(--text-main);
+      font-family: 'DM Sans', sans-serif;
+      font-size: .875rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .filter-input:focus { border-color: var(--blue); }
+    .filter-input::placeholder { color: var(--text-muted); }
+
+    .filter-input-wrap { position: relative; flex: 1; min-width: 180px; display: flex; align-items: center; }
+    .filter-input-wrap > i { position: absolute; left: 12px; color: var(--text-muted); font-size: .9rem; pointer-events: none; }
+    .filter-input-wrap .filter-input { width: 100%; padding-left: 34px; }
+
+    select.filter-input { cursor: pointer; }
+
+    /* ---- PAGINATION ---- */
+    .pagination-dash {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      font-size: .85rem;
+      color: var(--text-muted);
+    }
+
+    .page-btns {
+      display: flex;
+      gap: 6px;
+    }
+
+    .page-btn {
+      width: 34px; height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: .85rem;
+      font-weight: 600;
+      background: var(--bg-card);
+      color: var(--text-muted);
+    }
+
+    .page-btn:hover, .page-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    /* ---- PROGRESS PHOTOS ---- */
+    .privacy-banner {
+      background: linear-gradient(135deg, #fef3c7, #fde68a);
+      border: 1px solid #f59e0b;
+      border-radius: 10px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      font-size: .875rem;
+      color: #78350f;
+      font-weight: 500;
+    }
+
+    [data-theme="dark"] .privacy-banner {
+      background: linear-gradient(135deg, #2d2000, #3d2a00);
+      border-color: #92400e;
+      color: #fde68a;
+    }
+
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 32px 20px;
+      text-align: center;
+      transition: var(--transition);
+      cursor: pointer;
+      background: var(--bg);
+      margin-bottom: 20px;
+    }
+
+    .upload-zone:hover { border-color: var(--blue); background: var(--blue-light); }
+
+    .upload-zone i { font-size: 2.2rem; color: var(--text-muted); margin-bottom: 10px; }
+    .upload-zone p { color: var(--text-muted); font-size: .875rem; margin-bottom: 10px; }
+
+    .btn-upload {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 9px 20px;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-upload:hover { background: var(--blue-dark); }
+
+    .photo-placeholder {
+      border-radius: 10px;
+      height: 160px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-size: .78rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.9);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .photo-placeholder .lock-icon {
+      position: absolute;
+      top: 10px; right: 10px;
+      background: rgba(0,0,0,0.3);
+      border-radius: 6px;
+      padding: 3px 6px;
+      font-size: .7rem;
+      color: #fff;
+    }
+
+    .photo-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .photo-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+    .photo-info {
+      padding: 12px;
+    }
+
+    .photo-info h6 {
+      font-size: .85rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+
+    .photo-info small { color: var(--text-muted); font-size: .75rem; }
+
+    .btn-view-photo {
+      display: block;
+      text-align: center;
+      padding: 8px;
+      background: var(--bg);
+      color: var(--blue);
+      font-size: .78rem;
+      font-weight: 600;
+      border-top: 1px solid var(--border);
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      border: none;
+      width: 100%;
+    }
+
+    .btn-view-photo:hover { background: var(--blue); color: #fff; }
+
+    /* Before/After Toggle */
+    .compare-toggle {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      width: fit-content;
+    }
+
+    .compare-btn {
+      padding: 7px 16px;
+      font-size: .8rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+
+    .compare-btn.active { background: var(--blue); color: #fff; }
+
+    /* ---- PRESCRIPTIONS ---- */
+    .rx-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 14px;
+      transition: var(--transition);
+    }
+
+    .rx-card:hover { border-color: var(--blue); }
+
+    .rx-card.expired { opacity: .55; filter: grayscale(.4); }
+
+    .rx-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    .rx-meta { font-size: .78rem; color: var(--text-muted); margin-bottom: 10px; }
+    .rx-meta span { margin-right: 14px; }
+
+    .btn-rx {
+      padding: 7px 16px;
+      border-radius: 8px;
+      font-size: .78rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-rx-primary {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+    }
+
+    .btn-rx-primary:hover { background: var(--blue-dark); }
+
+    /* ---- PAYMENTS ---- */
+    .payment-summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .pay-summary-item {
+      background: var(--bg);
+      padding: 16px;
+      text-align: center;
+    }
+
+    .pay-summary-label { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); font-weight: 600; margin-bottom: 4px; }
+    .pay-summary-val { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--text-main); }
+    .pay-summary-val.green { color: #059669; }
+
+    .pay-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: .82rem; }
+    .pay-table th { padding: 10px 12px; text-align: left; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-muted); border-bottom: 1px solid var(--border); }
+    .pay-table td { padding: 11px 12px; border-bottom: 1px solid var(--border); color: var(--text-main); vertical-align: middle; }
+    .pay-table tr:last-child td { border-bottom: none; }
+
+    .btn-receipt {
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: none;
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--blue);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-receipt:hover { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+    .card-icons { display: flex; gap: 8px; align-items: center; margin-top: 14px; }
+
+    .card-icon {
+      padding: 5px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: .03em;
+    }
+
+    .btn-statement {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 10px 20px;
+      border-radius: 9px;
+      border: 1.5px solid var(--blue);
+      background: none;
+      color: var(--blue);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: .85rem;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 14px;
+    }
+
+    .btn-statement:hover { background: var(--blue); color: #fff; }
+
+    /* ---- PROFILE / SETTINGS ---- */
+    .profile-avatar-wrap {
+      position: relative;
+      width: 90px; height: 90px;
+      margin: 0 auto 16px;
+    }
+
+    .profile-avatar {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--sage));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      border: 3px solid var(--border);
+    }
+
+    .avatar-edit {
+      position: absolute;
+      bottom: 2px; right: 2px;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      border: 2px solid var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .75rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .avatar-edit:hover { background: var(--blue-dark); }
+
+    .setting-label {
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* Toggle switch */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .toggle-row:last-child { border-bottom: none; }
+
+    .toggle-label h6 { font-size: .9rem; font-weight: 600; margin-bottom: 2px; }
+    .toggle-label small { color: var(--text-muted); font-size: .78rem; }
+
+    .toggle-switch {
+      position: relative;
+      width: 44px; height: 24px;
+      flex-shrink: 0;
+    }
+
+    .toggle-switch input { opacity: 0; width: 0; height: 0; }
+
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      background: var(--border);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .toggle-track::before {
+      content: '';
+      position: absolute;
+      width: 18px; height: 18px;
+      left: 3px; top: 3px;
+      background: #fff;
+      border-radius: 50%;
+      transition: var(--transition);
+      box-shadow: 0 1px 4px rgba(0,0,0,.2);
+    }
+
+    .toggle-switch input:checked + .toggle-track { background: var(--blue); }
+    .toggle-switch input:checked + .toggle-track::before { transform: translateX(20px); }
+
+    /* ---- BUTTONS GENERIC ---- */
+    .btn-primary-dash {
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      padding: 11px 26px;
+      border-radius: 9px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-primary-dash:hover { background: var(--blue-dark); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(84,124,155,.3); }
+
+    .btn-outline-dash {
+      background: none;
+      color: var(--blue);
+      border: 1.5px solid var(--blue);
+      padding: 11px 26px;
+      border-radius: 9px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-outline-dash:hover { background: var(--blue); color: #fff; }
+
+    /* ---- SECTION DIVIDER ---- */
+    .dash-section { margin-bottom: 48px; }
+    .dash-section:last-child { margin-bottom: 0; }
+
+    /* ---- DROPDOWN MENU ---- */
+    .user-dropdown-menu {
+      position: absolute;
+      top: calc(100% + 8px);
+      right: 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: var(--shadow-lg);
+      min-width: 200px;
+      padding: 8px;
+      z-index: 2000;
+      display: none;
+    }
+
+    .user-dropdown-menu.show { display: block; }
+
+    .user-dropdown-menu a, .user-dropdown-menu button {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 8px;
+      font-size: .85rem;
+      color: var(--text-main);
+      text-decoration: none;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-family: 'DM Sans', sans-serif;
+      transition: var(--transition);
+    }
+
+    .user-dropdown-menu a:hover, .user-dropdown-menu button:hover { background: var(--bg); }
+    .user-dropdown-menu .divider { height: 1px; background: var(--border); margin: 6px 0; }
+
+    /* ---- MOBILE OVERLAY ---- */
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.4);
+      z-index: 850;
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 991px) {
+      .dash-sidebar {
+        transform: translateX(-100%);
+        z-index: 950;
+      }
+
+      .dash-sidebar.open {
+        transform: translateX(0);
+      }
+
+      .sidebar-overlay.show { display: block; }
+
+      .dash-main { margin-left: 0; padding: 24px 16px 60px; }
+
+      .topbar-search { display: none; }
+    }
+
+    @media (max-width: 767px) {
+      .time-slots { grid-template-columns: repeat(2, 1fr); }
+      .payment-summary { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 575px) {
+      .dash-main { padding: 16px 12px 60px; }
+    }
+  </style>
+<link rel="stylesheet" href="/assets/css/responsive.css" />
+</head>
+<body>
+
+<!-- ============================================================
+     TOPBAR
+============================================================ -->
+<header class="dash-topbar">
+  <button class="topbar-icon-btn d-lg-none" id="sidebarToggle" aria-label="Open sidebar">
+    <i class="bi bi-list"></i>
+  </button>
+
+  <a href="index.html" class="topbar-brand">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="15" cy="15" r="14" fill="#E8F0F7"/>
+      <path d="M15 6C15 6 10 10.5 10 15.5C10 18.538 12.238 21 15 21C17.762 21 20 18.538 20 15.5C20 10.5 15 6Z" fill="#4A7090" opacity=".85"/>
+      <path d="M15 10C15 10 12 12.75 12 15.5C12 17.157 13.343 18.5 15 18.5C16.657 18.5 18 17.157 18 15.5C18 12.75 15 10Z" fill="#A8B9A5"/>
+    </svg>
+    DermaCare Patient Portal
+  </a>
+
+  <div class="topbar-search">
+    <i class="bi bi-search search-icon"></i>
+    <input type="text" placeholder="Search treatments, records..." aria-label="Search" />
+  </div>
+
+  <div class="topbar-actions">
+    <!-- Notification Bell -->
+    <button class="topbar-icon-btn" aria-label="Notifications">
+      <i class="bi bi-bell"></i>
+      <span class="notif-badge">3</span>
+    </button>
+
+    <!-- Dark/Light Toggle -->
+    <button class="topbar-icon-btn" id="themeToggle" aria-label="Toggle theme">
+      <i class="bi bi-moon-stars" id="themeIcon"></i>
+    </button>
+
+    <!-- User Dropdown -->
+    <div style="position:relative;">
+      <div class="topbar-user" id="userDropdownTrigger" role="button" tabindex="0">
+        <div class="topbar-avatar">EJ</div>
+        <span class="topbar-user-name d-none d-sm-block">Emma Johnson</span>
+        <i class="bi bi-chevron-down" style="font-size:.7rem;color:var(--text-muted);"></i>
+      </div>
+      <div class="user-dropdown-menu" id="userDropdownMenu">
+        <a href="#profile"><i class="bi bi-person"></i> My Profile</a>
+        <a href="#settings"><i class="bi bi-gear"></i> Settings</a>
+        <div class="divider"></div>
+        <button><i class="bi bi-box-arrow-right"></i> Sign Out</button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Sidebar Overlay (mobile) -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- ============================================================
+     LAYOUT
+============================================================ -->
+<div class="dash-layout">
+
+  <!-- ============================================================
+       LEFT SIDEBAR
+  ============================================================ -->
+  <aside class="dash-sidebar" id="dashSidebar">
+    <!-- Profile Block -->
+    <div class="sidebar-profile">
+      <div class="sidebar-avatar">EJ</div>
+      <div class="sidebar-name">Emma Johnson</div>
+      <div class="sidebar-pid">Patient ID: #DC-2024-0892</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="sidebar-nav" aria-label="Dashboard navigation">
+      <div class="sidebar-nav-label">Main Menu</div>
+
+      <a href="#overview" class="sidebar-nav-item active">
+        <i class="bi bi-house-door"></i>
+        Dashboard
+      </a>
+      <a href="#appointments" class="sidebar-nav-item">
+        <i class="bi bi-calendar-check"></i>
+        Appointments
+      </a>
+      <a href="#history" class="sidebar-nav-item">
+        <i class="bi bi-clock-history"></i>
+        Treatment History
+      </a>
+      <a href="#photos" class="sidebar-nav-item">
+        <i class="bi bi-images"></i>
+        Progress Photos
+      </a>
+
+      <div class="sidebar-nav-label">Medical</div>
+
+      <a href="#prescriptions" class="sidebar-nav-item">
+        <i class="bi bi-capsule"></i>
+        Prescriptions
+      </a>
+      <a href="#payments" class="sidebar-nav-item">
+        <i class="bi bi-credit-card"></i>
+        Payments
+      </a>
+      <a href="#messages" class="sidebar-nav-item">
+        <i class="bi bi-chat-dots"></i>
+        Messages
+        <span class="nav-badge">2</span>
+      </a>
+
+      <div class="sidebar-nav-label">Account</div>
+
+      <a href="#profile" class="sidebar-nav-item">
+        <i class="bi bi-gear"></i>
+        Settings
+      </a>
+    </nav>
+
+    <!-- Logout -->
+    <div class="sidebar-logout">
+      <a href="login.html" class="sidebar-nav-item" style="color:#ef4444;">
+        <i class="bi bi-box-arrow-left"></i>
+        Logout
+      </a>
+    </div>
+  </aside>
+
+  <!-- ============================================================
+       MAIN CONTENT
+  ============================================================ -->
+  <main class="dash-main">
+
+    <!-- ============================================================
+         SECTION 1 — OVERVIEW CARDS
+    ============================================================ -->
+    <section id="overview" class="dash-section">
+      <div class="section-header">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+          <div>
+            <h2 class="section-title">Welcome back, Emma <i class="bi bi-emoji-smile"></i></h2>
+            <p class="section-sub">Here's your skin health overview for today — Wednesday, 18 Nov 2026</p>
+          </div>
+          <a href="#appointments" class="btn-primary-dash" style="text-decoration:none;font-size:.85rem;padding:9px 20px;">
+            <i class="bi bi-plus-lg me-1"></i> Book Appointment
+          </a>
+        </div>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon blue"><i class="bi bi-calendar2-heart"></i></div>
+            <div>
+              <div class="stat-label">Next Appointment</div>
+              <div class="stat-value">Nov 25, 2026</div>
+              <div class="stat-meta">Dr. Sarah Mitchell</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon sage"><i class="bi bi-stars"></i></div>
+            <div>
+              <div class="stat-label">Treatments Completed</div>
+              <div class="stat-value">8 Sessions</div>
+              <div class="stat-meta">Since Jun 2026</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon champagne"><i class="bi bi-capsule-pill"></i></div>
+            <div>
+              <div class="stat-label">Current Prescription</div>
+              <div class="stat-value">2 Active</div>
+              <div class="stat-meta">Updated Nov 1, 2026</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon green"><i class="bi bi-graph-up-arrow"></i></div>
+            <div>
+              <div class="stat-label">Skin Score</div>
+              <div class="stat-value">87<small style="font-size:.8rem;">/100</small> <span class="stat-trend"><i class="bi bi-arrow-up-right"></i></span></div>
+              <div class="stat-meta"><span class="stat-trend">+5 pts</span> from last month</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart -->
+      <div class="chart-card">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4">
+          <div>
+            <h4 class="chart-title">Skin Health Progress</h4>
+            <p class="section-sub" style="font-size:.8rem;">Score tracked monthly by your dermatologist</p>
+          </div>
+          <div class="d-flex gap-2">
+            <span style="font-size:.78rem;color:var(--text-muted);">
+              <span style="display:inline-block;width:12px;height:12px;background:var(--blue);border-radius:3px;margin-right:5px;"></span>
+              Skin Score
+            </span>
+            <span style="font-size:.78rem;color:var(--text-muted);">
+              <span style="display:inline-block;width:12px;height:12px;background:var(--sage);border-radius:3px;margin-right:5px;"></span>
+              Treatment Sessions
+            </span>
+          </div>
+        </div>
+        <div style="position:relative;height:260px;">
+          <canvas id="skinProgressChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 2 — APPOINTMENT BOOKING
+    ============================================================ -->
+    <section id="appointments" class="dash-section">
+      <div class="section-header">
+        <h2 class="section-title">Book Your Next Appointment</h2>
+        <p class="section-sub">Schedule with your preferred specialist at your convenience</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Booking Form -->
+        <div class="col-lg-7">
+          <div class="dash-card">
+            <div class="row g-3">
+              <!-- Doctor -->
+              <div class="col-sm-6">
+                <label class="form-label-dash">Select Doctor</label>
+                <select class="form-control-dash">
+                  <option value="">— Choose Specialist —</option>
+                  <option>Dr. Sarah Mitchell — Dermatologist</option>
+                  <option>Dr. James Okafor — Laser Specialist</option>
+                  <option>Dr. Priya Sharma — Aesthetic MD</option>
+                  <option>Dr. Lucas Ferreira — Skin Oncology</option>
+                </select>
+              </div>
+              <!-- Treatment Type -->
+              <div class="col-sm-6">
+                <label class="form-label-dash">Treatment Type</label>
+                <select class="form-control-dash">
+                  <option value="">— Select Treatment —</option>
+                  <option>Acne Treatment</option>
+                  <option>Laser Therapy</option>
+                  <option>Anti-Aging Consultation</option>
+                  <option>Chemical Peel</option>
+                  <option>Pigmentation Care</option>
+                  <option>Hair & Scalp Analysis</option>
+                  <option>Skin Rejuvenation</option>
+                  <option>General Consultation</option>
+                </select>
+              </div>
+              <!-- Date -->
+              <div class="col-sm-6">
+                <label class="form-label-dash">Preferred Date</label>
+                <input type="date" class="form-control-dash" id="apptDate" min="2026-11-19" value="2026-11-25" />
+              </div>
+              <!-- Empty spacer on sm -->
+              <div class="col-sm-6 d-flex align-items-end">
+                <div style="font-size:.8rem;color:var(--text-muted);padding-bottom:4px;">
+                  <i class="bi bi-info-circle me-1"></i>
+                  Select a date then pick an available time below
+                </div>
+              </div>
+              <!-- Time Slots -->
+              <div class="col-12">
+                <label class="form-label-dash">Available Time Slots</label>
+                <div class="time-slots">
+                  <div class="time-slot" onclick="selectSlot(this)">9:00 AM</div>
+                  <div class="time-slot" onclick="selectSlot(this)">10:30 AM</div>
+                  <div class="time-slot selected" onclick="selectSlot(this)">11:00 AM</div>
+                  <div class="time-slot" onclick="selectSlot(this)">2:00 PM</div>
+                  <div class="time-slot" onclick="selectSlot(this)">3:30 PM</div>
+                  <div class="time-slot" onclick="selectSlot(this)">4:00 PM</div>
+                </div>
+              </div>
+              <!-- Notes -->
+              <div class="col-12">
+                <label class="form-label-dash">Special Notes</label>
+                <textarea class="form-control-dash" placeholder="Describe your concerns or any special requirements..." rows="3"></textarea>
+              </div>
+              <!-- Confirm -->
+              <div class="col-12">
+                <button class="btn-confirm" onclick="confirmAppointment()">
+                  <i class="bi bi-calendar-plus me-2"></i>Confirm Appointment
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Upcoming Appointments -->
+        <div class="col-lg-5">
+          <div class="dash-card h-100">
+            <h5 style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:16px;">
+              <i class="bi bi-calendar-week me-2" style="color:var(--blue);"></i>
+              Upcoming Appointments
+            </h5>
+
+            <!-- Appointment 1 -->
+            <div class="appt-item">
+              <div class="appt-dot" style="background:var(--blue-light);color:var(--blue);">
+                <i class="bi bi-person-badge"></i>
+              </div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:700;font-size:.9rem;margin-bottom:3px;">Dr. Sarah Mitchell</div>
+                <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:6px;">Laser Therapy — Nov 25, 2026 · 11:00 AM</div>
+                <span class="status-badge badge-green">Confirmed</span>
+              </div>
+            </div>
+
+            <!-- Appointment 2 -->
+            <div class="appt-item">
+              <div class="appt-dot" style="background:var(--champagne-light);color:#9a7a4e;">
+                <i class="bi bi-clipboard2-pulse"></i>
+              </div>
+              <div style="flex:1;min-width:0;">
+                <div style="font-weight:700;font-size:.9rem;margin-bottom:3px;">Dr. Priya Sharma</div>
+                <div style="font-size:.8rem;color:var(--text-muted);margin-bottom:6px;">Anti-Aging Consultation — Dec 3, 2026 · 2:00 PM</div>
+                <span class="status-badge badge-blue">Pending</span>
+              </div>
+            </div>
+
+            <div style="border-top:1px solid var(--border);margin-top:16px;padding-top:14px;">
+              <p style="font-size:.8rem;color:var(--text-muted);margin-bottom:0;">
+                <i class="bi bi-telephone me-1"></i> Need to reschedule?
+                <a href="tel:+15550000000" style="color:var(--blue);text-decoration:none;font-weight:600;">Call the clinic</a>
+                or message your doctor.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 3 — TREATMENT HISTORY
+    ============================================================ -->
+    <section id="history" class="dash-section">
+      <div class="section-header">
+        <h2 class="section-title">Your Treatment Journey</h2>
+        <p class="section-sub">Complete record of all your dermatological treatments at DermaCare</p>
+      </div>
+
+      <div class="dash-card">
+        <!-- Filters -->
+        <div class="filter-row">
+          <div class="filter-input-wrap">
+            <i class="bi bi-search"></i>
+            <input type="text" class="filter-input" placeholder="Search treatments, doctors..." />
+          </div>
+          <select class="filter-input" style="max-width:160px;">
+            <option value="">All Statuses</option>
+            <option>Completed</option>
+            <option>Upcoming</option>
+            <option>Cancelled</option>
+          </select>
+          <input type="date" class="filter-input" style="max-width:160px;" value="2026-06-01" />
+          <input type="date" class="filter-input" style="max-width:160px;" value="2026-11-30" />
+        </div>
+
+        <!-- Table -->
+        <div style="overflow-x:auto;">
+          <table class="dash-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Treatment</th>
+                <th>Doctor</th>
+                <th>Duration</th>
+                <th>Status</th>
+                <th>Notes</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="white-space:nowrap;font-weight:600;">Nov 1, 2026</td>
+                <td>Fractional CO₂ Laser</td>
+                <td>Dr. Sarah Mitchell</td>
+                <td>45 min</td>
+                <td><span class="status-badge badge-green">Completed</span></td>
+                <td style="max-width:180px;color:var(--text-muted);font-size:.82rem;">Post-peel cream prescribed. Excellent response.</td>
+                <td><button class="btn-receipt">View</button></td>
+              </tr>
+              <tr>
+                <td style="white-space:nowrap;font-weight:600;">Oct 10, 2026</td>
+                <td>Chemical Peel (Medium)</td>
+                <td>Dr. Priya Sharma</td>
+                <td>30 min</td>
+                <td><span class="status-badge badge-green">Completed</span></td>
+                <td style="max-width:180px;color:var(--text-muted);font-size:.82rem;">Glycolic 40%. Minor redness; resolved in 48h.</td>
+                <td><button class="btn-receipt">View</button></td>
+              </tr>
+              <tr>
+                <td style="white-space:nowrap;font-weight:600;">Sep 18, 2026</td>
+                <td>Acne Phototherapy (IPL)</td>
+                <td>Dr. James Okafor</td>
+                <td>60 min</td>
+                <td><span class="status-badge badge-green">Completed</span></td>
+                <td style="max-width:180px;color:var(--text-muted);font-size:.82rem;">3rd session of 5. Significant clearing noted.</td>
+                <td><button class="btn-receipt">View</button></td>
+              </tr>
+              <tr>
+                <td style="white-space:nowrap;font-weight:600;">Aug 29, 2026</td>
+                <td>Pigmentation Consultation</td>
+                <td>Dr. Sarah Mitchell</td>
+                <td>20 min</td>
+                <td><span class="status-badge badge-green">Completed</span></td>
+                <td style="max-width:180px;color:var(--text-muted);font-size:.82rem;">Prescribed Tretinoin 0.025%. Follow-up in 6 wks.</td>
+                <td><button class="btn-receipt">View</button></td>
+              </tr>
+              <tr>
+                <td style="white-space:nowrap;font-weight:600;">Nov 25, 2026</td>
+                <td>Laser Resurfacing (Q-Switch)</td>
+                <td>Dr. Sarah Mitchell</td>
+                <td>45 min</td>
+                <td><span class="status-badge badge-blue">Upcoming</span></td>
+                <td style="max-width:180px;color:var(--text-muted);font-size:.82rem;">Avoid retinoids 5 days prior. Arrive 15 min early.</td>
+                <td><button class="btn-receipt">View</button></td>
+              </tr>
+              <tr>
+                <td style="white-space:nowrap;font-weight:600;">Jul 14, 2026</td>
+                <td>HydraFacial MD</td>
+                <td>Dr. Lucas Ferreira</td>
+                <td>75 min</td>
+                <td><span class="status-badge badge-red">Cancelled</span></td>
+                <td style="max-width:180px;color:var(--text-muted);font-size:.82rem;">Cancelled by patient — rescheduled to Aug 29.</td>
+                <td><button class="btn-receipt">View</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-dash">
+          <span>Showing <strong>6</strong> of <strong>14</strong> records</span>
+          <div class="page-btns">
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn"><i class="bi bi-chevron-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 4 — PROGRESS PHOTOS
+    ============================================================ -->
+    <section id="photos" class="dash-section">
+      <div class="section-header">
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+          <div>
+            <h2 class="section-title">Your Progress Gallery</h2>
+            <p class="section-sub">Track your skin's transformation over time</p>
+          </div>
+          <div class="d-flex align-items-center gap-2 flex-wrap">
+            <select class="filter-input" style="max-width:200px;">
+              <option>All Treatments</option>
+              <option>Laser Therapy</option>
+              <option>Chemical Peel</option>
+              <option>Acne Phototherapy</option>
+              <option>Anti-Aging</option>
+            </select>
+            <div class="compare-toggle">
+              <button class="compare-btn active" onclick="switchView('grid',this)">
+                <i class="bi bi-grid-3x3-gap me-1"></i>Grid
+              </button>
+              <button class="compare-btn" onclick="switchView('compare',this)">
+                <i class="bi bi-layout-split me-1"></i>Before & After
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Privacy Banner -->
+      <div class="privacy-banner">
+        <i class="bi bi-lock-fill" style="font-size:1.2rem;"></i>
+        <span>These photos are private and visible only to you and your treating physician. They are encrypted and never shared.</span>
+      </div>
+
+      <!-- Upload Zone -->
+      <div class="upload-zone" id="uploadZone" onclick="document.getElementById('photoInput').click()" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
+        <i class="bi bi-cloud-arrow-up d-block mb-2"></i>
+        <p>Drag & drop photos here, or click to upload</p>
+        <p style="font-size:.75rem;margin-bottom:12px;">JPEG, PNG or HEIC · Max 10 MB per photo</p>
+        <button class="btn-upload" onclick="event.stopPropagation()">
+          <i class="bi bi-plus-lg me-1"></i>Upload Photo
+        </button>
+        <input type="file" id="photoInput" accept="image/*" style="display:none;" multiple />
+      </div>
+
+      <!-- Photo Grid View -->
+      <div id="photoGridView">
+        <div class="row g-3">
+          <!-- Photo 1 -->
+          <div class="col-sm-6 col-lg-4">
+            <div class="photo-card">
+              <div class="photo-placeholder" style="background:linear-gradient(135deg,#4A7090,#3d607a);">
+                <i class="bi bi-lock" style="font-size:1.4rem;margin-bottom:6px;opacity:.7;"></i>
+                <div>Progress Photo</div>
+                <div style="font-size:.7rem;opacity:.8;">Nov 1, 2026</div>
+                <div class="lock-icon"><i class="bi bi-lock-fill"></i> Private</div>
+              </div>
+              <div class="photo-info">
+                <h6>Cheek — Laser Session</h6>
+                <small><i class="bi bi-calendar me-1"></i>Nov 1, 2026 &nbsp; <i class="bi bi-stars me-1"></i>Fractional CO₂</small>
+              </div>
+              <button class="btn-view-photo" onclick="showPhotoModal('Cheek — Laser Session', 'Nov 1, 2026')">
+                <i class="bi bi-eye me-1"></i>View Full Size
+              </button>
+            </div>
+          </div>
+          <!-- Photo 2 -->
+          <div class="col-sm-6 col-lg-4">
+            <div class="photo-card">
+              <div class="photo-placeholder" style="background:linear-gradient(135deg,#A8B9A5,#7a9876);">
+                <i class="bi bi-lock" style="font-size:1.4rem;margin-bottom:6px;opacity:.7;"></i>
+                <div>Progress Photo</div>
+                <div style="font-size:.7rem;opacity:.8;">Oct 10, 2026</div>
+                <div class="lock-icon"><i class="bi bi-lock-fill"></i> Private</div>
+              </div>
+              <div class="photo-info">
+                <h6>Forehead — Chemical Peel</h6>
+                <small><i class="bi bi-calendar me-1"></i>Oct 10, 2026 &nbsp; <i class="bi bi-droplet me-1"></i>Medium Peel</small>
+              </div>
+              <button class="btn-view-photo" onclick="showPhotoModal('Forehead — Chemical Peel', 'Oct 10, 2026')">
+                <i class="bi bi-eye me-1"></i>View Full Size
+              </button>
+            </div>
+          </div>
+          <!-- Photo 3 -->
+          <div class="col-sm-6 col-lg-4">
+            <div class="photo-card">
+              <div class="photo-placeholder" style="background:linear-gradient(135deg,#D8C5A5,#b89c74);">
+                <i class="bi bi-lock" style="font-size:1.4rem;margin-bottom:6px;opacity:.7;"></i>
+                <div>Progress Photo</div>
+                <div style="font-size:.7rem;opacity:.8;">Sep 18, 2026</div>
+                <div class="lock-icon"><i class="bi bi-lock-fill"></i> Private</div>
+              </div>
+              <div class="photo-info">
+                <h6>T-Zone — Acne Phototherapy</h6>
+                <small><i class="bi bi-calendar me-1"></i>Sep 18, 2026 &nbsp; <i class="bi bi-lightning me-1"></i>IPL Session 3</small>
+              </div>
+              <button class="btn-view-photo" onclick="showPhotoModal('T-Zone — Acne Phototherapy', 'Sep 18, 2026')">
+                <i class="bi bi-eye me-1"></i>View Full Size
+              </button>
+            </div>
+          </div>
+          <!-- Photo 4 -->
+          <div class="col-sm-6 col-lg-4">
+            <div class="photo-card">
+              <div class="photo-placeholder" style="background:linear-gradient(135deg,#6b7c9a,#4a5a7a);">
+                <i class="bi bi-lock" style="font-size:1.4rem;margin-bottom:6px;opacity:.7;"></i>
+                <div>Progress Photo</div>
+                <div style="font-size:.7rem;opacity:.8;">Aug 29, 2026</div>
+                <div class="lock-icon"><i class="bi bi-lock-fill"></i> Private</div>
+              </div>
+              <div class="photo-info">
+                <h6>Full Face — Consultation</h6>
+                <small><i class="bi bi-calendar me-1"></i>Aug 29, 2026 &nbsp; <i class="bi bi-clipboard-pulse me-1"></i>Baseline</small>
+              </div>
+              <button class="btn-view-photo" onclick="showPhotoModal('Full Face — Consultation', 'Aug 29, 2026')">
+                <i class="bi bi-eye me-1"></i>View Full Size
+              </button>
+            </div>
+          </div>
+          <!-- Photo 5 -->
+          <div class="col-sm-6 col-lg-4">
+            <div class="photo-card">
+              <div class="photo-placeholder" style="background:linear-gradient(135deg,#8fa8a0,#5e8278);">
+                <i class="bi bi-lock" style="font-size:1.4rem;margin-bottom:6px;opacity:.7;"></i>
+                <div>Progress Photo</div>
+                <div style="font-size:.7rem;opacity:.8;">Aug 1, 2026</div>
+                <div class="lock-icon"><i class="bi bi-lock-fill"></i> Private</div>
+              </div>
+              <div class="photo-info">
+                <h6>Left Cheek — Before IPL</h6>
+                <small><i class="bi bi-calendar me-1"></i>Aug 1, 2026 &nbsp; <i class="bi bi-camera me-1"></i>Pre-Treatment</small>
+              </div>
+              <button class="btn-view-photo" onclick="showPhotoModal('Left Cheek — Before IPL', 'Aug 1, 2026')">
+                <i class="bi bi-eye me-1"></i>View Full Size
+              </button>
+            </div>
+          </div>
+          <!-- Photo 6 -->
+          <div class="col-sm-6 col-lg-4">
+            <div class="photo-card">
+              <div class="photo-placeholder" style="background:linear-gradient(135deg,#9b7c8f,#7a506c);">
+                <i class="bi bi-lock" style="font-size:1.4rem;margin-bottom:6px;opacity:.7;"></i>
+                <div>Progress Photo</div>
+                <div style="font-size:.7rem;opacity:.8;">Jun 15, 2026</div>
+                <div class="lock-icon"><i class="bi bi-lock-fill"></i> Private</div>
+              </div>
+              <div class="photo-info">
+                <h6>Neck — Initial Assessment</h6>
+                <small><i class="bi bi-calendar me-1"></i>Jun 15, 2026 &nbsp; <i class="bi bi-camera me-1"></i>Intake Photo</small>
+              </div>
+              <button class="btn-view-photo" onclick="showPhotoModal('Neck — Initial Assessment', 'Jun 15, 2026')">
+                <i class="bi bi-eye me-1"></i>View Full Size
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Before & After Compare View (hidden by default) -->
+      <div id="compareView" style="display:none;">
+        <div class="dash-card text-center">
+          <h5 style="font-family:'Playfair Display',serif;margin-bottom:20px;">Before &amp; After Comparison</h5>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="photo-placeholder" style="background:linear-gradient(135deg,#9b7c8f,#7a506c);height:200px;border-radius:10px;">
+                <div style="font-size:1rem;font-weight:700;">BEFORE</div>
+                <div style="font-size:.8rem;opacity:.85;">Jun 15, 2026</div>
+                <div class="lock-icon"><i class="bi bi-lock-fill"></i> Private</div>
+              </div>
+              <p style="font-size:.8rem;color:var(--text-muted);margin-top:8px;">Neck — Initial Assessment</p>
+            </div>
+            <div class="col-md-6">
+              <div class="photo-placeholder" style="background:linear-gradient(135deg,#4A7090,#3d607a);height:200px;border-radius:10px;">
+                <div style="font-size:1rem;font-weight:700;">AFTER</div>
+                <div style="font-size:.8rem;opacity:.85;">Nov 1, 2026</div>
+                <div class="lock-icon"><i class="bi bi-lock-fill"></i> Private</div>
+              </div>
+              <p style="font-size:.8rem;color:var(--text-muted);margin-top:8px;">Cheek — Post Laser Session</p>
+            </div>
+          </div>
+          <p style="font-size:.8rem;color:var(--text-muted);margin-top:16px;">
+            <i class="bi bi-info-circle me-1"></i>
+            Significant improvement observed over 5 months of consistent treatment.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 5 — PRESCRIPTIONS + PAYMENTS
+    ============================================================ -->
+    <section id="prescriptions" class="dash-section">
+      <div class="section-header">
+        <h2 class="section-title">Prescriptions &amp; Payments</h2>
+        <p class="section-sub">Manage your medications and billing in one place</p>
+      </div>
+
+      <div class="row g-4" id="payments">
+        <!-- LEFT — PRESCRIPTIONS -->
+        <div class="col-lg-6">
+          <div class="dash-card h-100">
+            <h5 style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;margin-bottom:16px;">
+              <i class="bi bi-capsule me-2" style="color:var(--blue);"></i>Active Prescriptions
+            </h5>
+
+            <!-- Rx 1 -->
+            <div class="rx-card">
+              <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
+                <div class="rx-name">Tretinoin Cream 0.025%</div>
+                <span class="status-badge badge-green">Active</span>
+              </div>
+              <div class="rx-meta">
+                <span><i class="bi bi-person me-1"></i>Dr. Sarah Mitchell</span>
+                <span><i class="bi bi-capsule-pill me-1"></i>Apply nightly</span>
+              </div>
+              <div class="rx-meta">
+                <span><i class="bi bi-calendar me-1"></i>Start: Oct 1, 2026</span>
+                <span><i class="bi bi-calendar-x me-1"></i>End: Mar 31, 2027</span>
+              </div>
+              <div class="rx-meta" style="margin-bottom:12px;">
+                <span><i class="bi bi-arrow-repeat me-1"></i>Refills remaining: <strong>3</strong></span>
+              </div>
+              <button class="btn-rx btn-rx-primary">
+                <i class="bi bi-file-earmark-arrow-down me-1"></i>Download PDF
+              </button>
+            </div>
+
+            <!-- Rx 2 -->
+            <div class="rx-card">
+              <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
+                <div class="rx-name">Clindamycin Phosphate 1% Gel</div>
+                <span class="status-badge badge-green">Active</span>
+              </div>
+              <div class="rx-meta">
+                <span><i class="bi bi-person me-1"></i>Dr. James Okafor</span>
+                <span><i class="bi bi-capsule-pill me-1"></i>Apply twice daily</span>
+              </div>
+              <div class="rx-meta">
+                <span><i class="bi bi-calendar me-1"></i>Start: Sep 20, 2026</span>
+                <span><i class="bi bi-calendar-x me-1"></i>End: Dec 20, 2026</span>
+              </div>
+              <div class="rx-meta" style="margin-bottom:12px;">
+                <span><i class="bi bi-arrow-repeat me-1"></i>Refills remaining: <strong>1</strong></span>
+              </div>
+              <button class="btn-rx btn-rx-primary">
+                <i class="bi bi-file-earmark-arrow-down me-1"></i>Download PDF
+              </button>
+            </div>
+
+            <!-- Rx 3 (Expired) -->
+            <div class="rx-card expired">
+              <div class="d-flex align-items-start justify-content-between gap-2 mb-2">
+                <div class="rx-name">Hydrocortisone 1% Cream</div>
+                <span class="status-badge badge-grey">Expired</span>
+              </div>
+              <div class="rx-meta">
+                <span><i class="bi bi-person me-1"></i>Dr. Priya Sharma</span>
+                <span><i class="bi bi-capsule-pill me-1"></i>Apply as needed</span>
+              </div>
+              <div class="rx-meta">
+                <span><i class="bi bi-calendar me-1"></i>Start: Jun 20, 2026</span>
+                <span><i class="bi bi-calendar-x me-1"></i>End: Sep 1, 2026</span>
+              </div>
+              <div class="rx-meta" style="margin-bottom:0;">
+                <span><i class="bi bi-arrow-repeat me-1"></i>Refills remaining: <strong>0</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT — PAYMENTS -->
+        <div class="col-lg-6">
+          <div class="dash-card h-100">
+            <h5 style="font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;margin-bottom:16px;">
+              <i class="bi bi-credit-card me-2" style="color:var(--blue);"></i>Billing & Payments
+            </h5>
+
+            <!-- Payment Summary -->
+            <div class="payment-summary">
+              <div class="pay-summary-item">
+                <div class="pay-summary-label">Amount Due</div>
+                <div class="pay-summary-val green">$0.00</div>
+              </div>
+              <div class="pay-summary-item">
+                <div class="pay-summary-label">Last Payment</div>
+                <div class="pay-summary-val">$350</div>
+              </div>
+              <div class="pay-summary-item">
+                <div class="pay-summary-label">Next Due</div>
+                <div class="pay-summary-val" style="font-size:1rem;color:var(--text-muted);">None</div>
+              </div>
+            </div>
+
+            <!-- Payment history table -->
+            <div style="overflow-x:auto;">
+              <table class="pay-table">
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="white-space:nowrap;">Nov 1, 2026</td>
+                    <td>Fractional CO₂ Laser</td>
+                    <td style="font-weight:700;">$350</td>
+                    <td><span class="status-badge badge-green">Paid</span></td>
+                    <td><button class="btn-receipt"><i class="bi bi-receipt me-1"></i>Receipt</button></td>
+                  </tr>
+                  <tr>
+                    <td style="white-space:nowrap;">Oct 10, 2026</td>
+                    <td>Chemical Peel (Medium)</td>
+                    <td style="font-weight:700;">$220</td>
+                    <td><span class="status-badge badge-green">Paid</span></td>
+                    <td><button class="btn-receipt"><i class="bi bi-receipt me-1"></i>Receipt</button></td>
+                  </tr>
+                  <tr>
+                    <td style="white-space:nowrap;">Sep 18, 2026</td>
+                    <td>IPL Acne Phototherapy</td>
+                    <td style="font-weight:700;">$280</td>
+                    <td><span class="status-badge badge-green">Paid</span></td>
+                    <td><button class="btn-receipt"><i class="bi bi-receipt me-1"></i>Receipt</button></td>
+                  </tr>
+                  <tr>
+                    <td style="white-space:nowrap;">Aug 29, 2026</td>
+                    <td>Consultation Fee</td>
+                    <td style="font-weight:700;">$80</td>
+                    <td><span class="status-badge badge-green">Paid</span></td>
+                    <td><button class="btn-receipt"><i class="bi bi-receipt me-1"></i>Receipt</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <button class="btn-statement">
+              <i class="bi bi-file-earmark-text"></i> View Full Statement
+            </button>
+
+            <!-- Card Icons -->
+            <div class="card-icons">
+              <span style="font-size:.72rem;color:var(--text-muted);margin-right:4px;">Accepted:</span>
+              <span class="card-icon" style="color:#1a1f71;border-color:#1a1f71;">VISA</span>
+              <span class="card-icon" style="color:#eb001b;border-color:#eb001b;">MC</span>
+              <span class="card-icon" style="color:#2e77bc;border-color:#2e77bc;">AMEX</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SECTION 6 — PROFILE + SETTINGS
+    ============================================================ -->
+    <section id="profile" class="dash-section">
+      <div class="section-header">
+        <h2 class="section-title">My Profile &amp; Settings</h2>
+        <p class="section-sub">Keep your information up to date for the best care experience</p>
+      </div>
+
+      <div class="row g-4">
+        <!-- Left — Profile Form -->
+        <div class="col-lg-8">
+          <div class="dash-card">
+            <!-- Avatar Upload -->
+            <div class="text-center mb-4">
+              <div class="profile-avatar-wrap">
+                <div class="profile-avatar">EJ</div>
+                <div class="avatar-edit" title="Change photo"><i class="bi bi-camera-fill"></i></div>
+              </div>
+              <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;">Emma Johnson</div>
+              <div style="font-size:.82rem;color:var(--text-muted);">Patient since June 2026 · ID: #DC-2024-0892</div>
+            </div>
+
+            <h6 style="font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);">
+              Personal Information
+            </h6>
+
+            <div class="row g-3 mb-4">
+              <div class="col-sm-6">
+                <label class="setting-label">Full Name</label>
+                <input type="text" class="form-control-dash" value="Emma Johnson" />
+              </div>
+              <div class="col-sm-6">
+                <label class="setting-label">Date of Birth</label>
+                <input type="date" class="form-control-dash" value="1992-04-18" />
+              </div>
+              <div class="col-sm-6">
+                <label class="setting-label">Gender</label>
+                <select class="form-control-dash">
+                  <option>Female</option>
+                  <option>Male</option>
+                  <option>Non-binary</option>
+                  <option>Prefer not to say</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="setting-label">Blood Type</label>
+                <select class="form-control-dash">
+                  <option>A+</option>
+                  <option>A-</option>
+                  <option>B+</option>
+                  <option>B-</option>
+                  <option selected>O+</option>
+                  <option>O-</option>
+                  <option>AB+</option>
+                  <option>AB-</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="setting-label">Phone Number</label>
+                <input type="tel" class="form-control-dash" value="+1 (555) 234-7890" />
+              </div>
+              <div class="col-sm-6">
+                <label class="setting-label">Email Address</label>
+                <input type="email" class="form-control-dash" value="emma.johnson@email.com" />
+              </div>
+              <div class="col-12">
+                <label class="setting-label">Home Address</label>
+                <input type="text" class="form-control-dash" value="142 Maple Street, Apt 3B, New York, NY 10001" />
+              </div>
+              <div class="col-12">
+                <label class="setting-label">Known Allergies</label>
+                <textarea class="form-control-dash" rows="2">Sulfa drugs, Fragrance additives (topical)</textarea>
+              </div>
+              <div class="col-sm-6">
+                <label class="setting-label">Emergency Contact</label>
+                <input type="text" class="form-control-dash" value="Mark Johnson — +1 (555) 876-5432" />
+              </div>
+            </div>
+
+            <h6 style="font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border);">
+              Medical History
+            </h6>
+
+            <div class="row g-3 mb-4">
+              <div class="col-sm-6">
+                <label class="setting-label">Skin Type</label>
+                <select class="form-control-dash">
+                  <option>Type I — Very Fair</option>
+                  <option>Type II — Fair</option>
+                  <option selected>Type III — Medium</option>
+                  <option>Type IV — Olive</option>
+                  <option>Type V — Brown</option>
+                  <option>Type VI — Dark</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="setting-label">Current Medications</label>
+                <input type="text" class="form-control-dash" value="Tretinoin, Clindamycin Gel" />
+              </div>
+              <div class="col-12">
+                <label class="setting-label">Known Conditions</label>
+                <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:10px;margin-top:4px;">
+                  <label style="display:flex;align-items:center;gap:8px;font-size:.875rem;cursor:pointer;">
+                    <input type="checkbox" checked style="accent-color:var(--blue);" /> Acne Vulgaris
+                  </label>
+                  <label style="display:flex;align-items:center;gap:8px;font-size:.875rem;cursor:pointer;">
+                    <input type="checkbox" checked style="accent-color:var(--blue);" /> Post-Inflammatory Hyperpigmentation
+                  </label>
+                  <label style="display:flex;align-items:center;gap:8px;font-size:.875rem;cursor:pointer;">
+                    <input type="checkbox" style="accent-color:var(--blue);" /> Rosacea
+                  </label>
+                  <label style="display:flex;align-items:center;gap:8px;font-size:.875rem;cursor:pointer;">
+                    <input type="checkbox" style="accent-color:var(--blue);" /> Eczema / Dermatitis
+                  </label>
+                  <label style="display:flex;align-items:center;gap:8px;font-size:.875rem;cursor:pointer;">
+                    <input type="checkbox" style="accent-color:var(--blue);" /> Psoriasis
+                  </label>
+                  <label style="display:flex;align-items:center;gap:8px;font-size:.875rem;cursor:pointer;">
+                    <input type="checkbox" style="accent-color:var(--blue);" /> Melasma
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex gap-3 flex-wrap">
+              <button class="btn-primary-dash" onclick="saveProfile()">
+                <i class="bi bi-check-lg me-1"></i>Save Changes
+              </button>
+              <button class="btn-outline-dash" onclick="changePassword()">
+                <i class="bi bi-shield-lock me-1"></i>Change Password
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right — Preferences -->
+        <div class="col-lg-4">
+          <!-- Notification Preferences -->
+          <div class="dash-card mb-4">
+            <h5 style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:16px;">
+              <i class="bi bi-bell me-2" style="color:var(--blue);"></i>Notifications
+            </h5>
+
+            <div class="toggle-row">
+              <div class="toggle-label">
+                <h6>Appointment Reminders</h6>
+                <small>24h before your appointment</small>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked />
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+
+            <div class="toggle-row">
+              <div class="toggle-label">
+                <h6>Treatment Updates</h6>
+                <small>Post-treatment care reminders</small>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked />
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+
+            <div class="toggle-row">
+              <div class="toggle-label">
+                <h6>Billing Alerts</h6>
+                <small>Payment receipts & invoices</small>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked />
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+
+            <div class="toggle-row">
+              <div class="toggle-label">
+                <h6>Newsletter & Offers</h6>
+                <small>Skincare tips & promotions</small>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" />
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Privacy Settings -->
+          <div class="dash-card">
+            <h5 style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:16px;">
+              <i class="bi bi-shield-check me-2" style="color:var(--blue);"></i>Privacy Settings
+            </h5>
+
+            <div class="mb-3">
+              <label class="setting-label">Who can view progress photos?</label>
+              <select class="form-control-dash">
+                <option selected>Me + My Treating Physician Only</option>
+                <option>Me + All DermaCare Doctors</option>
+                <option>Me Only</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="setting-label">Anonymised Data Sharing</label>
+              <select class="form-control-dash">
+                <option selected>Opt-in — Help improve treatments</option>
+                <option>Opt-out — Do not share data</option>
+              </select>
+            </div>
+
+            <div class="toggle-row">
+              <div class="toggle-label">
+                <h6>Two-Factor Authentication</h6>
+                <small>Extra security on login</small>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked />
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+
+            <div class="toggle-row">
+              <div class="toggle-label">
+                <h6>Login Activity Alerts</h6>
+                <small>Email on new sign-in</small>
+              </div>
+              <label class="toggle-switch">
+                <input type="checkbox" checked />
+                <span class="toggle-track"></span>
+              </label>
+            </div>
+
+            <div style="margin-top:16px;padding:12px;background:#fef2f2;border-radius:8px;border:1px solid #fecaca;">
+              <p style="font-size:.78rem;color:#991b1b;margin-bottom:8px;font-weight:600;">
+                <i class="bi bi-exclamation-triangle me-1"></i>Danger Zone
+              </p>
+              <button style="font-size:.78rem;color:#ef4444;border:1px solid #fecaca;background:none;border-radius:6px;padding:5px 12px;cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:600;">
+                Request Data Deletion
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main><!-- end .dash-main -->
+</div><!-- end .dash-layout -->
+
+<!-- ============================================================
+     PHOTO MODAL (Lightbox)
+============================================================ -->
+<div id="photoModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;">
+  <div style="background:var(--bg-card);border-radius:16px;padding:28px;max-width:500px;width:90%;position:relative;">
+    <button onclick="closePhotoModal()" style="position:absolute;top:14px;right:14px;background:none;border:none;font-size:1.3rem;cursor:pointer;color:var(--text-muted);">
+      <i class="bi bi-x-lg"></i>
+    </button>
+    <h5 id="photoModalTitle" style="font-family:'Playfair Display',serif;margin-bottom:6px;"></h5>
+    <p id="photoModalDate" style="font-size:.8rem;color:var(--text-muted);margin-bottom:16px;"></p>
+    <div id="photoModalImg" style="border-radius:10px;height:260px;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:600;color:rgba(255,255,255,.9);background:linear-gradient(135deg,#4A7090,#3d607a);">
+      <div style="text-align:center;">
+        <i class="bi bi-lock-fill" style="font-size:2rem;display:block;margin-bottom:8px;"></i>
+        Progress Photo<br><span style="font-size:.75rem;opacity:.8;">Encrypted · Private</span>
+      </div>
+    </div>
+    <div style="margin-top:14px;display:flex;gap:10px;">
+      <button class="btn-primary-dash" style="flex:1;font-size:.85rem;padding:9px;">
+        <i class="bi bi-download me-1"></i>Download
+      </button>
+      <button class="btn-outline-dash" style="flex:1;font-size:.85rem;padding:9px;" onclick="closePhotoModal()">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     TOAST CONTAINER
+============================================================ -->
+<div id="toastContainer" style="position:fixed;bottom:24px;right:24px;z-index:9000;display:flex;flex-direction:column;gap:10px;"></div>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Shared JS -->
+<script src="/assets/js/main.js"></script>
+
+<script>
+/* ============================================================
+   DASHBOARD JAVASCRIPT
+============================================================ */
+
+/* -- Theme Toggle -- */
+(function(){
+  const saved = localStorage.getItem('dermaTheme') || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  updateThemeIcon(saved);
+})();
+
+function updateThemeIcon(theme) {
+  const icon = document.getElementById('themeIcon');
+  if (!icon) return;
+  icon.className = theme === 'dark' ? 'bi bi-sun' : 'bi bi-moon-stars';
+}
+
+document.getElementById('themeToggle').addEventListener('click', function(){
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('dermaTheme', next);
+  updateThemeIcon(next);
+  // Refresh chart colors
+  if (window.skinChart) {
+    updateChartTheme();
+  }
+});
+
+/* -- Sidebar Toggle (mobile) -- */
+const sidebarEl = document.getElementById('dashSidebar');
+const overlayEl = document.getElementById('sidebarOverlay');
+
+document.getElementById('sidebarToggle').addEventListener('click', function(){
+  sidebarEl.classList.toggle('open');
+  overlayEl.classList.toggle('show');
+});
+
+overlayEl.addEventListener('click', function(){
+  sidebarEl.classList.remove('open');
+  overlayEl.classList.remove('show');
+});
+
+/* -- Sidebar Active Navigation -- */
+document.querySelectorAll('.sidebar-nav-item').forEach(function(item){
+  item.addEventListener('click', function(){
+    document.querySelectorAll('.sidebar-nav-item').forEach(i => i.classList.remove('active'));
+    this.classList.add('active');
+    // Close on mobile
+    if (window.innerWidth < 992) {
+      sidebarEl.classList.remove('open');
+      overlayEl.classList.remove('show');
+    }
+  });
+});
+
+/* -- User Dropdown -- */
+const dropTrigger = document.getElementById('userDropdownTrigger');
+const dropMenu = document.getElementById('userDropdownMenu');
+
+dropTrigger.addEventListener('click', function(e){
+  e.stopPropagation();
+  dropMenu.classList.toggle('show');
+});
+
+document.addEventListener('click', function(){
+  dropMenu.classList.remove('show');
+});
+
+/* -- Time Slot Selection -- */
+function selectSlot(el) {
+  document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+/* -- Confirm Appointment -- */
+function confirmAppointment() {
+  const selectedSlot = document.querySelector('.time-slot.selected');
+  const time = selectedSlot ? selectedSlot.textContent.trim() : 'your selected time';
+  showToast('success', 'Appointment Confirmed!', 'Your appointment on Nov 25 at ' + time + ' has been booked.');
+}
+
+/* -- Save Profile -- */
+function saveProfile() {
+  showToast('success', 'Profile Updated', 'Your profile information has been saved successfully.');
+}
+
+/* -- Change Password -- */
+function changePassword() {
+  showToast('info', 'Password Reset', 'A password reset link has been sent to emma.johnson@email.com');
+}
+
+/* -- Photo Modal -- */
+function showPhotoModal(title, date) {
+  document.getElementById('photoModalTitle').textContent = title;
+  document.getElementById('photoModalDate').textContent = 'Taken: ' + date + ' · Encrypted & Private';
+  const modal = document.getElementById('photoModal');
+  modal.style.display = 'flex';
+  modal.style.opacity = '0';
+  modal.style.transition = 'opacity .2s';
+  setTimeout(() => { modal.style.opacity = '1'; }, 10);
+}
+
+function closePhotoModal() {
+  const modal = document.getElementById('photoModal');
+  modal.style.opacity = '0';
+  setTimeout(() => { modal.style.display = 'none'; }, 200);
+}
+
+/* -- Before/After View Toggle -- */
+function switchView(view, btn) {
+  document.querySelectorAll('.compare-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (view === 'grid') {
+    document.getElementById('photoGridView').style.display = 'block';
+    document.getElementById('compareView').style.display = 'none';
+  } else {
+    document.getElementById('photoGridView').style.display = 'none';
+    document.getElementById('compareView').style.display = 'block';
+  }
+}
+
+/* -- File Drop Zone -- */
+function handleDrop(e) {
+  e.preventDefault();
+  const files = e.dataTransfer.files;
+  if (files.length) {
+    showToast('success', 'Photo Uploaded', files.length + ' photo(s) uploaded securely to your private gallery.');
+  }
+}
+
+/* -- Toast Notification System -- */
+function showToast(type, title, message) {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  const colors = {
+    success: { bg: '#d1fae5', border: '#a7f3d0', text: '#065f46', icon: 'bi-check-circle-fill' },
+    error:   { bg: '#fee2e2', border: '#fca5a5', text: '#991b1b', icon: 'bi-x-circle-fill' },
+    info:    { bg: '#dbeafe', border: '#93c5fd', text: '#1e40af', icon: 'bi-info-circle-fill' }
+  };
+  const c = colors[type] || colors.info;
+
+  toast.style.cssText = [
+    'background:' + c.bg,
+    'border:1px solid ' + c.border,
+    'border-radius:12px',
+    'padding:14px 18px',
+    'max-width:340px',
+    'display:flex',
+    'gap:12px',
+    'align-items:flex-start',
+    'box-shadow:0 8px 24px rgba(0,0,0,.12)',
+    'animation:slideInToast .3s ease',
+    'font-family:DM Sans,sans-serif'
+  ].join(';');
+
+  toast.innerHTML = [
+    '<i class="bi ' + c.icon + '" style="font-size:1.1rem;color:' + c.text + ';margin-top:1px;flex-shrink:0;"></i>',
+    '<div>',
+      '<div style="font-weight:700;font-size:.875rem;color:' + c.text + ';margin-bottom:2px;">' + title + '</div>',
+      '<div style="font-size:.8rem;color:' + c.text + ';opacity:.85;">' + message + '</div>',
+    '</div>'
+  ].join('');
+
+  container.appendChild(toast);
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity .3s';
+    setTimeout(() => toast.remove(), 300);
+  }, 4000);
+}
+
+/* Inject toast keyframe */
+(function(){
+  const style = document.createElement('style');
+  style.textContent = '@keyframes slideInToast { from { transform:translateX(80px);opacity:0; } to { transform:translateX(0);opacity:1; } }';
+  document.head.appendChild(style);
+})();
+
+/* ============================================================
+   CHART.JS — SKIN HEALTH PROGRESS
+============================================================ */
+function getChartColors() {
+  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+  return {
+    gridColor: dark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)',
+    textColor: dark ? '#9ca3af' : '#6b7280',
+    bgCard: dark ? '#1e2229' : '#ffffff'
+  };
+}
+
+const ctx = document.getElementById('skinProgressChart').getContext('2d');
+
+const gradientBlue = ctx.createLinearGradient(0, 0, 0, 260);
+gradientBlue.addColorStop(0, 'rgba(84,124,155,0.25)');
+gradientBlue.addColorStop(1, 'rgba(84,124,155,0.0)');
+
+const gradientSage = ctx.createLinearGradient(0, 0, 0, 260);
+gradientSage.addColorStop(0, 'rgba(168,185,165,0.2)');
+gradientSage.addColorStop(1, 'rgba(168,185,165,0.0)');
+
+window.skinChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['Jun 2026', 'Jul 2026', 'Aug 2026', 'Sep 2026', 'Oct 2026', 'Nov 2026'],
+    datasets: [
+      {
+        label: 'Skin Score',
+        data: [60, 65, 70, 75, 82, 87],
+        borderColor: '#4A7090',
+        backgroundColor: gradientBlue,
+        borderWidth: 2.5,
+        pointBackgroundColor: '#4A7090',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        tension: 0.4,
+        fill: true,
+        yAxisID: 'y'
+      },
+      {
+        label: 'Treatment Sessions',
+        data: [1, 2, 3, 5, 7, 8],
+        borderColor: '#A8B9A5',
+        backgroundColor: gradientSage,
+        borderWidth: 2.5,
+        pointBackgroundColor: '#A8B9A5',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        tension: 0.4,
+        fill: true,
+        yAxisID: 'y1'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { intersect: false, mode: 'index' },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#292D32',
+        titleColor: '#fff',
+        bodyColor: 'rgba(255,255,255,.8)',
+        padding: 12,
+        cornerRadius: 10,
+        callbacks: {
+          label: function(ctx) {
+            if (ctx.datasetIndex === 0) return ' Skin Score: ' + ctx.parsed.y + '/100';
+            return ' Sessions: ' + ctx.parsed.y;
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: getChartColors().gridColor, drawBorder: false },
+        ticks: { color: getChartColors().textColor, font: { family: 'DM Sans', size: 12 } }
+      },
+      y: {
+        min: 40,
+        max: 100,
+        position: 'left',
+        grid: { color: getChartColors().gridColor, drawBorder: false },
+        ticks: {
+          color: getChartColors().textColor,
+          font: { family: 'DM Sans', size: 12 },
+          callback: v => v + '/100'
+        }
+      },
+      y1: {
+        min: 0,
+        max: 12,
+        position: 'right',
+        grid: { drawOnChartArea: false },
+        ticks: {
+          color: getChartColors().textColor,
+          font: { family: 'DM Sans', size: 12 },
+          stepSize: 2
+        }
+      }
+    }
+  }
+});
+
+function updateChartTheme() {
+  const c = getChartColors();
+  window.skinChart.options.scales.x.grid.color = c.gridColor;
+  window.skinChart.options.scales.x.ticks.color = c.textColor;
+  window.skinChart.options.scales.y.grid.color = c.gridColor;
+  window.skinChart.options.scales.y.ticks.color = c.textColor;
+  window.skinChart.options.scales.y1.ticks.color = c.textColor;
+  window.skinChart.update();
+}
+
+/* -- Smooth scroll for sidebar links -- */
+document.querySelectorAll('.sidebar-nav-item[href^="#"]').forEach(function(link) {
+  link.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      const topOffset = 80;
+      const y = target.getBoundingClientRect().top + window.pageYOffset - topOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  });
+});
+
+/* -- Table Filter -- */
+document.querySelectorAll('.filter-row input[type="text"], .filter-row select').forEach(function(input) {
+  input.addEventListener('input', function() {
+    // Simple client-side filter feedback
+  });
+});
+
+/* -- Pagination -- */
+document.querySelectorAll('.page-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.page-btn').forEach(b => b.classList.remove('active'));
+    if (!this.querySelector('i')) this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

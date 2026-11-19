@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <meta name="description" content="Learn about DermaCare — our story, mission, expert team, certifications, and world-class facility. Trusted dermatology since 2004." />
+  <title>About Us | DermaCare — Premium Dermatology & Skin Clinic</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="/assets/js/rtl-init.js"></script>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/assets/css/style.css" />
+
+  <style>
+    /* ===================== ABOUT PAGE SPECIFIC STYLES ===================== */
+
+    /* ---- Hero ---- */
+    .about-hero {
+      background:
+        linear-gradient(180deg, rgba(17,24,21,0.78) 0%, rgba(17,24,21,0.86) 100%),
+        url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1600&h=900&fit=crop') center/cover no-repeat;
+      padding: 150px 0 100px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 55%, rgba(84,124,155,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .about-hero .container { position: relative; z-index: 2; }
+    .about-hero .breadcrumb { justify-content: center; }
+    .about-hero .breadcrumb-item + .breadcrumb-item::before { color: rgba(255,255,255,.45); }
+    .about-hero .breadcrumb-item a { color: #cfe4f2; text-decoration: none; font-size:.875rem; }
+    .about-hero .breadcrumb-item.active { color: #fff; font-size:.875rem; }
+    .about-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem,4vw,3.2rem); color: #fff; line-height:1.2; }
+    .about-hero .founding-badge { display:inline-flex; align-items:center; gap:.5rem; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.28); border-radius:50px; padding:.4rem 1.2rem; font-size:.82rem; color:#dcecf7; font-weight:600; margin-bottom:1.25rem; box-shadow:none; }
+    .about-hero .text-secondary { color: rgba(255,255,255,.82) !important; max-width: 800px; margin-left: auto; margin-right: auto; }
+    .about-hero .btn-outline-secondary { color:#fff; border-color:rgba(255,255,255,.65); }
+    .about-hero .btn-outline-secondary:hover { background:#fff; color:var(--charcoal, #292D32); border-color:#fff; }
+    .about-hero .hero-img-wrap { position:relative; }
+    .about-hero .hero-img-wrap img { border-radius:24px; width:100%; object-fit:cover; height:480px; box-shadow: 0 20px 60px rgba(41,45,50,.18); }
+    .about-hero .hero-img-badge { position:absolute; bottom:24px; left:-18px; background:#fff; border-radius:16px; padding:12px 20px; box-shadow:0 8px 32px rgba(41,45,50,.15); display:flex; align-items:center; gap:10px; }
+    .about-hero .hero-img-badge .badge-num { font-family:'Playfair Display',serif; font-size:1.6rem; font-weight:700; color:var(--blue,#4A7090); line-height:1; }
+    .about-hero .hero-img-badge .badge-label { font-size:.72rem; color:var(--text-secondary); line-height:1.3; max-width:70px; }
+
+    /* ---- Mission & Values ---- */
+    .mission-section { background:#fff; padding:90px 0; }
+    .mv-card { border:none; border-radius:20px; padding:2.5rem 2rem; height:100%; box-shadow:0 4px 24px rgba(41,45,50,.07); transition:transform .3s, box-shadow .3s; }
+    .mv-card:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(84,124,155,.15); }
+    .mv-card .mv-icon { width:60px; height:60px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:1.6rem; margin-bottom:1.25rem; }
+    .mv-card .mv-icon.blue { background:rgba(84,124,155,.12); color:var(--blue,#4A7090); }
+    .mv-card .mv-icon.sage { background:rgba(168,185,165,.2); color:#5a7a57; }
+    .mv-card .mv-icon.champagne { background:rgba(216,197,165,.25); color:#9a7a4a; }
+    .mv-card h4 { font-family:'Playfair Display',serif; font-size:1.25rem; color:var(--charcoal,#292D32); margin-bottom:.75rem; }
+    .mv-card p, .mv-card li { font-size:.93rem; color:var(--text-secondary); line-height:1.7; }
+    .mv-card ul { list-style:none; padding:0; margin:0; }
+    .mv-card ul li { padding:.3rem 0; display:flex; align-items:center; gap:.5rem; }
+    .mv-card ul li::before { content:''; width:8px; height:8px; border-radius:50%; background:var(--sage,#A8B9A5); flex-shrink:0; }
+
+    .stats-bar { background:linear-gradient(135deg,var(--blue,#4A7090) 0%, #3d6b8c 100%); border-radius:20px; padding:2.5rem 1rem; margin-top:3rem; }
+    .stat-item { text-align:center; }
+    .stat-item .stat-num { font-family:'Playfair Display',serif; font-size:2.4rem; font-weight:700; color:#fff; line-height:1; display:block; }
+    .stat-item .stat-label { font-size:.82rem; color:rgba(255,255,255,.8); margin-top:.35rem; display:block; letter-spacing:.03em; }
+    .stat-divider { width:1px; background:rgba(255,255,255,.2); align-self:stretch; }
+
+    /* ---- Team ---- */
+    .team-section { background:var(--ivory,#FAF8F5); padding:90px 0; }
+    .section-label { font-size:.78rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--blue,#4A7090); margin-bottom:.5rem; display:block; }
+    .section-title { font-family:'Playfair Display',serif; font-size:clamp(1.75rem,3.5vw,2.5rem); color:var(--charcoal,#292D32); margin-bottom:1rem; }
+    .section-subtitle { color:var(--text-secondary); font-size:.97rem; max-width:560px; }
+
+    .doctor-card { border-radius:20px; overflow:hidden; background:#fff; box-shadow:0 4px 24px rgba(41,45,50,.08); transition:transform .3s, box-shadow .3s; position:relative; }
+    .doctor-card:hover { transform:translateY(-8px); box-shadow:0 20px 50px rgba(84,124,155,.18); }
+    .doctor-card .doc-img-wrap { position:relative; overflow:hidden; height:280px; }
+    .doctor-card .doc-img-wrap img { width:100%; height:100%; object-fit:cover; transition:transform .4s; }
+    .doctor-card:hover .doc-img-wrap img { transform:scale(1.06); }
+    .doctor-card .doc-overlay { position:absolute; inset:0; background:linear-gradient(0deg,rgba(84,124,155,.92) 0%,transparent 55%); opacity:0; transition:opacity .35s; display:flex; align-items:flex-end; justify-content:center; padding:1.5rem; }
+    .doctor-card:hover .doc-overlay { opacity:1; }
+    .doc-overlay .btn-book { background:#fff; color:var(--blue,#4A7090); border:none; border-radius:50px; padding:.5rem 1.4rem; font-size:.82rem; font-weight:600; white-space:nowrap; }
+    .doctor-card .doc-body { padding:1.5rem; }
+    .doctor-card .doc-name { font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:600; color:var(--charcoal,#292D32); margin-bottom:.2rem; }
+    .doctor-card .doc-title { font-size:.82rem; color:var(--blue,#4A7090); font-weight:600; margin-bottom:.15rem; }
+    .doctor-card .doc-creds { font-size:.78rem; color:var(--text-muted); margin-bottom:.85rem; }
+    .doc-tags { display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:.85rem; }
+    .doc-tag { background:rgba(168,185,165,.2); color:#5a7a57; border-radius:50px; padding:.2rem .7rem; font-size:.7rem; font-weight:600; }
+    .doc-linkedin { color:#0077b5; font-size:1.1rem; }
+
+    /* ---- Certifications ---- */
+    .cert-section { background:#fff; padding:90px 0; }
+    .cert-badge-list { list-style:none; padding:0; margin:0; }
+    .cert-badge-list li { display:flex; align-items:center; gap:1rem; padding:1rem 1.25rem; border-radius:14px; margin-bottom:.75rem; background:var(--ivory,#FAF8F5); border:1px solid rgba(84,124,155,.1); transition:box-shadow .25s; }
+    .cert-badge-list li:hover { box-shadow:0 4px 20px rgba(84,124,155,.12); }
+    .cert-badge-list .cert-icon { width:46px; height:46px; border-radius:12px; background:linear-gradient(135deg,var(--blue,#4A7090),#3d6b8c); display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.2rem; flex-shrink:0; }
+    .cert-badge-list .cert-name { font-weight:600; font-size:.9rem; color:var(--charcoal,#292D32); margin-bottom:.1rem; }
+    .cert-badge-list .cert-desc { font-size:.75rem; color:var(--text-muted); }
+
+    /* Timeline */
+    .timeline { position:relative; padding-left:2rem; }
+    .timeline::before { content:''; position:absolute; left:.45rem; top:0; bottom:0; width:2px; background:linear-gradient(to bottom, var(--blue,#4A7090), var(--sage,#A8B9A5)); border-radius:2px; }
+    .timeline-item { position:relative; padding-bottom:1.5rem; padding-left:1.75rem; }
+    .timeline-item:last-child { padding-bottom:0; }
+    .timeline-dot { position:absolute; left:-1.55rem; top:.2rem; width:16px; height:16px; border-radius:50%; background:var(--blue,#4A7090); border:3px solid #fff; box-shadow:0 0 0 2px var(--blue,#4A7090); flex-shrink:0; }
+    .timeline-year { font-size:.72rem; font-weight:700; color:var(--blue,#4A7090); letter-spacing:.08em; text-transform:uppercase; margin-bottom:.15rem; }
+    .timeline-event { font-weight:600; font-size:.9rem; color:var(--charcoal,#292D32); margin-bottom:.1rem; }
+    .timeline-desc { font-size:.78rem; color:var(--text-muted); }
+
+    /* ---- Clinic Tour ---- */
+    .tour-section { background:var(--ivory,#FAF8F5); padding:90px 0; }
+    .masonry-grid { columns:3; column-gap:1rem; }
+    .masonry-item { break-inside:avoid; margin-bottom:1rem; position:relative; border-radius:14px; overflow:hidden; }
+    .masonry-item img { width:100%; display:block; transition:transform .4s; }
+    .masonry-item:hover img { transform:scale(1.05); }
+    .masonry-item .room-overlay { position:absolute; inset:0; background:linear-gradient(0deg,rgba(41,45,50,.7) 0%,transparent 50%); opacity:0; transition:opacity .3s; display:flex; align-items:flex-end; padding:1rem; }
+    .masonry-item:hover .room-overlay { opacity:1; }
+    .room-overlay span { color:#fff; font-weight:600; font-size:.85rem; }
+    @media(max-width:767px){.masonry-grid{columns:2;}}
+    @media(max-width:480px){.masonry-grid{columns:1;}}
+
+    /* ---- Why Choose Us / CTA ---- */
+    .cta-section { background:linear-gradient(135deg,#e8f0ec 0%,#FAF8F5 100%); padding:90px 0; }
+    .usp-item { display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.5rem; }
+    .usp-icon { width:48px; height:48px; border-radius:14px; background:rgba(84,124,155,.12); color:var(--blue,#4A7090); display:flex; align-items:center; justify-content:center; font-size:1.2rem; flex-shrink:0; }
+    .usp-title { font-weight:700; font-size:.95rem; color:var(--charcoal,#292D32); margin-bottom:.2rem; }
+    .usp-desc { font-size:.85rem; color:var(--text-secondary); line-height:1.6; margin:0; }
+
+    .booking-mini-card { background:#fff; border-radius:24px; padding:2.5rem; box-shadow:0 8px 40px rgba(41,45,50,.1); }
+    .booking-mini-card h4 { font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--charcoal,#292D32); margin-bottom:1.5rem; }
+    .booking-mini-card .form-control, .booking-mini-card .form-select { border:1.5px solid #e0e0e0; border-radius:10px; padding:.7rem 1rem; font-size:.9rem; color:var(--charcoal,#292D32); background:var(--ivory,#FAF8F5); }
+    .booking-mini-card .form-control:focus, .booking-mini-card .form-select:focus { border-color:var(--blue,#4A7090); box-shadow:0 0 0 3px rgba(84,124,155,.15); }
+    .btn-primary-brand { background:var(--blue,#4A7090); color:#fff; border:none; border-radius:50px; padding:.7rem 2rem; font-weight:600; font-size:.95rem; transition:background .25s, transform .2s; }
+    .btn-primary-brand:hover { background:#3d6b8c; transform:translateY(-2px); }
+    .btn-whatsapp { background:#25d366; color:#fff; border:none; border-radius:50px; padding:.7rem 1.5rem; font-weight:600; font-size:.88rem; display:inline-flex; align-items:center; gap:.5rem; transition:background .25s; }
+    .btn-whatsapp:hover { background:#1ebe5c; color:#fff; }
+    .contact-quick-link { display:flex; align-items:center; gap:.75rem; padding:.85rem 1rem; border-radius:12px; background:var(--ivory,#FAF8F5); margin-bottom:.75rem; text-decoration:none; color:var(--charcoal,#292D32); font-weight:500; font-size:.9rem; border:1px solid rgba(84,124,155,.1); transition:border-color .25s; }
+    .contact-quick-link:hover { border-color:var(--blue,#4A7090); color:var(--blue,#4A7090); }
+    .contact-quick-link i { color:var(--blue,#4A7090); font-size:1.1rem; }
+
+    /* ---- Shared Navbar/Footer base overrides ---- */
+    .navbar-brand-logo { display:flex; align-items:center; gap:.5rem; font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:var(--charcoal,#292D32); text-decoration:none; }
+    .navbar-brand-logo svg { color:var(--blue,#4A7090); }
+    .site-footer { background:var(--charcoal,#292D32); color:#fff; padding:70px 0 0; }
+    .footer-title { font-family:'Playfair Display',serif; font-size:1rem; color:#fff; margin-bottom:1.25rem; }
+    .footer-links { list-style:none; padding:0; margin:0; }
+    .footer-links li { margin-bottom:.6rem; }
+    .footer-links a { color:rgba(255,255,255,.65); text-decoration:none; font-size:.88rem; transition:color .2s; }
+    .footer-links a:hover { color:#fff; }
+    .footer-contact-item { display:flex; align-items:flex-start; gap:.75rem; margin-bottom:.85rem; color:rgba(255,255,255,.75); font-size:.88rem; }
+    .footer-contact-item i { color:var(--sage,#A8B9A5); font-size:1rem; margin-top:.1rem; flex-shrink:0; }
+    .footer-social { display:flex; gap:.75rem; margin-top:1.25rem; }
+    .footer-social a { width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,.7); font-size:.95rem; transition:background .25s, color .25s; }
+    .footer-social a:hover { background:var(--blue,#4A7090); color:#fff; border-color:var(--blue,#4A7090); }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,.1); margin-top:3rem; padding:1.25rem 0; }
+    .footer-bottom p, .footer-bottom a { font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none; margin:0; }
+    .footer-bottom a:hover { color:#fff; }
+
+    /* navbar */
+    .main-navbar { backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); background:rgba(250,248,245,.88) !important; border-bottom:1px solid rgba(84,124,155,.12); transition:all .3s; }
+    [data-theme="dark"] .main-navbar { background:rgba(26,29,33,.88) !important; }
+    .main-navbar .nav-link { font-weight:500; font-size:.9rem; color:var(--charcoal,#292D32) !important; padding:.5rem .9rem !important; border-radius:8px; transition:background .2s, color .2s; }
+    .main-navbar .nav-link:hover, .main-navbar .nav-link.active { background:rgba(84,124,155,.1); color:var(--blue,#4A7090) !important; }
+    .btn-book-nav { background:var(--blue,#4A7090); color:#fff !important; border-radius:50px; padding:.45rem 1.25rem !important; font-weight:600; }
+    .btn-book-nav:hover { background:#3d6b8c !important; }
+    .theme-toggle { background:transparent; border:1.5px solid rgba(84,124,155,.3); border-radius:50px; width:38px; height:38px; display:flex; align-items:center; justify-content:center; color:var(--charcoal,#292D32); cursor:pointer; transition:all .2s; }
+    .theme-toggle:hover { background:rgba(84,124,155,.1); border-color:var(--blue,#4A7090); }
+
+    /* Dark mode basics */
+    [data-theme="dark"] body { background:#1a1d21; color:#e0e0e0; }
+    [data-theme="dark"] .about-hero {
+      background:
+        linear-gradient(180deg, rgba(9,13,11,0.88) 0%, rgba(9,13,11,0.92) 100%),
+        url('https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1600&h=900&fit=crop') center/cover no-repeat;
+    }
+    [data-theme="dark"] .mission-section,[data-theme="dark"] .cert-section { background:#242830; }
+    [data-theme="dark"] .mv-card,[data-theme="dark"] .doctor-card,.booking-mini-card { background:#2c3038; }
+    [data-theme="dark"] .team-section,[data-theme="dark"] .tour-section,[data-theme="dark"] .cta-section { background:#1a1d21; }
+    [data-theme="dark"] .about-hero h1,[data-theme="dark"] .section-title,[data-theme="dark"] .mv-card h4,[data-theme="dark"] .doctor-card .doc-name,[data-theme="dark"] .usp-title { color:#f0f0f0; }
+
+    /* Reveal animation */
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+  </style>
+<link rel="stylesheet" href="/assets/css/responsive.css" />
+</head>
+<body>
+
+<!-- ============================= NAVBAR ============================= -->
+<nav class="navbar navbar-expand-lg main-navbar sticky-top py-2" id="mainNavbar">
+  <div class="container">
+    <a class="navbar-brand-logo" href="index.html">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 3C10 3 5 7.5 5 13c0 5 4 9 10 14 6-5 10-9 10-14C25 7.5 20 3 15 3z" fill="#4A7090" opacity=".2"/>
+        <path d="M15 6C11 6 7.5 9.5 7.5 13.5c0 3.5 2.5 6.5 7.5 10 5-3.5 7.5-6.5 7.5-10C22.5 9.5 19 6 15 6z" fill="#4A7090" opacity=".5"/>
+        <path d="M15 10c-2.5 0-4.5 2-4.5 4.5S12.5 19 15 21c2.5-2 4.5-4 4.5-6.5S17.5 10 15 10z" fill="#4A7090"/>
+      </svg>
+      DermaCare
+    </a>
+
+    <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="home2.html">Home 2</a></li>
+        <li class="nav-item"><a class="nav-link active" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="patient-dashboard.html"><i class="bi bi-person-circle me-2"></i>User Dashboard</a></li>
+            <li><a class="dropdown-item" href="admin-dashboard.html"><i class="bi bi-shield-lock me-2"></i>Admin Dashboard</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+        </button>
+        <a href="login.html" class="nav-login-btn"><i class="bi bi-box-arrow-in-right"></i>Login</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================= SECTION 1: ABOUT HERO ============================= -->
+<section class="about-hero">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-9 col-xl-8 reveal text-center mx-auto">
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="mb-3">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house-fill me-1"></i>Home</a></li>
+            <li class="breadcrumb-item active">About Us</li>
+          </ol>
+        </nav>
+
+        <div class="founding-badge">
+          <i class="bi bi-patch-check-fill"></i>
+          Established 2004 &bull; 20+ Years of Excellence
+        </div>
+
+        <h1 class="mb-4">Our Story of Excellence in Dermatology</h1>
+
+        <p class="text-secondary lh-lg mb-3">
+          Since 2004, DermaCare has stood at the forefront of evidence-based dermatological care. What began as a single-room practice led by Dr. Sarah Mitchell has grown into a multi-location center of clinical excellence — trusted by over 5,000 patients and home to 15 board-certified specialists. Every protocol we offer is rooted in peer-reviewed science, ensuring outcomes that are not just visible, but lasting.
+        </p>
+        <p class="text-secondary lh-lg mb-4">
+          Our patient-first philosophy means every consultation begins with listening. We believe beautiful, healthy skin is achievable for everyone, regardless of skin type, tone, or background. From the moment you step through our doors, you experience a clinic where clinical precision meets genuine compassion — and where your skin's long-term health is always the priority.
+        </p>
+
+        <div class="d-flex flex-wrap gap-3 justify-content-center">
+          <a href="#team" class="btn btn-primary-brand">
+            <i class="bi bi-people-fill me-2"></i>Meet Our Team
+          </a>
+          <a href="#certifications" class="btn btn-outline-secondary rounded-pill px-4">
+            <i class="bi bi-award-fill me-2"></i>Our Certifications
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= SECTION 2: MISSION & VALUES ============================= -->
+<section class="mission-section" id="mission">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-label">Who We Are</span>
+      <h2 class="section-title">Mission, Vision &amp; Values</h2>
+      <p class="section-subtitle mx-auto">The principles that guide every treatment, every consultation, and every interaction at DermaCare.</p>
+    </div>
+
+    <div class="row g-4 mb-5">
+      <!-- Mission -->
+      <div class="col-md-4 reveal">
+        <div class="mv-card">
+          <div class="mv-icon blue"><i class="bi bi-compass-fill"></i></div>
+          <h4>Our Mission</h4>
+          <p>To provide evidence-based dermatological care in a compassionate, inclusive environment — where every patient receives personalised protocols, transparent guidance, and world-class clinical outcomes.</p>
+        </div>
+      </div>
+
+      <!-- Vision -->
+      <div class="col-md-4 reveal">
+        <div class="mv-card">
+          <div class="mv-icon sage"><i class="bi bi-eye-fill"></i></div>
+          <h4>Our Vision</h4>
+          <p>To be the region's most trusted dermatology destination — a place where advanced science, genuine empathy, and aesthetic artistry converge to transform not just skin, but confidence and quality of life.</p>
+        </div>
+      </div>
+
+      <!-- Values -->
+      <div class="col-md-4 reveal">
+        <div class="mv-card">
+          <div class="mv-icon champagne"><i class="bi bi-heart-fill"></i></div>
+          <h4>Our Values</h4>
+          <ul>
+            <li>Integrity — Honest, ethical practice always</li>
+            <li>Excellence — Highest clinical standards</li>
+            <li>Compassion — Patient-centred at every step</li>
+            <li>Innovation — Embracing evidence-based advances</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar reveal">
+      <div class="row g-0 align-items-center">
+        <div class="col-6 col-md-3 stat-item py-2">
+          <span class="stat-num" data-count="20">0</span><span class="stat-num" style="font-size:1.5rem">+</span>
+          <span class="stat-label">Years Experience</span>
+        </div>
+        <div class="col-6 col-md-3 stat-item py-2">
+          <span class="stat-num" data-count="5000">0</span><span class="stat-num" style="font-size:1.5rem">+</span>
+          <span class="stat-label">Patients Treated</span>
+        </div>
+        <div class="col-6 col-md-3 stat-item py-2">
+          <span class="stat-num" data-count="98">0</span><span class="stat-num" style="font-size:1.5rem">%</span>
+          <span class="stat-label">Satisfaction Rate</span>
+        </div>
+        <div class="col-6 col-md-3 stat-item py-2">
+          <span class="stat-num" data-count="15">0</span><span class="stat-num" style="font-size:1.5rem">+</span>
+          <span class="stat-label">Expert Doctors</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= SECTION 3: OUR TEAM ============================= -->
+<section class="team-section" id="team">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-label">The People Behind Your Care</span>
+      <h2 class="section-title">Meet the Experts</h2>
+      <p class="section-subtitle mx-auto">Every DermaCare physician is board-certified, fellowship-trained, and deeply committed to your skin's health.</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Dr. Sarah Mitchell -->
+      <div class="col-6 col-lg-3 reveal">
+        <div class="doctor-card h-100">
+          <div class="doc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=560&h=560&fit=crop&crop=faces" alt="Dr. Sarah Mitchell — Dermatologist" loading="lazy" />
+            <div class="doc-overlay">
+              <a href="contact.html" class="btn-book">Book with Dr. Mitchell</a>
+            </div>
+          </div>
+          <div class="doc-body">
+            <div class="doc-name">Dr. Sarah Mitchell</div>
+            <div class="doc-title">Dermatologist</div>
+            <div class="doc-creds">MD, FAAD — Board Certified</div>
+            <div class="doc-tags">
+              <span class="doc-tag">Acne</span>
+              <span class="doc-tag">Eczema</span>
+              <span class="doc-tag">Psoriasis</span>
+            </div>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="doc-linkedin"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dr. James Chen -->
+      <div class="col-6 col-lg-3 reveal">
+        <div class="doctor-card h-100">
+          <div class="doc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=560&h=560&fit=crop&crop=faces" alt="Dr. James Chen — Laser Specialist" loading="lazy" />
+            <div class="doc-overlay">
+              <a href="contact.html" class="btn-book">Book with Dr. Chen</a>
+            </div>
+          </div>
+          <div class="doc-body">
+            <div class="doc-name">Dr. James Chen</div>
+            <div class="doc-title">Laser Specialist</div>
+            <div class="doc-creds">MD, MSc Laser Medicine</div>
+            <div class="doc-tags">
+              <span class="doc-tag">Laser</span>
+              <span class="doc-tag">Resurfacing</span>
+              <span class="doc-tag">Pigmentation</span>
+            </div>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="doc-linkedin"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dr. Priya Sharma -->
+      <div class="col-6 col-lg-3 reveal">
+        <div class="doctor-card h-100">
+          <div class="doc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=560&h=560&fit=crop&crop=faces" alt="Dr. Priya Sharma — Cosmetic Dermatologist" loading="lazy" />
+            <div class="doc-overlay">
+              <a href="contact.html" class="btn-book">Book with Dr. Sharma</a>
+            </div>
+          </div>
+          <div class="doc-body">
+            <div class="doc-name">Dr. Priya Sharma</div>
+            <div class="doc-title">Cosmetic Dermatologist</div>
+            <div class="doc-creds">MD, Dip. Cosmetology</div>
+            <div class="doc-tags">
+              <span class="doc-tag">Anti-Aging</span>
+              <span class="doc-tag">Fillers</span>
+              <span class="doc-tag">Peels</span>
+            </div>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="doc-linkedin"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dr. Michael Torres -->
+      <div class="col-6 col-lg-3 reveal">
+        <div class="doctor-card h-100">
+          <div class="doc-img-wrap">
+            <img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=560&h=560&fit=crop&crop=faces" alt="Dr. Michael Torres — Trichologist" loading="lazy" />
+            <div class="doc-overlay">
+              <a href="contact.html" class="btn-book">Book with Dr. Torres</a>
+            </div>
+          </div>
+          <div class="doc-body">
+            <div class="doc-name">Dr. Michael Torres</div>
+            <div class="doc-title">Trichologist</div>
+            <div class="doc-creds">MD, FAAD, Cert. Trichology</div>
+            <div class="doc-tags">
+              <span class="doc-tag">Hair Loss</span>
+              <span class="doc-tag">Scalp</span>
+              <span class="doc-tag">PRP</span>
+            </div>
+            <a href="https://linkedin.com" target="_blank" rel="noopener" class="doc-linkedin"><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= SECTION 4: CERTIFICATIONS & AFFILIATIONS ============================= -->
+<section class="cert-section" id="certifications">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-label">Our Credentials</span>
+      <h2 class="section-title">Board-Certified Excellence</h2>
+      <p class="section-subtitle mx-auto">Every certification we hold is a promise — to you — that your care meets the highest standards in medicine.</p>
+    </div>
+
+    <div class="row g-5 align-items-start">
+      <!-- Certifications Left -->
+      <div class="col-lg-6 reveal">
+        <ul class="cert-badge-list">
+          <li>
+            <div class="cert-icon"><i class="bi bi-patch-check-fill"></i></div>
+            <div>
+              <div class="cert-name">American Board of Dermatology</div>
+              <div class="cert-desc">All physicians hold ABD board certification</div>
+            </div>
+          </li>
+          <li>
+            <div class="cert-icon"><i class="bi bi-shield-check"></i></div>
+            <div>
+              <div class="cert-name">AAD Member Practice</div>
+              <div class="cert-desc">American Academy of Dermatology affiliate</div>
+            </div>
+          </li>
+          <li>
+            <div class="cert-icon"><i class="bi bi-capsule"></i></div>
+            <div>
+              <div class="cert-name">FDA Approved Procedures</div>
+              <div class="cert-desc">All laser & injectable protocols FDA-cleared</div>
+            </div>
+          </li>
+          <li>
+            <div class="cert-icon"><i class="bi bi-clipboard2-check-fill"></i></div>
+            <div>
+              <div class="cert-name">ISO 9001:2015 Certified</div>
+              <div class="cert-desc">International quality management standard</div>
+            </div>
+          </li>
+          <li>
+            <div class="cert-icon"><i class="bi bi-globe2"></i></div>
+            <div>
+              <div class="cert-name">JCI Accredited</div>
+              <div class="cert-desc">Joint Commission International accreditation</div>
+            </div>
+          </li>
+          <li>
+            <div class="cert-icon"><i class="bi bi-lock-fill"></i></div>
+            <div>
+              <div class="cert-name">HIPAA Compliant</div>
+              <div class="cert-desc">Full patient data privacy & security compliance</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Timeline Right -->
+      <div class="col-lg-6 reveal">
+        <h4 class="fw-bold mb-4" style="font-family:'Playfair Display',serif; color:var(--charcoal,#292D32)">Our Journey Through Time</h4>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2004</div>
+            <div class="timeline-event">DermaCare Founded</div>
+            <div class="timeline-desc">Dr. Sarah Mitchell opens the flagship clinic on Medical Boulevard.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2008</div>
+            <div class="timeline-event">First Laser Suite</div>
+            <div class="timeline-desc">State-of-the-art Nd:YAG and fractional laser suites installed.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2012</div>
+            <div class="timeline-event">Research Wing Opens</div>
+            <div class="timeline-desc">Clinical research division established, participating in 3 FDA trials.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2018</div>
+            <div class="timeline-event">Digital Skin Analysis</div>
+            <div class="timeline-desc">AI-powered VISIA® skin imaging introduced across all locations.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2022</div>
+            <div class="timeline-event">Regional Excellence Award</div>
+            <div class="timeline-desc">Named Best Dermatology Practice by HealthCare Excellence Awards.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-year">2024</div>
+            <div class="timeline-event">Expanded to 3 Locations</div>
+            <div class="timeline-desc">Westside Center and North Shore Branch open, serving 3 cities.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= SECTION 5: CLINIC TOUR ============================= -->
+<section class="tour-section" id="tour">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-label">Our Facility</span>
+      <h2 class="section-title">Inside DermaCare</h2>
+      <p class="section-subtitle mx-auto">Our state-of-the-art facility spans 8,000 sq ft across 3 floors — designed with patient comfort and clinical precision in mind.</p>
+    </div>
+
+    <div class="masonry-grid reveal">
+      <div class="masonry-item">
+        <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&h=800&fit=crop" alt="DermaCare reception lobby" loading="lazy" />
+        <div class="room-overlay"><span><i class="bi bi-house-heart me-2"></i>Reception Lobby</span></div>
+      </div>
+      <div class="masonry-item">
+        <img src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=800&h=800&fit=crop" alt="Sterile procedure room" loading="lazy" />
+        <div class="room-overlay"><span><i class="bi bi-clipboard2-pulse me-2"></i>Procedure Room</span></div>
+      </div>
+      <div class="masonry-item">
+        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=800&fit=crop" alt="Advanced laser treatment room" loading="lazy" />
+        <div class="room-overlay"><span><i class="bi bi-stars me-2"></i>Laser Suite</span></div>
+      </div>
+      <div class="masonry-item">
+        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&h=800&fit=crop&crop=faces" alt="Facial treatment in progress" loading="lazy" />
+        <div class="room-overlay"><span><i class="bi bi-droplet-half me-2"></i>Treatment Room</span></div>
+      </div>
+      <div class="masonry-item">
+        <img src="https://images.unsplash.com/photo-1587351021355-a479a299d2f9?w=800&h=800&fit=crop" alt="DermaCare clinic entrance" loading="lazy" />
+        <div class="room-overlay"><span><i class="bi bi-buildings me-2"></i>Clinic Entrance</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= SECTION 6: WHY CHOOSE US + CTA ============================= -->
+<section class="cta-section" id="why-us">
+  <div class="container">
+    <div class="row g-5 align-items-start">
+      <!-- USP Left -->
+      <div class="col-lg-6 reveal">
+        <span class="section-label">Why DermaCare</span>
+        <h2 class="section-title">Why Thousands Choose DermaCare</h2>
+        <p class="text-secondary mb-4">From your first consultation to long-term follow-up care, every step is designed around you.</p>
+
+        <div class="usp-item">
+          <div class="usp-icon"><i class="bi bi-person-check-fill"></i></div>
+          <div>
+            <div class="usp-title">Personalized Protocols</div>
+            <p class="usp-desc">Every treatment plan is custom-built for your unique skin type, condition, and goals — no one-size-fits-all approaches.</p>
+          </div>
+        </div>
+
+        <div class="usp-item">
+          <div class="usp-icon"><i class="bi bi-patch-check-fill"></i></div>
+          <div>
+            <div class="usp-title">Board-Certified Only</div>
+            <p class="usp-desc">Every physician at DermaCare holds full board certification — your safety and outcome depend on it.</p>
+          </div>
+        </div>
+
+        <div class="usp-item">
+          <div class="usp-icon"><i class="bi bi-currency-dollar"></i></div>
+          <div>
+            <div class="usp-title">Transparent Pricing</div>
+            <p class="usp-desc">No hidden fees. Full cost breakdowns before any treatment begins, with flexible payment options available.</p>
+          </div>
+        </div>
+
+        <div class="usp-item">
+          <div class="usp-icon"><i class="bi bi-lock-fill"></i></div>
+          <div>
+            <div class="usp-title">Private &amp; Confidential</div>
+            <p class="usp-desc">Your data, photos, and medical records are protected under strict HIPAA-compliant protocols.</p>
+          </div>
+        </div>
+
+        <div class="usp-item">
+          <div class="usp-icon"><i class="bi bi-journal-medical"></i></div>
+          <div>
+            <div class="usp-title">Evidence-Based Care</div>
+            <p class="usp-desc">Every treatment we offer has robust clinical evidence behind it. We don't experiment — we deliver proven results.</p>
+          </div>
+        </div>
+
+        <div class="usp-item">
+          <div class="usp-icon"><i class="bi bi-arrow-repeat"></i></div>
+          <div>
+            <div class="usp-title">Lifetime Care Plans</div>
+            <p class="usp-desc">We build long-term relationships. Your care plan evolves with your skin across every life stage.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Booking Mini-Form Right -->
+      <div class="col-lg-6 reveal">
+        <div class="booking-mini-card">
+          <h4>Book Your Appointment</h4>
+
+          <form id="bookingForm" novalidate>
+            <div class="mb-3">
+              <label class="form-label fw-500 small">Full Name</label>
+              <input type="text" class="form-control" placeholder="Your full name" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-500 small">Email Address</label>
+              <input type="email" class="form-control" placeholder="your@email.com" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-500 small">Preferred Date</label>
+              <input type="date" class="form-control" required />
+            </div>
+            <div class="mb-3">
+              <label class="form-label fw-500 small">Service</label>
+              <select class="form-select">
+                <option value="">Select a service...</option>
+                <option>General Consultation</option>
+                <option>Acne Treatment</option>
+                <option>Laser Therapy</option>
+                <option>Cosmetic Consultation</option>
+                <option>Hair &amp; Scalp</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary-brand w-100 mb-3">
+              <i class="bi bi-calendar2-check me-2"></i>Request Appointment
+            </button>
+          </form>
+
+          <div class="d-flex flex-column gap-2">
+            <a href="tel:+15551234567" class="contact-quick-link">
+              <i class="bi bi-telephone-fill"></i>
+              <span>Call Us: <strong>+1 (555) 123-4567</strong></span>
+            </a>
+            <a href="https://wa.me/15551234567" target="_blank" rel="noopener" class="btn btn-whatsapp">
+              <i class="bi bi-whatsapp"></i> Chat on WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= FOOTER ============================= -->
+<footer class="dc-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="dc-logo">
+          <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="15" fill="rgba(84,124,155,0.2)" stroke="#4A7090" stroke-width="1.5"/>
+            <path d="M16 8c0 0-6 4-6 10a6 6 0 0 0 12 0C22 12 16 8 16 8z" fill="#4A7090" opacity="0.9"/>
+          </svg>DermaCare
+        </div>
+        <p class="dc-desc">Premium dermatological care combining clinical excellence with personalised attention. Your skin's health is our commitment.</p>
+        <div class="d-flex gap-3 mt-3">
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-instagram"></i></a>
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-facebook"></i></a>
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-sm-6">
+        <div class="dc-heading">Services</div>
+        <ul class="dc-links">
+          <li><a href="services.html">Acne Treatment</a></li>
+          <li><a href="services.html">Laser Therapy</a></li>
+          <li><a href="services.html">Skin Rejuvenation</a></li>
+          <li><a href="services.html">Pigmentation Care</a></li>
+          <li><a href="services.html">Anti-Aging</a></li>
+          <li><a href="services.html">Hair &amp; Scalp</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-sm-6">
+        <div class="dc-heading">Company</div>
+        <ul class="dc-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="home2.html">Home 2</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="appointment.html">Book Appointment</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <div class="dc-heading">Contact</div>
+        <ul class="dc-links">
+          <li><i class="bi bi-geo-alt me-2"></i>123 Wellness Avenue, Suite 400</li>
+          <li><i class="bi bi-telephone me-2"></i>+1 (800) DERMA-00</li>
+          <li><i class="bi bi-envelope me-2"></i>hello@dermacare.clinic</li>
+          <li class="mt-2"><i class="bi bi-clock me-2"></i>Mon–Sat: 8 AM – 7 PM</li>
+          <li><span style="padding-left:1.4rem;">Sun: 10 AM – 4 PM</span></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="dc-divider" />
+    <div class="d-flex flex-wrap justify-content-between align-items-center dc-bottom">
+      <span>© 2024 DermaCare Clinic. All rights reserved.</span>
+      <span class="d-flex gap-3">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Custom JS -->
+<script src="/assets/js/main.js"></script>
+
+<script>
+  // ---- Theme Toggle ----
+  (function(){
+    const html = document.documentElement;
+    const btn = document.getElementById('themeToggle');
+    const icon = document.getElementById('themeIcon');
+    function applyTheme(t){
+      html.setAttribute('data-theme', t);
+      icon.className = t === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill';
+    }
+    applyTheme(localStorage.getItem('dermacare-theme') || 'light');
+    btn.addEventListener('click', function(){
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      localStorage.setItem('dermacare-theme', next);
+    });
+  })();
+
+  // ---- Scroll Reveal ----
+  (function(){
+    const els = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(function(el){ io.observe(el); });
+  })();
+
+  // ---- Counter Animation ----
+  (function(){
+    const counters = document.querySelectorAll('[data-count]');
+    const io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){
+          const el = e.target;
+          const target = parseInt(el.getAttribute('data-count'), 10);
+          const duration = 1800;
+          const step = target / (duration / 16);
+          let current = 0;
+          const timer = setInterval(function(){
+            current += step;
+            if(current >= target){ current = target; clearInterval(timer); }
+            el.textContent = Math.floor(current).toLocaleString();
+          }, 16);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(function(c){ io.observe(c); });
+  })();
+
+  // ---- Navbar scroll effect ----
+  window.addEventListener('scroll', function(){
+    const nav = document.getElementById('mainNavbar');
+    if(window.scrollY > 50){
+      nav.style.boxShadow = '0 4px 24px rgba(41,45,50,.1)';
+    } else {
+      nav.style.boxShadow = 'none';
+    }
+  });
+
+  // ---- Booking form prevent default ----
+  document.getElementById('bookingForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    alert('Thank you! We will contact you shortly to confirm your appointment.');
+    this.reset();
+  });
+</script>
+</body>
+</html>

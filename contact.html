@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <meta name="description" content="Contact DermaCare — reach us by phone, email or WhatsApp. Find our 3 clinic locations, hours, and book an appointment online." />
+  <title>Contact Us | DermaCare — Premium Dermatology & Skin Clinic</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <script src="/assets/js/rtl-init.js"></script>
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/assets/css/style.css" />
+
+  <style>
+    /* ===================== CONTACT PAGE SPECIFIC STYLES ===================== */
+
+    /* Base / Utilities */
+    :root {
+      --ivory: var(--color-ivory);
+      --blue: var(--color-blue);
+      --sage: var(--color-sage);
+      --champagne: var(--color-champagne);
+      --charcoal: var(--color-charcoal);
+    }
+
+    .section-label { font-size:.78rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--blue); margin-bottom:.5rem; display:block; }
+    .section-title { font-family:'Playfair Display',serif; font-size:clamp(1.75rem,3.5vw,2.5rem); color:var(--charcoal); margin-bottom:1rem; }
+    .section-subtitle { color:var(--text-secondary); font-size:.97rem; }
+
+    /* Reveal */
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity .6s ease, transform .6s ease; }
+    .reveal.visible { opacity:1; transform:none; }
+
+    /* ---- NAVBAR ---- */
+    .main-navbar { backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); background:rgba(250,248,245,.88) !important; border-bottom:1px solid rgba(84,124,155,.12); transition:all .3s; }
+    [data-theme="dark"] .main-navbar { background:rgba(26,29,33,.88) !important; }
+    .navbar-brand-logo { display:flex; align-items:center; gap:.5rem; font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:700; color:var(--charcoal); text-decoration:none; }
+    .main-navbar .nav-link { font-weight:500; font-size:.9rem; color:var(--charcoal) !important; padding:.5rem .9rem !important; border-radius:8px; transition:background .2s, color .2s; }
+    .main-navbar .nav-link:hover, .main-navbar .nav-link.active { background:rgba(84,124,155,.1); color:var(--blue) !important; }
+    .btn-book-nav { background:var(--blue); color:#fff !important; border-radius:50px; padding:.45rem 1.25rem !important; font-weight:600; }
+    .btn-book-nav:hover { background:#3d6b8c !important; }
+    .theme-toggle { background:transparent; border:1.5px solid rgba(84,124,155,.3); border-radius:50px; width:38px; height:38px; display:flex; align-items:center; justify-content:center; color:var(--charcoal); cursor:pointer; transition:all .2s; }
+    .theme-toggle:hover { background:rgba(84,124,155,.1); border-color:var(--blue); }
+
+    /* ---- SECTION 1: CONTACT HERO ---- */
+    .contact-hero {
+      background:
+        linear-gradient(180deg, rgba(16,22,29,0.74) 0%, rgba(16,22,29,0.86) 100%),
+        url('https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1600&h=900&fit=crop&crop=faces') center/cover no-repeat;
+      padding: 150px 0 90px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .contact-hero::before {
+      content:''; position:absolute; inset:0;
+      background:radial-gradient(ellipse at 50% 55%, rgba(84,124,155,.18) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .contact-hero .section-label { color:#9cc3de; }
+    .contact-hero h1 { font-family:'Playfair Display',serif; font-size:clamp(2rem,4.5vw,3.4rem); color:#fff; line-height:1.15; }
+    .contact-hero .text-center > p { color:rgba(255,255,255,0.84); font-size:1rem; max-width:560px; margin-left:auto; margin-right:auto; }
+
+    .quick-contact-card { background:#fff; border-radius:20px; padding:2rem 1.5rem; text-align:center; box-shadow:0 4px 24px rgba(41,45,50,.08); border:1px solid rgba(84,124,155,.08); transition:transform .3s, box-shadow .3s, border-color .3s; text-decoration:none; display:block; }
+    .quick-contact-card:hover { transform:translateY(-6px); box-shadow:0 16px 48px rgba(84,124,155,.15); border-color:var(--blue); }
+    .quick-contact-card .qc-icon { width:58px; height:58px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:1.5rem; margin:0 auto 1rem; }
+    .quick-contact-card .qc-icon.phone { background:rgba(84,124,155,.12); color:var(--blue); }
+    .quick-contact-card .qc-icon.email { background:rgba(168,185,165,.2); color:#5a7a57; }
+    .quick-contact-card .qc-icon.whatsapp { background:rgba(37,211,102,.12); color:#25d366; }
+    .quick-contact-card .qc-label { font-size:.75rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--text-secondary); margin-bottom:.35rem; }
+    .quick-contact-card .qc-value { font-weight:600; font-size:.95rem; color:var(--charcoal); margin-bottom:0; }
+
+    /* ---- SECTION 2: CONTACT FORM ---- */
+    .contact-form-section { background:#fff; padding:90px 0; }
+    .form-card { background:var(--ivory); border-radius:24px; overflow:hidden; box-shadow:0 8px 48px rgba(41,45,50,.1); }
+    .form-card .form-img-side { position:relative; overflow:hidden; min-height:400px; }
+    .form-card .form-img-side img { width:100%; height:100%; object-fit:cover; display:block; }
+    .form-card .form-img-side::after { content:''; position:absolute; inset:0; background:linear-gradient(135deg,rgba(84,124,155,.4),rgba(41,45,50,.3)); }
+    .form-card .form-img-side .overlay-text { position:absolute; bottom:2rem; left:2rem; z-index:2; color:#fff; }
+    .form-card .form-img-side .overlay-text h3 { font-family:'Playfair Display',serif; font-size:1.5rem; margin-bottom:.4rem; }
+    .form-card .form-img-side .overlay-text p { font-size:.85rem; opacity:.85; margin:0; }
+    .form-body { padding:3rem 2.5rem; }
+    .form-body .form-label { font-weight:600; font-size:.82rem; color:var(--charcoal); margin-bottom:.4rem; }
+    .form-body .form-control, .form-body .form-select {
+      border:1.5px solid #e0dcd8; border-radius:10px; padding:.75rem 1rem;
+      font-size:.9rem; color:var(--charcoal); background:#fff; transition:border-color .2s, box-shadow .2s;
+    }
+    .form-body .form-control:focus, .form-body .form-select:focus {
+      border-color:var(--blue); box-shadow:0 0 0 3px rgba(84,124,155,.15); outline:none;
+    }
+    .form-body .form-control.is-invalid { border-color:#dc3545; }
+    .form-body .invalid-feedback { font-size:.78rem; }
+    .btn-submit { background:var(--blue); color:#fff; border:none; border-radius:50px; padding:.8rem 2.5rem; font-weight:700; font-size:.95rem; transition:background .25s, transform .2s; letter-spacing:.02em; }
+    .btn-submit:hover { background:#3d6b8c; transform:translateY(-2px); }
+
+    /* ---- SECTION 3: LOCATIONS ---- */
+    .locations-section { background:var(--ivory); padding:90px 0; }
+    .location-card { background:#fff; border-radius:20px; overflow:hidden; box-shadow:0 4px 24px rgba(41,45,50,.08); border:1px solid rgba(84,124,155,.08); transition:transform .3s, box-shadow .3s; height:100%; }
+    .location-card:hover { transform:translateY(-6px); box-shadow:0 16px 48px rgba(84,124,155,.15); }
+    .location-card .loc-header { background:linear-gradient(135deg, var(--blue) 0%, #3d6b8c 100%); padding:1.5rem; }
+    .location-card .loc-header h5 { font-family:'Playfair Display',serif; color:#fff; margin:0 0 .2rem; font-size:1.1rem; }
+    .location-card .loc-header small { color:rgba(255,255,255,.75); font-size:.78rem; }
+    .location-card .loc-body { padding:1.5rem; }
+    .loc-info-row { display:flex; align-items:flex-start; gap:.75rem; margin-bottom:.85rem; font-size:.88rem; color:var(--text-secondary); }
+    .loc-info-row i { color:var(--blue); font-size:1rem; margin-top:.05rem; flex-shrink:0; }
+    .loc-map { height:160px; background:#e8eef2; border-radius:12px; overflow:hidden; margin-bottom:1.25rem; display:flex; align-items:center; justify-content:center; color:var(--text-muted); font-size:.85rem; border:1px solid rgba(84,124,155,.12); }
+    .loc-map iframe { width:100%; height:100%; border:none; }
+    .btn-directions { background:transparent; border:1.5px solid var(--blue); color:var(--blue); border-radius:50px; padding:.5rem 1.4rem; font-size:.82rem; font-weight:600; text-decoration:none; display:inline-flex; align-items:center; gap:.5rem; transition:all .25s; }
+    .btn-directions:hover { background:var(--blue); color:#fff; }
+
+    /* ---- SECTION 4: HOURS & INFO ---- */
+    .hours-section { background:#fff; padding:90px 0; }
+    .hours-table { width:100%; border-collapse:collapse; }
+    .hours-table th { font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--blue); padding:.75rem 1rem; border-bottom:2px solid var(--blue); text-align:left; }
+    .hours-table td { padding:.7rem 1rem; font-size:.9rem; color:var(--charcoal); border-bottom:1px solid rgba(84,124,155,.1); }
+    .hours-table tr:nth-child(even) td { background:rgba(84,124,155,.04); }
+    .hours-table .closed-row td { color:#ccc; }
+    .open-badge { display:inline-block; background:rgba(37,211,102,.12); color:#1a9a4a; font-size:.7rem; font-weight:700; border-radius:50px; padding:.15rem .6rem; margin-left:.5rem; }
+    .closed-badge { display:inline-block; background:rgba(220,53,69,.1); color:#dc3545; font-size:.7rem; font-weight:700; border-radius:50px; padding:.15rem .6rem; margin-left:.5rem; }
+
+    .faq-quick .faq-item { border-radius:14px; background:var(--ivory); border:1px solid rgba(84,124,155,.1); margin-bottom:.75rem; overflow:hidden; }
+    .faq-quick .faq-q { padding:1rem 1.25rem; font-weight:600; font-size:.9rem; color:var(--charcoal); display:flex; justify-content:space-between; align-items:center; cursor:pointer; user-select:none; }
+    .faq-quick .faq-q:hover { background:rgba(84,124,155,.06); }
+    .faq-quick .faq-a { padding:0 1.25rem; font-size:.85rem; color:var(--text-secondary); line-height:1.7; max-height:0; overflow:hidden; transition:max-height .35s ease, padding .3s ease; }
+    .faq-quick .faq-a.open { max-height:200px; padding:.75rem 1.25rem 1rem; }
+    .faq-toggle-icon { transition:transform .3s; }
+    .faq-toggle-icon.rotated { transform:rotate(45deg); }
+
+    /* ---- SECTION 5: SOCIAL & COMMUNITY ---- */
+    .social-section { background:var(--ivory); padding:90px 0; }
+    .insta-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:.75rem; }
+    .insta-post { position:relative; border-radius:14px; overflow:hidden; aspect-ratio:1; }
+    .insta-post img { width:100%; height:100%; object-fit:cover; transition:transform .4s; display:block; }
+    .insta-post:hover img { transform:scale(1.08); }
+    .insta-post .insta-overlay { position:absolute; inset:0; background:linear-gradient(0deg,rgba(84,124,155,.7) 0%,transparent 50%); opacity:0; transition:opacity .3s; display:flex; align-items:flex-end; padding:.75rem; }
+    .insta-post:hover .insta-overlay { opacity:1; }
+    .insta-overlay .insta-likes { color:#fff; font-size:.78rem; font-weight:600; display:flex; align-items:center; gap:.35rem; }
+    .follow-count { font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:var(--blue); }
+    .btn-follow { background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); color:#fff; border:none; border-radius:50px; padding:.7rem 2rem; font-weight:600; font-size:.9rem; display:inline-flex; align-items:center; gap:.5rem; transition:opacity .25s, transform .2s; }
+    .btn-follow:hover { opacity:.9; transform:translateY(-2px); }
+    .youtube-preview { background:linear-gradient(135deg,#ff0000,#c00); border-radius:20px; padding:2rem; color:#fff; display:flex; align-items:center; gap:1.5rem; }
+    .youtube-play { width:60px; height:60px; border-radius:50%; background:rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; font-size:1.5rem; flex-shrink:0; cursor:pointer; transition:background .2s; }
+    .youtube-play:hover { background:rgba(255,255,255,.35); }
+    .newsletter-card { background:#fff; border-radius:20px; padding:2rem; box-shadow:0 4px 24px rgba(41,45,50,.08); }
+    .newsletter-card h5 { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--charcoal); margin-bottom:.5rem; }
+    .newsletter-card .input-group .form-control { border:1.5px solid #e0dcd8; border-radius:50px 0 0 50px; padding:.75rem 1.25rem; }
+    .newsletter-card .btn-subscribe { background:var(--blue); color:#fff; border:none; border-radius:0 50px 50px 0; padding:.75rem 1.5rem; font-weight:600; white-space:nowrap; }
+    .newsletter-card .btn-subscribe:hover { background:#3d6b8c; }
+
+    /* ---- SECTION 6: URGENT CARE ---- */
+    .urgent-section { background:#fff; padding:90px 0; }
+    .urgent-card { border-radius:20px; overflow:hidden; height:100%; }
+    .urgent-card.urgent { background:linear-gradient(135deg,#fff5f5,#ffebeb); border:1.5px solid #ffcdd2; }
+    .urgent-card.after-hours { background:linear-gradient(135deg,#f0f7fb,#e8f4fd); border:1.5px solid rgba(84,124,155,.2); }
+    .urgent-card-body { padding:2.5rem; }
+    .urgent-icon { width:64px; height:64px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:1.75rem; margin-bottom:1.25rem; }
+    .urgent-icon.red { background:rgba(220,53,69,.12); color:#dc3545; }
+    .urgent-icon.blue { background:rgba(84,124,155,.12); color:var(--blue); }
+    .urgent-card h4 { font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--charcoal); margin-bottom:.5rem; }
+    .urgent-card p { font-size:.9rem; color:var(--text-secondary); line-height:1.7; margin-bottom:1.25rem; }
+    .urgent-features li { font-size:.85rem; color:var(--text-secondary); margin-bottom:.5rem; display:flex; align-items:center; gap:.5rem; list-style:none; padding:0; }
+    .urgent-features li i { color:var(--blue); font-size:.9rem; }
+    .btn-urgent { background:#dc3545; color:#fff; border:none; border-radius:50px; padding:.65rem 1.75rem; font-weight:600; font-size:.88rem; display:inline-flex; align-items:center; gap:.5rem; transition:background .25s; text-decoration:none; }
+    .btn-urgent:hover { background:#bb2d3b; color:#fff; }
+    .btn-after { background:var(--blue); color:#fff; border:none; border-radius:50px; padding:.65rem 1.75rem; font-weight:600; font-size:.88rem; display:inline-flex; align-items:center; gap:.5rem; transition:background .25s; text-decoration:none; }
+    .btn-after:hover { background:#3d6b8c; color:#fff; }
+
+    /* Before You Visit Accordion */
+    .visit-accordion { margin-top:3rem; }
+    .visit-accordion .acc-item { border-radius:14px; background:var(--ivory); border:1px solid rgba(84,124,155,.12); margin-bottom:.75rem; overflow:hidden; }
+    .visit-accordion .acc-btn { width:100%; padding:1.1rem 1.5rem; background:transparent; border:none; display:flex; justify-content:space-between; align-items:center; font-weight:600; font-size:.95rem; color:var(--charcoal); cursor:pointer; text-align:left; }
+    .visit-accordion .acc-btn:hover { background:rgba(84,124,155,.06); }
+    .visit-accordion .acc-body { padding:0 1.5rem; font-size:.87rem; color:var(--text-secondary); line-height:1.75; max-height:0; overflow:hidden; transition:max-height .35s ease, padding .3s; }
+    .visit-accordion .acc-body.open { max-height:300px; padding:.5rem 1.5rem 1.25rem; }
+    .acc-icon { transition:transform .3s; color:var(--blue); }
+    .acc-icon.rotated { transform:rotate(45deg); }
+
+    /* ---- FOOTER ---- */
+    .site-footer { background:var(--charcoal); color:#fff; padding:70px 0 0; }
+    .footer-title { font-family:'Playfair Display',serif; font-size:1rem; color:#fff; margin-bottom:1.25rem; }
+    .footer-links { list-style:none; padding:0; margin:0; }
+    .footer-links li { margin-bottom:.6rem; }
+    .footer-links a { color:rgba(255,255,255,.65); text-decoration:none; font-size:.88rem; transition:color .2s; }
+    .footer-links a:hover { color:#fff; }
+    .footer-contact-item { display:flex; align-items:flex-start; gap:.75rem; margin-bottom:.85rem; color:rgba(255,255,255,.75); font-size:.88rem; }
+    .footer-contact-item i { color:var(--sage); font-size:1rem; margin-top:.1rem; flex-shrink:0; }
+    .footer-social { display:flex; gap:.75rem; margin-top:1.25rem; }
+    .footer-social a { width:38px; height:38px; border-radius:50%; border:1px solid rgba(255,255,255,.2); display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,.7); font-size:.95rem; transition:background .25s, color .25s; }
+    .footer-social a:hover { background:var(--blue); color:#fff; border-color:var(--blue); }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,.1); margin-top:3rem; padding:1.25rem 0; }
+    .footer-bottom p, .footer-bottom a { font-size:.8rem; color:rgba(255,255,255,.5); text-decoration:none; margin:0; }
+    .footer-bottom a:hover { color:#fff; }
+
+    /* Dark mode */
+    [data-theme="dark"] body { background:#1a1d21; color:#e0e0e0; }
+    [data-theme="dark"] .contact-hero {
+      background:
+        linear-gradient(180deg, rgba(9,12,16,0.88) 0%, rgba(9,12,16,0.92) 100%),
+        url('https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1600&h=900&fit=crop&crop=faces') center/cover no-repeat;
+    }
+    [data-theme="dark"] .contact-form-section,[data-theme="dark"] .hours-section,[data-theme="dark"] .urgent-section { background:#242830; }
+    [data-theme="dark"] .locations-section,[data-theme="dark"] .social-section { background:#1a1d21; }
+    [data-theme="dark"] .section-title,[data-theme="dark"] .contact-hero h1 { color:#f0f0f0; }
+    [data-theme="dark"] .quick-contact-card,[data-theme="dark"] .location-card,[data-theme="dark"] .newsletter-card { background:#2c3038; border-color:rgba(255,255,255,.08); }
+    [data-theme="dark"] .quick-contact-card .qc-value { color:#e0e0e0; }
+    [data-theme="dark"] .form-card { background:#2c3038; }
+    [data-theme="dark"] .form-body .form-control, [data-theme="dark"] .form-body .form-select { background:#1a1d21; border-color:#3a3f4a; color:#e0e0e0; }
+    [data-theme="dark"] .hours-table td { color:#ccc; }
+    [data-theme="dark"] .hours-table tr:nth-child(even) td { background:rgba(255,255,255,.04); }
+    [data-theme="dark"] .faq-quick .faq-item,[data-theme="dark"] .visit-accordion .acc-item { background:#2c3038; border-color:rgba(255,255,255,.08); }
+    [data-theme="dark"] .faq-quick .faq-q,[data-theme="dark"] .visit-accordion .acc-btn { color:#e0e0e0; }
+    [data-theme="dark"] .urgent-card.urgent { background:#2a2020; border-color:#5a3030; }
+    [data-theme="dark"] .urgent-card.after-hours { background:#1e2a30; border-color:#2a4a5a; }
+    [data-theme="dark"] .urgent-card h4 { color:#f0f0f0; }
+
+    /* Toast */
+    .toast-container { position:fixed; bottom:2rem; right:2rem; z-index:9999; }
+    .toast-msg { background:#fff; border-radius:14px; padding:1rem 1.5rem; box-shadow:0 8px 32px rgba(41,45,50,.2); display:flex; align-items:center; gap:.85rem; margin-top:.75rem; min-width:300px; border-left:4px solid var(--blue); animation:slideInRight .3s ease; }
+    .toast-msg.success { border-left-color:#25d366; }
+    .toast-msg.error { border-left-color:#dc3545; }
+    @keyframes slideInRight { from{transform:translateX(60px);opacity:0;} to{transform:none;opacity:1;} }
+  </style>
+<link rel="stylesheet" href="/assets/css/responsive.css" />
+</head>
+<body>
+
+<!-- ============================= NAVBAR ============================= -->
+<nav class="navbar navbar-expand-lg main-navbar sticky-top py-2" id="mainNavbar">
+  <div class="container">
+    <a class="navbar-brand-logo" href="index.html">
+      <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15 3C10 3 5 7.5 5 13c0 5 4 9 10 14 6-5 10-9 10-14C25 7.5 20 3 15 3z" fill="#4A7090" opacity=".2"/>
+        <path d="M15 6C11 6 7.5 9.5 7.5 13.5c0 3.5 2.5 6.5 7.5 10 5-3.5 7.5-6.5 7.5-10C22.5 9.5 19 6 15 6z" fill="#4A7090" opacity=".5"/>
+        <path d="M15 10c-2.5 0-4.5 2-4.5 4.5S12.5 19 15 21c2.5-2 4.5-4 4.5-6.5S17.5 10 15 10z" fill="#4A7090"/>
+      </svg>
+      DermaCare
+    </a>
+
+    <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="home2.html">Home 2</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link active" href="contact.html">Contact</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="patient-dashboard.html"><i class="bi bi-person-circle me-2"></i>User Dashboard</a></li>
+            <li><a class="dropdown-item" href="admin-dashboard.html"><i class="bi bi-shield-lock me-2"></i>Admin Dashboard</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="d-flex align-items-center gap-3 mt-3 mt-lg-0">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <i class="bi bi-moon-stars-fill" id="themeIcon"></i>
+        </button>
+        <a href="login.html" class="nav-login-btn"><i class="bi bi-box-arrow-in-right"></i>Login</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ============================= SECTION 1: CONTACT HERO ============================= -->
+<section class="contact-hero">
+  <div class="container position-relative" style="z-index:2">
+    <div class="text-center mb-5 reveal">
+      <span class="section-label">Get In Touch</span>
+      <h1 class="mb-3">Let's Talk About Your Skin</h1>
+      <p class="mx-auto">Our team of expert dermatologists is ready to help. Reach out for consultations, appointments, or any questions about your skin health.</p>
+    </div>
+
+    <!-- Quick Contact Cards -->
+    <div class="row g-4 justify-content-center">
+      <div class="col-md-4 col-sm-6 reveal">
+        <a href="tel:+15551234567" class="quick-contact-card">
+          <div class="qc-icon phone"><i class="bi bi-telephone-fill"></i></div>
+          <div class="qc-label">Call Us</div>
+          <p class="qc-value">+1 (555) 123-4567</p>
+          <small class="text-muted" style="font-size:.78rem">Mon–Sat, 9am–7pm</small>
+        </a>
+      </div>
+      <div class="col-md-4 col-sm-6 reveal">
+        <a href="mailto:hello@dermacare.com" class="quick-contact-card">
+          <div class="qc-icon email"><i class="bi bi-envelope-fill"></i></div>
+          <div class="qc-label">Email Us</div>
+          <p class="qc-value">hello@dermacare.com</p>
+          <small class="text-muted" style="font-size:.78rem">We reply within 24 hours</small>
+        </a>
+      </div>
+      <div class="col-md-4 col-sm-6 reveal">
+        <a href="https://wa.me/15551234567" target="_blank" rel="noopener" class="quick-contact-card">
+          <div class="qc-icon whatsapp"><i class="bi bi-whatsapp"></i></div>
+          <div class="qc-label">WhatsApp</div>
+          <p class="qc-value">+1 (555) 123-4567</p>
+          <small class="text-muted" style="font-size:.78rem">Chat with us instantly</small>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= SECTION 2: CONTACT FORM ============================= -->
+<section class="contact-form-section" id="contact-form">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-label">Send a Message</span>
+      <h2 class="section-title">We'd Love to Hear From You</h2>
+      <p class="section-subtitle">Fill in the form and a member of our care team will be in touch within one business day.</p>
+    </div>
+
+    <div class="form-card reveal">
+      <div class="row g-0">
+        <!-- Image side -->
+        <div class="col-lg-5 d-none d-lg-block">
+          <div class="form-img-side h-100">
+            <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800&h=800&fit=crop&crop=faces" alt="Dermatologist consulting a patient at DermaCare" loading="lazy" />
+            <div class="overlay-text">
+              <h3>Your skin deserves expert care.</h3>
+              <p>Board-certified dermatologists ready to help you.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form side -->
+        <div class="col-lg-7">
+          <div class="form-body">
+            <h3 class="mb-4" style="font-family:'Playfair Display',serif; color:var(--charcoal)">Send Us a Message</h3>
+            <form id="contactForm" novalidate>
+              <div class="row g-3">
+                <div class="col-sm-6">
+                  <label for="fullName" class="form-label">Full Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="fullName" placeholder="Jane Smith" required />
+                  <div class="invalid-feedback">Please enter your full name.</div>
+                </div>
+                <div class="col-sm-6">
+                  <label for="emailAddr" class="form-label">Email Address <span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" id="emailAddr" placeholder="jane@example.com" required />
+                  <div class="invalid-feedback">Please enter a valid email address.</div>
+                </div>
+                <div class="col-sm-6">
+                  <label for="phoneNum" class="form-label">Phone Number</label>
+                  <input type="tel" class="form-control" id="phoneNum" placeholder="+1 (555) 000-0000" />
+                </div>
+                <div class="col-sm-6">
+                  <label for="subjectDrop" class="form-label">Subject <span class="text-danger">*</span></label>
+                  <select class="form-select" id="subjectDrop" required>
+                    <option value="">Select a subject…</option>
+                    <option value="general">General Inquiry</option>
+                    <option value="appointment">Book Appointment</option>
+                    <option value="treatment">Treatment Information</option>
+                    <option value="billing">Billing &amp; Insurance</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <div class="invalid-feedback">Please select a subject.</div>
+                </div>
+                <div class="col-12">
+                  <label for="msgArea" class="form-label">Your Message <span class="text-danger">*</span></label>
+                  <textarea class="form-control" id="msgArea" rows="5" placeholder="Tell us about your skin concern or how we can help…" required minlength="20"></textarea>
+                  <div class="invalid-feedback">Please enter a message (at least 20 characters).</div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check mb-2">
+                    <input class="form-check-input" type="checkbox" id="privacyCheck" required />
+                    <label class="form-check-label" for="privacyCheck" style="font-size:.82rem; color:var(--text-secondary);">
+                      I agree to the <a href="#" style="color:var(--blue)">Privacy Policy</a> and consent to being contacted. <span class="text-danger">*</span>
+                    </label>
+                    <div class="invalid-feedback">You must agree before submitting.</div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <button type="submit" class="btn-submit">
+                    <i class="bi bi-send-fill me-2"></i>Send Message
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= SECTION 3: CLINIC LOCATIONS ============================= -->
+<section class="locations-section" id="locations">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-label">Our Clinics</span>
+      <h2 class="section-title">Find Us</h2>
+      <p class="section-subtitle">Three conveniently located clinics — all offering the same world-class DermaCare experience.</p>
+    </div>
+
+    <div class="row g-4">
+      <!-- Downtown -->
+      <div class="col-lg-4 col-md-6 reveal">
+        <div class="location-card">
+          <div class="loc-header">
+            <h5><i class="bi bi-building me-2"></i>Downtown Clinic</h5>
+            <small>Flagship Location</small>
+          </div>
+          <div class="loc-body">
+            <div class="loc-map">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9476519598252!2d-73.98823492394!3d40.74844097138892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z4oCcEW_FnlVrYQ!5e0!3m2!1sen!2sus!4v1700000000000"
+                title="Downtown Clinic map"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+            <div class="loc-info-row">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span>123 Medical Boulevard, Downtown, New York, NY 10001</span>
+            </div>
+            <div class="loc-info-row">
+              <i class="bi bi-telephone-fill"></i>
+              <a href="tel:+15551234567" style="color:inherit;">+1 (555) 123-4567</a>
+            </div>
+            <div class="loc-info-row">
+              <i class="bi bi-clock-fill"></i>
+              <span>Mon–Sat: 9:00 AM – 7:00 PM<br/>Sunday: Closed</span>
+            </div>
+            <a href="https://maps.google.com/?q=123+Medical+Blvd+New+York" target="_blank" rel="noopener" class="btn-directions">
+              <i class="bi bi-map-fill"></i> Get Directions
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Westside -->
+      <div class="col-lg-4 col-md-6 reveal">
+        <div class="location-card">
+          <div class="loc-header" style="background:linear-gradient(135deg,#5a7a57,#3d6b4a)">
+            <h5><i class="bi bi-building me-2"></i>Westside Center</h5>
+            <small>West Manhattan</small>
+          </div>
+          <div class="loc-body">
+            <div class="loc-map">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.9476519598252!2d-74.00823492394!3d40.75844097138892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z4oCc!5e0!3m2!1sen!2sus!4v1700000000001"
+                title="Westside Center map"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+            <div class="loc-info-row">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span>456 Health Avenue, Westside, New York, NY 10023</span>
+            </div>
+            <div class="loc-info-row">
+              <i class="bi bi-telephone-fill"></i>
+              <a href="tel:+15552345678" style="color:inherit;">+1 (555) 234-5678</a>
+            </div>
+            <div class="loc-info-row">
+              <i class="bi bi-clock-fill"></i>
+              <span>Mon–Sat: 9:00 AM – 7:00 PM<br/>Sunday: Closed</span>
+            </div>
+            <a href="https://maps.google.com/?q=456+Health+Ave+New+York" target="_blank" rel="noopener" class="btn-directions" style="border-color:#5a7a57;color:#5a7a57;">
+              <i class="bi bi-map-fill"></i> Get Directions
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- North Shore -->
+      <div class="col-lg-4 col-md-6 reveal">
+        <div class="location-card">
+          <div class="loc-header" style="background:linear-gradient(135deg,#9a7a4a,#7a5a2a)">
+            <h5><i class="bi bi-building me-2"></i>North Shore Branch</h5>
+            <small>North Suburbs</small>
+          </div>
+          <div class="loc-body">
+            <div class="loc-map">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3020.9476519598252!2d-73.96823492394!3d40.76844097138892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z4oCc!5e0!3m2!1sen!2sus!4v1700000000002"
+                title="North Shore Branch map"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+            <div class="loc-info-row">
+              <i class="bi bi-geo-alt-fill"></i>
+              <span>789 Wellness Drive, North Shore, New York, NY 10034</span>
+            </div>
+            <div class="loc-info-row">
+              <i class="bi bi-telephone-fill"></i>
+              <a href="tel:+15553456789" style="color:inherit;">+1 (555) 345-6789</a>
+            </div>
+            <div class="loc-info-row">
+              <i class="bi bi-clock-fill"></i>
+              <span>Mon–Sat: 9:00 AM – 7:00 PM<br/>Sunday: Closed</span>
+            </div>
+            <a href="https://maps.google.com/?q=789+Wellness+Dr+New+York" target="_blank" rel="noopener" class="btn-directions" style="border-color:#9a7a4a;color:#9a7a4a;">
+              <i class="bi bi-map-fill"></i> Get Directions
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= SECTION 4: HOURS & QUICK INFO ============================= -->
+<section class="hours-section" id="hours">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-label">When We're Open</span>
+      <h2 class="section-title">Clinic Hours &amp; Info</h2>
+    </div>
+
+    <div class="row g-5">
+      <!-- Hours Table -->
+      <div class="col-lg-6 reveal">
+        <div class="p-4 rounded-4" style="background:var(--ivory); border:1px solid rgba(84,124,155,.1);">
+          <h5 class="fw-bold mb-4" style="font-family:'Playfair Display',serif; color:var(--charcoal)"><i class="bi bi-clock me-2 text-blue" style="color:var(--blue)"></i>Opening Hours</h5>
+          <table class="hours-table">
+            <thead>
+              <tr>
+                <th>Day</th>
+                <th>Hours</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Monday</strong></td>
+                <td>9:00 AM – 7:00 PM</td>
+                <td><span class="open-badge">Open</span></td>
+              </tr>
+              <tr>
+                <td><strong>Tuesday</strong></td>
+                <td>9:00 AM – 7:00 PM</td>
+                <td><span class="open-badge">Open</span></td>
+              </tr>
+              <tr>
+                <td><strong>Wednesday</strong></td>
+                <td>9:00 AM – 7:00 PM</td>
+                <td><span class="open-badge">Open</span></td>
+              </tr>
+              <tr>
+                <td><strong>Thursday</strong></td>
+                <td>9:00 AM – 7:00 PM</td>
+                <td><span class="open-badge">Open</span></td>
+              </tr>
+              <tr>
+                <td><strong>Friday</strong></td>
+                <td>9:00 AM – 6:00 PM</td>
+                <td><span class="open-badge">Open</span></td>
+              </tr>
+              <tr>
+                <td><strong>Saturday</strong></td>
+                <td>10:00 AM – 4:00 PM</td>
+                <td><span class="open-badge">Open</span></td>
+              </tr>
+              <tr class="closed-row">
+                <td><strong>Sunday</strong></td>
+                <td>—</td>
+                <td><span class="closed-badge">Closed</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="mt-3 mb-0 small text-muted"><i class="bi bi-info-circle me-1"></i>Hours may vary on public holidays. Please call ahead.</p>
+        </div>
+      </div>
+
+      <!-- FAQ Quick Info -->
+      <div class="col-lg-6 reveal">
+        <h5 class="fw-bold mb-4" style="font-family:'Playfair Display',serif; color:var(--charcoal)"><i class="bi bi-question-circle me-2" style="color:var(--blue)"></i>Frequently Asked Questions</h5>
+        <div class="faq-quick">
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span><i class="bi bi-p-circle me-2" style="color:var(--blue)"></i>Is parking available?</span>
+              <i class="bi bi-plus-circle faq-toggle-icon"></i>
+            </div>
+            <div class="faq-a">
+              Yes! All three locations offer free parking. The Downtown clinic has a dedicated 40-space lot accessible from Medical Boulevard. Westside and North Shore have on-site parking as well.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span><i class="bi bi-shield-check me-2" style="color:var(--blue)"></i>Do you accept insurance?</span>
+              <i class="bi bi-plus-circle faq-toggle-icon"></i>
+            </div>
+            <div class="faq-a">
+              We accept most major insurance plans including Aetna, Blue Cross Blue Shield, Cigna, UnitedHealthcare, and Medicare. Please call us or check with your insurer ahead of your visit to confirm coverage.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span><i class="bi bi-person-walking me-2" style="color:var(--blue)"></i>Do you accept walk-ins?</span>
+              <i class="bi bi-plus-circle faq-toggle-icon"></i>
+            </div>
+            <div class="faq-a">
+              We accommodate walk-in patients for urgent skin concerns subject to availability. For cosmetic and elective treatments, we recommend booking in advance to ensure you get your preferred doctor and time slot.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span><i class="bi bi-universal-access me-2" style="color:var(--blue)"></i>Is the clinic wheelchair accessible?</span>
+              <i class="bi bi-plus-circle faq-toggle-icon"></i>
+            </div>
+            <div class="faq-a">
+              All DermaCare locations are fully ADA-compliant. We have wide-doorway entrances, elevator access, accessible restrooms, and staff trained to assist patients with mobility needs.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span><i class="bi bi-credit-card me-2" style="color:var(--blue)"></i>What payment methods are accepted?</span>
+              <i class="bi bi-plus-circle faq-toggle-icon"></i>
+            </div>
+            <div class="faq-a">
+              We accept cash, all major credit/debit cards, HSA/FSA cards, and offer 0% financing plans through CareCredit for treatments over $500. Ask our front desk team for details.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= SECTION 5: SOCIAL & COMMUNITY ============================= -->
+<section class="social-section" id="social">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-label">Follow Along</span>
+      <h2 class="section-title">Join Our Skincare Community</h2>
+      <p class="section-subtitle">Real results, expert tips, and behind-the-scenes glimpses — all on our social channels.</p>
+    </div>
+
+    <div class="row g-5 align-items-start">
+      <!-- Instagram Grid -->
+      <div class="col-lg-7 reveal">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+          <div>
+            <div class="follow-count">48.2K</div>
+            <small class="text-muted">Instagram Followers</small>
+          </div>
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="btn-follow">
+            <i class="bi bi-instagram"></i> Follow on Instagram
+          </a>
+        </div>
+
+        <div class="insta-grid">
+          <div class="insta-post">
+            <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=400&h=400&fit=crop&crop=faces" alt="Skincare tip post" loading="lazy" />
+            <div class="insta-overlay">
+              <div class="insta-likes"><i class="bi bi-heart-fill"></i> 1.2K</div>
+            </div>
+          </div>
+          <div class="insta-post">
+            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=400&h=400&fit=crop&crop=faces" alt="Treatment result post" loading="lazy" />
+            <div class="insta-overlay">
+              <div class="insta-likes"><i class="bi bi-heart-fill"></i> 876</div>
+            </div>
+          </div>
+          <div class="insta-post">
+            <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=400&h=400&fit=crop" alt="Skincare product post" loading="lazy" />
+            <div class="insta-overlay">
+              <div class="insta-likes"><i class="bi bi-heart-fill"></i> 2.1K</div>
+            </div>
+          </div>
+          <div class="insta-post">
+            <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400&h=400&fit=crop" alt="Doctor tip post" loading="lazy" />
+            <div class="insta-overlay">
+              <div class="insta-likes"><i class="bi bi-heart-fill"></i> 654</div>
+            </div>
+          </div>
+          <div class="insta-post">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=faces" alt="Glow up post" loading="lazy" />
+            <div class="insta-overlay">
+              <div class="insta-likes"><i class="bi bi-heart-fill"></i> 1.8K</div>
+            </div>
+          </div>
+          <div class="insta-post">
+            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&h=400&fit=crop" alt="Healthy skin post" loading="lazy" />
+            <div class="insta-overlay">
+              <div class="insta-likes"><i class="bi bi-heart-fill"></i> 943</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- YouTube + Newsletter -->
+      <div class="col-lg-5 reveal">
+        <!-- YouTube -->
+        <div class="youtube-preview mb-4">
+          <div class="youtube-play"><i class="bi bi-play-fill"></i></div>
+          <div>
+            <div style="font-size:.72rem; opacity:.8; letter-spacing:.08em; text-transform:uppercase; font-weight:700; margin-bottom:.3rem;">YouTube Channel</div>
+            <div style="font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:600; margin-bottom:.25rem;">DermaCare TV</div>
+            <div style="font-size:.82rem; opacity:.8;">12.4K subscribers · 180+ videos on skin health, treatments, and expert Q&As</div>
+            <a href="https://youtube.com" target="_blank" rel="noopener" style="display:inline-block; margin-top:.75rem; background:rgba(255,255,255,.2); border-radius:50px; padding:.35rem 1rem; color:#fff; font-size:.8rem; font-weight:600; text-decoration:none;">Subscribe <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="newsletter-card">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <i class="bi bi-envelope-paper-fill" style="color:var(--blue); font-size:1.3rem;"></i>
+            <h5 class="mb-0">Skin Tips Newsletter</h5>
+          </div>
+          <p class="text-muted small mb-3">Weekly expert skincare advice, seasonal treatment guides, and exclusive DermaCare offers — straight to your inbox.</p>
+          <div class="input-group">
+            <input type="email" class="form-control" id="newsletterEmail" placeholder="Your email address" />
+            <button class="btn-subscribe" type="button" onclick="subscribeNewsletter()">Subscribe</button>
+          </div>
+          <p class="text-muted mt-2 mb-0" style="font-size:.72rem;">No spam, ever. Unsubscribe anytime. &bull; <a href="#" style="color:var(--blue)">Privacy Policy</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= SECTION 6: URGENT CARE ============================= -->
+<section class="urgent-section" id="urgent">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-label">Urgent Help</span>
+      <h2 class="section-title">Need Urgent Skin Care?</h2>
+      <p class="section-subtitle">We're here when you need us most — same-day appointments and 24/7 nurse advice line.</p>
+    </div>
+
+    <!-- Two Urgent Cards -->
+    <div class="row g-4 mb-5">
+      <div class="col-md-6 reveal">
+        <div class="urgent-card urgent">
+          <div class="urgent-card-body">
+            <div class="urgent-icon red"><i class="bi bi-calendar2-plus"></i></div>
+            <h4>Urgent Appointments</h4>
+            <p>Experiencing an acute skin reaction, severe flare-up, or sudden concern? We reserve same-day slots every morning for urgent cases at all three locations.</p>
+            <ul class="urgent-features ps-0">
+              <li><i class="bi bi-check-circle-fill"></i> Same-day slots available 7 days a week</li>
+              <li><i class="bi bi-check-circle-fill"></i> Priority triage by our nursing team</li>
+              <li><i class="bi bi-check-circle-fill"></i> No referral needed for urgent visits</li>
+              <li><i class="bi bi-check-circle-fill"></i> Specialist on-call for emergencies</li>
+            </ul>
+            <a href="tel:+15551234567" class="btn-urgent mt-3">
+              <i class="bi bi-telephone-fill"></i> Call for Urgent Slot
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 reveal">
+        <div class="urgent-card after-hours">
+          <div class="urgent-card-body">
+            <div class="urgent-icon blue"><i class="bi bi-moon-stars-fill"></i></div>
+            <h4>After-Hours Advice</h4>
+            <p>Our 24/7 nurse advice line connects you with a qualified clinical nurse for guidance on skin emergencies, medication queries, or post-treatment concerns — any time, day or night.</p>
+            <ul class="urgent-features ps-0">
+              <li><i class="bi bi-check-circle-fill"></i> Registered nurse available 24 hours</li>
+              <li><i class="bi bi-check-circle-fill"></i> Guidance on allergic reactions &amp; flares</li>
+              <li><i class="bi bi-check-circle-fill"></i> Post-treatment support &amp; reassurance</li>
+              <li><i class="bi bi-check-circle-fill"></i> Referral to on-call physician if needed</li>
+            </ul>
+            <a href="tel:+15559876543" class="btn-after mt-3">
+              <i class="bi bi-headset"></i> Nurse Advice Line
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Before You Visit Accordion -->
+    <div class="visit-accordion reveal">
+      <h4 class="fw-bold mb-4" style="font-family:'Playfair Display',serif; color:var(--charcoal)">
+        <i class="bi bi-info-circle me-2" style="color:var(--blue)"></i>Before You Visit
+      </h4>
+
+      <div class="acc-item">
+        <button class="acc-btn" onclick="toggleAcc(this)">
+          <span><i class="bi bi-bag-check me-2" style="color:var(--blue)"></i>What to Bring to Your Appointment</span>
+          <i class="bi bi-plus acc-icon"></i>
+        </button>
+        <div class="acc-body">
+          Please bring a valid photo ID, your insurance card, a list of current medications and supplements, any previous dermatology records or biopsy results, and your completed new-patient intake form (available online). Arrive 10 minutes early to allow time for check-in.
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-btn" onclick="toggleAcc(this)">
+          <span><i class="bi bi-p-square me-2" style="color:var(--blue)"></i>Parking &amp; Getting Here</span>
+          <i class="bi bi-plus acc-icon"></i>
+        </button>
+        <div class="acc-body">
+          All three DermaCare locations offer free on-site parking. The Downtown clinic is also accessible via subway (Lines A, C, E at 34th Street). Westside Center is served by the M23 bus. For turn-by-turn directions, use the "Get Directions" buttons in the Locations section above.
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-btn" onclick="toggleAcc(this)">
+          <span><i class="bi bi-clipboard2-pulse me-2" style="color:var(--blue)"></i>What to Expect During Your First Visit</span>
+          <i class="bi bi-plus acc-icon"></i>
+        </button>
+        <div class="acc-body">
+          Your first visit typically lasts 45–60 minutes. After check-in, our nursing team will take your skin history and photographs for our VISIA® digital analysis system. Your dermatologist will then perform a thorough consultation, review your concerns, and discuss a personalised treatment plan. You'll leave with a written care plan and all your questions answered.
+        </div>
+      </div>
+
+      <div class="acc-item">
+        <button class="acc-btn" onclick="toggleAcc(this)">
+          <span><i class="bi bi-calendar-x me-2" style="color:var(--blue)"></i>Cancellation Policy</span>
+          <i class="bi bi-plus acc-icon"></i>
+        </button>
+        <div class="acc-body">
+          We kindly ask for 24 hours' notice if you need to cancel or reschedule your appointment. Cancellations made with less than 24 hours' notice, or no-shows, may incur a $50 cancellation fee. We understand emergencies happen — please call us as soon as possible and we will do our best to accommodate you.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================= FOOTER ============================= -->
+<footer class="dc-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="dc-logo">
+          <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="15" fill="rgba(84,124,155,0.2)" stroke="#4A7090" stroke-width="1.5"/>
+            <path d="M16 8c0 0-6 4-6 10a6 6 0 0 0 12 0C22 12 16 8 16 8z" fill="#4A7090" opacity="0.9"/>
+          </svg>DermaCare
+        </div>
+        <p class="dc-desc">Premium dermatological care combining clinical excellence with personalised attention. Your skin's health is our commitment.</p>
+        <div class="d-flex gap-3 mt-3">
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-instagram"></i></a>
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-facebook"></i></a>
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-sm-6">
+        <div class="dc-heading">Services</div>
+        <ul class="dc-links">
+          <li><a href="services.html">Acne Treatment</a></li>
+          <li><a href="services.html">Laser Therapy</a></li>
+          <li><a href="services.html">Skin Rejuvenation</a></li>
+          <li><a href="services.html">Pigmentation Care</a></li>
+          <li><a href="services.html">Anti-Aging</a></li>
+          <li><a href="services.html">Hair &amp; Scalp</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-sm-6">
+        <div class="dc-heading">Company</div>
+        <ul class="dc-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="home2.html">Home 2</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="appointment.html">Book Appointment</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <div class="dc-heading">Contact</div>
+        <ul class="dc-links">
+          <li><i class="bi bi-geo-alt me-2"></i>123 Wellness Avenue, Suite 400</li>
+          <li><i class="bi bi-telephone me-2"></i>+1 (800) DERMA-00</li>
+          <li><i class="bi bi-envelope me-2"></i>hello@dermacare.clinic</li>
+          <li class="mt-2"><i class="bi bi-clock me-2"></i>Mon–Sat: 8 AM – 7 PM</li>
+          <li><span style="padding-left:1.4rem;">Sun: 10 AM – 4 PM</span></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="dc-divider" />
+    <div class="d-flex flex-wrap justify-content-between align-items-center dc-bottom">
+      <span>© 2024 DermaCare Clinic. All rights reserved.</span>
+      <span class="d-flex gap-3">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Custom JS -->
+<script src="/assets/js/main.js"></script>
+
+<script>
+  // ---- Theme Toggle ----
+  (function(){
+    const html = document.documentElement;
+    const btn = document.getElementById('themeToggle');
+    const icon = document.getElementById('themeIcon');
+    function applyTheme(t){
+      html.setAttribute('data-theme', t);
+      icon.className = t === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-stars-fill';
+    }
+    applyTheme(localStorage.getItem('dermacare-theme') || 'light');
+    btn.addEventListener('click', function(){
+      const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      localStorage.setItem('dermacare-theme', next);
+    });
+  })();
+
+  // ---- Scroll Reveal ----
+  (function(){
+    const els = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    els.forEach(function(el){ io.observe(el); });
+  })();
+
+  // ---- Navbar scroll effect ----
+  window.addEventListener('scroll', function(){
+    const nav = document.getElementById('mainNavbar');
+    nav.style.boxShadow = window.scrollY > 50 ? '0 4px 24px rgba(41,45,50,.1)' : 'none';
+  });
+
+  // ---- FAQ Toggle ----
+  function toggleFaq(el) {
+    const answer = el.nextElementSibling;
+    const icon = el.querySelector('.faq-toggle-icon');
+    const isOpen = answer.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.faq-a.open').forEach(function(a){ a.classList.remove('open'); });
+    document.querySelectorAll('.faq-toggle-icon.rotated').forEach(function(i){ i.classList.remove('rotated'); });
+    if(!isOpen){
+      answer.classList.add('open');
+      icon.classList.add('rotated');
+    }
+  }
+
+  // ---- Accordion Toggle ----
+  function toggleAcc(btn) {
+    const body = btn.nextElementSibling;
+    const icon = btn.querySelector('.acc-icon');
+    const isOpen = body.classList.contains('open');
+    document.querySelectorAll('.acc-body.open').forEach(function(b){ b.classList.remove('open'); });
+    document.querySelectorAll('.acc-icon.rotated').forEach(function(i){ i.classList.remove('rotated'); });
+    if(!isOpen){
+      body.classList.add('open');
+      icon.classList.add('rotated');
+    }
+  }
+
+  // ---- Toast Notification ----
+  function showToast(message, type) {
+    type = type || 'info';
+    const container = document.getElementById('toastContainer');
+    const icons = { success:'bi-check-circle-fill', error:'bi-x-circle-fill', info:'bi-info-circle-fill' };
+    const colors = { success:'#25d366', error:'#dc3545', info:'var(--blue,#4A7090)' };
+    const toast = document.createElement('div');
+    toast.className = 'toast-msg ' + type;
+    toast.innerHTML = '<i class="bi ' + (icons[type]||icons.info) + '" style="color:' + (colors[type]||colors.info) + '; font-size:1.2rem;"></i><span>' + message + '</span>';
+    container.appendChild(toast);
+    setTimeout(function(){ toast.style.opacity='0'; toast.style.transition='opacity .4s'; setTimeout(function(){ toast.remove(); }, 400); }, 4000);
+  }
+
+  // ---- Contact Form Validation ----
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    let valid = true;
+
+    const name = document.getElementById('fullName');
+    const email = document.getElementById('emailAddr');
+    const subject = document.getElementById('subjectDrop');
+    const msg = document.getElementById('msgArea');
+    const privacy = document.getElementById('privacyCheck');
+
+    // Reset
+    [name,email,subject,msg,privacy].forEach(function(f){ f.classList.remove('is-invalid'); });
+
+    if(!name.value.trim() || name.value.trim().length < 2){ name.classList.add('is-invalid'); valid = false; }
+    if(!email.value.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())){ email.classList.add('is-invalid'); valid = false; }
+    if(!subject.value){ subject.classList.add('is-invalid'); valid = false; }
+    if(!msg.value.trim() || msg.value.trim().length < 20){ msg.classList.add('is-invalid'); valid = false; }
+    if(!privacy.checked){ privacy.classList.add('is-invalid'); valid = false; }
+
+    if(valid){
+      showToast('Thank you! Your message has been sent. We\'ll reply within 24 hours.', 'success');
+      this.reset();
+    } else {
+      showToast('Please correct the highlighted fields and try again.', 'error');
+    }
+  });
+
+  // ---- Newsletter Subscribe ----
+  function subscribeNewsletter(){
+    const input = document.getElementById('newsletterEmail');
+    const val = input.value.trim();
+    if(!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)){
+      showToast('Please enter a valid email address.', 'error');
+      input.focus();
+      return;
+    }
+    showToast('You\'re subscribed! Check your inbox for a welcome email.', 'success');
+    input.value = '';
+  }
+</script>
+</body>
+</html>

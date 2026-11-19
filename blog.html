@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg" />
+  <title>Blog — Skin Health Insights | DermaCare Clinic</title>
+  <meta name="description" content="Expert dermatology advice, skincare tips, and clinical insights from our board-certified dermatologists at DermaCare Clinic." />
+
+  <!-- Bootstrap 5 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <script src="/assets/js/rtl-init.js"></script>
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet" />
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/assets/css/style.css" />
+
+  <style>
+    :root {
+      --ivory: var(--color-ivory);
+      --blue: var(--color-blue);
+      --blue-dark: #3d6080;
+      --sage: var(--color-sage);
+      --champagne: var(--color-champagne);
+      --charcoal: var(--color-charcoal);
+      --white: #ffffff;
+      --gray-100: #f8f9fa;
+      --gray-200: #e9ecef;
+      --gray-500: var(--text-muted);
+      --gray-600: var(--text-secondary);
+      --shadow-sm: 0 2px 12px rgba(41,45,50,0.07);
+      --shadow-md: 0 8px 32px rgba(41,45,50,0.12);
+      --shadow-lg: 0 16px 48px rgba(41,45,50,0.18);
+      --radius: 14px;
+      --radius-sm: 8px;
+      --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    [data-theme="dark"] {
+      --ivory: #1a1d21;
+      --white: #242830;
+      --charcoal: #e8eaf0;
+      --gray-100: #242830;
+      --gray-200: #2f333a;
+      --gray-600: #9ca3af;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--ivory);
+      color: var(--charcoal);
+      line-height: 1.7;
+    }
+    h1,h2,h3,h4,h5 { font-family: 'Playfair Display', serif; }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      background: rgba(250,248,245,0.82) !important;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(84,124,155,0.12);
+      padding: 0.85rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1050;
+      transition: var(--transition);
+    }
+    [data-theme="dark"] .navbar {
+      background: rgba(26,29,33,0.88) !important;
+    }
+    .navbar-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--blue) !important;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .navbar-brand svg { width: 32px; height: 32px; }
+    .nav-link {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--charcoal) !important;
+      padding: 0.4rem 0.9rem !important;
+      border-radius: 6px;
+      transition: var(--transition);
+    }
+    .nav-link:hover, .nav-link.active {
+      color: var(--blue) !important;
+      background: rgba(84,124,155,0.08);
+    }
+    .btn-book {
+      background: var(--blue);
+      color: #fff !important;
+      border-radius: 50px;
+      padding: 0.45rem 1.3rem !important;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      transition: var(--transition);
+    }
+    .btn-book:hover {
+      background: var(--blue-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(84,124,155,0.35);
+    }
+    .btn-theme {
+      background: none;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--charcoal);
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1rem;
+    }
+    .btn-theme:hover {
+      background: rgba(84,124,155,0.1);
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    /* ===== SECTION 1: BLOG HERO ===== */
+    .blog-hero {
+      background:
+        linear-gradient(180deg, rgba(16,22,29,0.74) 0%, rgba(16,22,29,0.86) 100%),
+        url('https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=1600&h=900&fit=crop') center/cover no-repeat;
+      padding: 150px 0 90px;
+      position: relative;
+      overflow: hidden;
+    }
+    .blog-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 55%, rgba(84,124,155,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .blog-hero .container { position: relative; z-index: 2; }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.24);
+      color: #dcecf7;
+      border-radius: 50px;
+      padding: 0.35rem 1rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .hero-title {
+      font-size: clamp(2.2rem, 4.5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: #fff;
+      margin-bottom: 1rem;
+    }
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.84);
+      max-width: 680px;
+      margin-bottom: 2rem;
+    }
+    .search-bar-wrapper {
+      position: relative;
+      max-width: 560px;
+      margin: 0 auto 2rem;
+    }
+    .search-bar-wrapper input {
+      width: 100%;
+      padding: 0.9rem 1.2rem 0.9rem 3.2rem;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 50px;
+      background: var(--white);
+      font-size: 0.95rem;
+      color: var(--charcoal);
+      transition: var(--transition);
+      outline: none;
+    }
+    .search-bar-wrapper input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(84,124,155,0.12);
+    }
+    .search-bar-wrapper .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray-500);
+      font-size: 1.1rem;
+    }
+    .search-bar-wrapper .search-btn {
+      position: absolute;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .search-bar-wrapper .search-btn:hover { background: var(--blue-dark); }
+
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+    .filter-pill {
+      background: var(--white);
+      border: 1.5px solid var(--gray-200);
+      border-radius: 50px;
+      padding: 0.4rem 1.1rem;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--charcoal);
+    }
+    .filter-pill:hover, .filter-pill.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+    }
+
+    /* Featured Post Banner */
+    .featured-banner {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      height: 460px;
+    }
+    .featured-banner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .featured-banner:hover img { transform: scale(1.03); }
+    .featured-banner-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(41,45,50,0.88) 0%, rgba(41,45,50,0.3) 50%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 2.5rem;
+    }
+    .featured-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 50px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      width: fit-content;
+    }
+    .featured-banner-title {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      line-height: 1.25;
+    }
+    .featured-excerpt {
+      color: rgba(255,255,255,0.82);
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+      max-width: 680px;
+    }
+    .featured-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+    }
+    .featured-author {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      color: rgba(255,255,255,0.9);
+      font-size: 0.88rem;
+    }
+    .featured-author img {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(255,255,255,0.4);
+    }
+    .featured-date {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-read-featured {
+      background: var(--white);
+      color: var(--blue);
+      border: none;
+      border-radius: 50px;
+      padding: 0.6rem 1.5rem;
+      font-weight: 700;
+      font-size: 0.88rem;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-read-featured:hover {
+      background: var(--blue);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* ===== SECTION 2: FEATURED POSTS GRID ===== */
+    .section-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .section-desc {
+      color: var(--gray-600);
+      font-size: 1rem;
+      max-width: 500px;
+    }
+    .blog-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    .blog-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+    }
+    .blog-card-img {
+      position: relative;
+      overflow: hidden;
+      height: 210px;
+    }
+    .blog-card-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .blog-card:hover .blog-card-img img { transform: scale(1.06); }
+    .cat-badge {
+      position: absolute;
+      top: 1rem; left: 1rem;
+      border-radius: 50px;
+      padding: 0.28rem 0.85rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .cat-acne { background: rgba(84,124,155,0.9); color: #fff; }
+    .cat-treatments { background: rgba(168,185,165,0.95); color: #292D32; }
+    .cat-pigmentation { background: rgba(216,197,165,0.95); color: #292D32; }
+    .cat-antiaging { background: rgba(84,124,155,0.85); color: #fff; }
+    .cat-hair { background: rgba(41,45,50,0.82); color: #fff; }
+    .cat-skincare { background: rgba(168,185,165,0.9); color: #292D32; }
+    .cat-laser { background: rgba(84,124,155,0.9); color: #fff; }
+    .blog-card-body {
+      padding: 1.4rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .blog-card-title {
+      font-size: 1.08rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+      line-height: 1.35;
+      color: var(--charcoal);
+    }
+    .blog-card-excerpt {
+      font-size: 0.88rem;
+      color: var(--gray-600);
+      margin-bottom: 1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+    .blog-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--gray-200);
+      padding-top: 1rem;
+      margin-top: auto;
+    }
+    .author-mini {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .author-mini img {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .author-mini-name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      line-height: 1.2;
+    }
+    .author-mini-date {
+      font-size: 0.75rem;
+      color: var(--gray-500);
+    }
+    .read-more-link {
+      color: var(--blue);
+      font-size: 0.85rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: var(--transition);
+      white-space: nowrap;
+    }
+    .read-more-link:hover {
+      color: var(--blue-dark);
+      gap: 0.6rem;
+    }
+
+    /* ===== SECTION 3: SIDEBAR + MAIN ===== */
+    .section-padded {
+      padding: 80px 0;
+    }
+    .h-post {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0,0,0,0.04);
+      margin-bottom: 1.5rem;
+      transition: var(--transition);
+    }
+    .h-post:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateX(4px);
+    }
+    .h-post-img {
+      width: 200px;
+      min-width: 200px;
+      height: 160px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .h-post-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .h-post:hover .h-post-img img { transform: scale(1.06); }
+    .h-post-body {
+      padding: 1.2rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .h-post-cat {
+      display: inline-block;
+      background: rgba(84,124,155,0.1);
+      color: var(--blue);
+      border-radius: 50px;
+      padding: 0.2rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .h-post-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      line-height: 1.35;
+      color: var(--charcoal);
+    }
+    .h-post-excerpt {
+      font-size: 0.85rem;
+      color: var(--gray-600);
+      margin-bottom: 0.6rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .h-post-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: var(--gray-500);
+    }
+    .h-post-meta span { display: flex; align-items: center; gap: 0.3rem; }
+
+    /* Sidebar */
+    .sidebar-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    .sidebar-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 1.1rem;
+      color: var(--charcoal);
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--blue);
+      display: inline-block;
+    }
+    .sidebar-search input {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      background: var(--ivory);
+      outline: none;
+      transition: var(--transition);
+    }
+    .sidebar-search input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(84,124,155,0.12);
+    }
+    .cat-list { list-style: none; padding: 0; margin: 0; }
+    .cat-list li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--gray-200);
+      font-size: 0.9rem;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .cat-list li:last-child { border-bottom: none; }
+    .cat-list li:hover { color: var(--blue); padding-left: 4px; }
+    .cat-count {
+      background: var(--gray-100);
+      border-radius: 50px;
+      padding: 0.15rem 0.6rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gray-600);
+    }
+    .recent-post {
+      display: flex;
+      gap: 0.85rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--gray-200);
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+    }
+    .recent-post:last-child { border-bottom: none; }
+    .recent-post:hover { color: var(--blue); }
+    .recent-post img {
+      width: 56px; height: 50px;
+      border-radius: 8px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+    .recent-post-title {
+      font-size: 0.84rem;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-bottom: 0.2rem;
+    }
+    .recent-post-date {
+      font-size: 0.75rem;
+      color: var(--gray-500);
+    }
+    .tags-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .tag-chip {
+      background: var(--ivory);
+      border: 1.5px solid var(--gray-200);
+      border-radius: 50px;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .tag-chip:hover {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+    }
+    .cta-sidebar {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+      border-radius: var(--radius);
+      padding: 1.8rem 1.5rem;
+      text-align: center;
+      color: #fff;
+    }
+    .cta-sidebar h5 { font-size: 1.1rem; margin-bottom: 0.5rem; color: #fff; }
+    .cta-sidebar p { font-size: 0.85rem; opacity: 0.88; margin-bottom: 1.2rem; }
+    .btn-cta-white {
+      background: #fff;
+      color: var(--blue);
+      border: none;
+      border-radius: 50px;
+      padding: 0.55rem 1.4rem;
+      font-weight: 700;
+      font-size: 0.88rem;
+      transition: var(--transition);
+      display: inline-block;
+    }
+    .btn-cta-white:hover {
+      background: var(--ivory);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+    }
+
+    /* ===== SECTION 4: VIDEO BLOG ===== */
+    .video-section { background: var(--gray-100); }
+    .video-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      border: 1px solid rgba(0,0,0,0.04);
+      cursor: pointer;
+    }
+    .video-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+    .video-thumb {
+      position: relative;
+      overflow: hidden;
+      height: 220px;
+    }
+    .video-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .video-card:hover .video-thumb img { transform: scale(1.05); }
+    .play-btn-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(41,45,50,0.3);
+      transition: var(--transition);
+    }
+    .video-card:hover .play-btn-overlay { background: rgba(41,45,50,0.45); }
+    .play-circle {
+      width: 60px; height: 60px;
+      background: rgba(255,255,255,0.95);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    }
+    .play-circle svg { width: 24px; height: 24px; fill: var(--blue); margin-left: 4px; }
+    .video-card:hover .play-circle {
+      transform: scale(1.12);
+      box-shadow: 0 6px 28px rgba(84,124,155,0.5);
+    }
+    .duration-badge {
+      position: absolute;
+      bottom: 0.75rem; right: 0.75rem;
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      border-radius: 6px;
+      padding: 0.2rem 0.6rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .video-info { padding: 1.3rem; }
+    .video-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.08rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--charcoal);
+    }
+    .video-stats {
+      display: flex;
+      gap: 1.2rem;
+      font-size: 0.82rem;
+      color: var(--gray-500);
+    }
+    .video-stats span { display: flex; align-items: center; gap: 0.3rem; }
+    .video-modal-content {
+      background: #0b0f14;
+      border: none;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .video-modal-content .modal-header {
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+      padding: 1rem 1.25rem;
+    }
+    .video-modal-content .modal-title {
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+    }
+    .video-modal-content .btn-close {
+      filter: invert(1) grayscale(1);
+      opacity: 0.8;
+    }
+    .video-modal-content video {
+      display: block;
+      width: 100%;
+      max-height: 70vh;
+      background: #000;
+    }
+
+    /* ===== SECTION 5: NEWSLETTER ===== */
+    .newsletter-section {
+      background: var(--champagne);
+      padding: 90px 0;
+    }
+    .newsletter-title {
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .benefits-list { list-style: none; padding: 0; margin: 0 0 1.5rem; }
+    .benefits-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      margin-bottom: 0.65rem;
+      color: var(--charcoal);
+    }
+    .benefit-icon {
+      width: 28px; height: 28px;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+    .newsletter-form-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      padding: 2.2rem;
+      box-shadow: var(--shadow-md);
+    }
+    .form-floating-custom {
+      position: relative;
+      margin-bottom: 1rem;
+    }
+    .form-floating-custom input {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      color: var(--charcoal);
+      background: var(--ivory);
+      outline: none;
+      transition: var(--transition);
+    }
+    .form-floating-custom input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(84,124,155,0.12);
+    }
+    .btn-subscribe {
+      width: 100%;
+      background: var(--blue);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 0.85rem;
+      font-size: 1rem;
+      font-weight: 700;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .btn-subscribe:hover {
+      background: var(--blue-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(84,124,155,0.35);
+    }
+    .privacy-note {
+      font-size: 0.78rem;
+      color: var(--gray-500);
+      text-align: center;
+      margin-top: 0.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    /* ===== SECTION 6: TRENDING TOPICS ===== */
+    .topic-card {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      height: 200px;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+    .topic-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+    .topic-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+    .topic-card:hover img { transform: scale(1.08); }
+    .topic-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(41,45,50,0.82) 0%, rgba(41,45,50,0.2) 60%, transparent 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.2rem;
+    }
+    .topic-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.2rem;
+    }
+    .topic-count {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.75);
+    }
+    /* ===== FOOTER ===== */
+    .footer {
+      background: var(--charcoal);
+      color: rgba(255,255,255,0.75);
+      padding: 70px 0 0;
+    }
+    [data-theme="dark"] .footer { background: #111317; }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .footer-tagline {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+      max-width: 240px;
+    }
+    .social-links {
+      display: flex;
+      gap: 0.6rem;
+    }
+    .social-link {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      transition: var(--transition);
+    }
+    .social-link:hover {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+      transform: translateY(-3px);
+    }
+    .footer-heading {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .footer-links { list-style: none; padding: 0; margin: 0; }
+    .footer-links li { margin-bottom: 0.6rem; }
+    .footer-links a {
+      color: rgba(255,255,255,0.65);
+      font-size: 0.88rem;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .footer-links a:hover { color: var(--champagne); padding-left: 4px; }
+    .footer-contact li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.85rem;
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.7);
+    }
+    .footer-contact li i {
+      color: var(--sage);
+      font-size: 1rem;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 1.4rem 0;
+      margin-top: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .footer-bottom p { font-size: 0.82rem; margin: 0; }
+    .footer-bottom-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .footer-bottom-links a {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+      transition: var(--transition);
+    }
+    .footer-bottom-links a:hover { color: var(--champagne); }
+
+    /* Utilities */
+    .bg-ivory { background: var(--ivory) !important; }
+    .text-blue { color: var(--blue) !important; }
+    .mb-section { margin-bottom: 3.5rem; }
+  </style>
+<link rel="stylesheet" href="/assets/css/responsive.css" />
+</head>
+<body>
+
+<!-- ==================== NAVBAR ==================== -->
+<nav class="navbar navbar-expand-lg" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="14" fill="#EAF0F5"/>
+        <path d="M16 6C16 6 10 11 10 17a6 6 0 0012 0c0-6-6-11-6-11z" fill="#4A7090"/>
+        <path d="M16 10c0 0-3 4-3 7a3 3 0 006 0c0-3-3-7-3-7z" fill="#A8B9A5"/>
+        <circle cx="16" cy="17" r="2" fill="#FAF8F5"/>
+      </svg>
+      DermaCare
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Toggle navigation">
+      <i class="bi bi-list fs-4"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto gap-1">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="home2.html">Home 2</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="services.html">Services</a></li>
+        <li class="nav-item"><a class="nav-link active" href="blog.html">Blog</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Dashboard</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="patient-dashboard.html"><i class="bi bi-person-circle me-2"></i>User Dashboard</a></li>
+            <li><a class="dropdown-item" href="admin-dashboard.html"><i class="bi bi-shield-lock me-2"></i>Admin Dashboard</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="d-flex align-items-center gap-2 mt-3 mt-lg-0">
+        <button class="btn-theme" id="themeToggle" aria-label="Toggle theme">
+          <i class="bi bi-moon-stars" id="themeIcon"></i>
+        </button>
+        <a href="login.html" class="nav-login-btn"><i class="bi bi-box-arrow-in-right"></i>Login</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ==================== SECTION 1: BLOG HERO ==================== -->
+<section class="blog-hero">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span class="hero-eyebrow"><i class="bi bi-journal-medical"></i> Clinical Insights</span>
+      <h1 class="hero-title">Skin Health Insights</h1>
+      <p class="hero-subtitle mx-auto">Expert dermatology advice from our board-certified doctors — evidence-based, accessible, and deeply personal.</p>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar-wrapper">
+      <i class="bi bi-search search-icon"></i>
+      <input type="text" placeholder="Search articles, treatments, tips..." aria-label="Search blog posts" />
+      <button class="search-btn">Search</button>
+    </div>
+
+    <!-- Filter Pills -->
+    <div class="filter-pills">
+      <span class="filter-pill active">All</span>
+      <span class="filter-pill">Acne</span>
+      <span class="filter-pill">Laser</span>
+      <span class="filter-pill">Anti-Aging</span>
+      <span class="filter-pill">Skincare Tips</span>
+      <span class="filter-pill">Treatments</span>
+      <span class="filter-pill">Research</span>
+      <span class="filter-pill">Hair</span>
+      <span class="filter-pill">Pigmentation</span>
+    </div>
+
+    <!-- Featured Post Banner -->
+    <div class="featured-banner" data-category="Laser Treatments">
+      <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1600&h=650&fit=crop" alt="The Science Behind Laser Resurfacing" loading="eager" />
+      <div class="featured-banner-overlay">
+        <span class="featured-label"><i class="bi bi-star-fill me-1"></i> Featured Article</span>
+        <h2 class="featured-banner-title">The Science Behind Laser Resurfacing:<br class="d-none d-md-block" /> What You Need to Know</h2>
+        <p class="featured-excerpt">From Fraxel to CO2 lasers — our lead dermatologist explains how modern laser technology works, who it's right for, and what real patients can expect from recovery to remarkable results.</p>
+        <div class="featured-meta">
+          <div class="featured-author">
+                <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&h=100&fit=crop&crop=faces" alt="Dr. Sarah Mitchell" />
+            <span><strong>Dr. Sarah Mitchell</strong></span>
+          </div>
+          <span class="featured-date"><i class="bi bi-calendar3"></i> Nov 10, 2026</span>
+          <span class="featured-date"><i class="bi bi-clock"></i> 8 min read</span>
+          <a href="blog-details.html" class="btn-read-featured ms-auto">Read Article <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 2: FEATURED POSTS GRID ==================== -->
+<section class="section-padded bg-ivory">
+  <div class="container">
+    <div class="row align-items-end mb-5">
+      <div class="col-lg-7">
+        <p class="section-label"><i class="bi bi-bookmark-star me-1"></i> Curated Reads</p>
+        <h2 class="section-title">Editor's Picks</h2>
+        <p class="section-desc">Hand-selected articles by our clinical team covering the most important skin health topics.</p>
+      </div>
+      <div class="col-lg-5 text-lg-end mt-3 mt-lg-0">
+        <a href="#" class="read-more-link fs-6">View All Articles <i class="bi bi-arrow-right"></i></a>
+      </div>
+    </div>
+    <div class="row g-4">
+
+      <!-- Card 1 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="blog-card">
+          <div class="blog-card-img">
+            <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=800&h=420&fit=crop&crop=faces" alt="Top 5 Myths About Acne" loading="lazy" />
+            <span class="cat-badge cat-acne">Acne</span>
+          </div>
+          <div class="blog-card-body">
+            <h3 class="blog-card-title">Top 5 Myths About Acne — Debunked by Dermatologists</h3>
+            <p class="blog-card-excerpt">From chocolate causing breakouts to toothpaste as a spot treatment — dermatologists weigh in on the most persistent acne myths that are actually making your skin worse.</p>
+            <div class="blog-card-footer">
+              <div class="author-mini">
+                <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=100&h=100&fit=crop&crop=faces" alt="Dr. James Chen" />
+                <div>
+                  <div class="author-mini-name">Dr. James Chen</div>
+                  <div class="author-mini-date">Oct 28, 2026 &bull; 6 min</div>
+                </div>
+              </div>
+              <a href="blog-details.html" class="read-more-link">Read More <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="blog-card">
+          <div class="blog-card-img">
+            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&h=420&fit=crop&crop=faces" alt="Chemical Peels" loading="lazy" />
+            <span class="cat-badge cat-treatments">Treatments</span>
+          </div>
+          <div class="blog-card-body">
+            <h3 class="blog-card-title">How Chemical Peels Transform Your Skin in 30 Days</h3>
+            <p class="blog-card-excerpt">A certified dermatologist tracks the visible skin changes week-by-week after a professional glycolic acid peel — with before and after clinical photography.</p>
+            <div class="blog-card-footer">
+              <div class="author-mini">
+                <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=100&h=100&fit=crop&crop=faces" alt="Dr. Priya Sharma" />
+                <div>
+                  <div class="author-mini-name">Dr. Priya Sharma</div>
+                  <div class="author-mini-date">Nov 2, 2026 &bull; 7 min</div>
+                </div>
+              </div>
+              <a href="blog-details.html" class="read-more-link">Read More <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="blog-card">
+          <div class="blog-card-img">
+            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=800&h=420&fit=crop&crop=faces" alt="Melasma" loading="lazy" />
+            <span class="cat-badge cat-pigmentation">Pigmentation</span>
+          </div>
+          <div class="blog-card-body">
+            <h3 class="blog-card-title">Understanding Melasma: Causes, Triggers &amp; Treatments</h3>
+            <p class="blog-card-excerpt">Melasma affects millions globally — particularly women over 30. Learn how hormones, sun exposure, and heat conspire to create this stubborn discolouration and how we treat it.</p>
+            <div class="blog-card-footer">
+              <div class="author-mini">
+            <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=100&h=100&fit=crop&crop=faces" alt="Dr. Sarah Mitchell" />
+                <div>
+                  <div class="author-mini-name">Dr. Sarah Mitchell</div>
+                  <div class="author-mini-date">Oct 20, 2026 &bull; 9 min</div>
+                </div>
+              </div>
+              <a href="blog-details.html" class="read-more-link">Read More <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="blog-card">
+          <div class="blog-card-img">
+            <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800&h=420&fit=crop&crop=faces" alt="Botox vs Fillers" loading="lazy" />
+            <span class="cat-badge cat-antiaging">Anti-Aging</span>
+          </div>
+          <div class="blog-card-body">
+            <h3 class="blog-card-title">Botox vs Fillers: Which Anti-Aging Treatment Is Right for You?</h3>
+            <p class="blog-card-excerpt">Two of the most requested cosmetic procedures — but they work very differently. Our expert breaks down costs, downtime, longevity, and which concerns each addresses best.</p>
+            <div class="blog-card-footer">
+              <div class="author-mini">
+                <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=100&h=100&fit=crop&crop=faces" alt="Dr. Michael Torres" />
+                <div>
+                  <div class="author-mini-name">Dr. Michael Torres</div>
+                  <div class="author-mini-date">Oct 15, 2026 &bull; 8 min</div>
+                </div>
+              </div>
+              <a href="blog-details.html" class="read-more-link">Read More <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="blog-card">
+          <div class="blog-card-img">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=800&h=420&fit=crop&crop=faces" alt="PRP for Hair Loss" loading="lazy" />
+            <span class="cat-badge cat-hair">Hair</span>
+          </div>
+          <div class="blog-card-body">
+            <h3 class="blog-card-title">PRP for Hair Loss: A Complete Patient Guide</h3>
+            <p class="blog-card-excerpt">Platelet-Rich Plasma therapy is showing impressive results for androgenic alopecia. We walk through the science, the procedure, expected timelines, and what real patients experienced.</p>
+            <div class="blog-card-footer">
+              <div class="author-mini">
+                <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?w=100&h=100&fit=crop&crop=faces" alt="Dr. James Chen" />
+                <div>
+                  <div class="author-mini-name">Dr. James Chen</div>
+                  <div class="author-mini-date">Sep 30, 2026 &bull; 10 min</div>
+                </div>
+              </div>
+              <a href="blog-details.html" class="read-more-link">Read More <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="blog-card">
+          <div class="blog-card-img">
+            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=800&h=420&fit=crop&crop=faces" alt="Winter Skincare" loading="lazy" />
+            <span class="cat-badge cat-skincare">Skincare Tips</span>
+          </div>
+          <div class="blog-card-body">
+            <h3 class="blog-card-title">Winter Skincare: How to Protect Sensitive Skin</h3>
+            <p class="blog-card-excerpt">Cold air, indoor heating, and low humidity are a triple threat to your skin barrier. Our clinical guide covers the right moisturisers, cleansers, and in-clinic treatments for winter resilience.</p>
+            <div class="blog-card-footer">
+              <div class="author-mini">
+                <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?w=100&h=100&fit=crop&crop=faces" alt="Dr. Priya Sharma" />
+                <div>
+                  <div class="author-mini-name">Dr. Priya Sharma</div>
+                  <div class="author-mini-date">Nov 5, 2026 &bull; 5 min</div>
+                </div>
+              </div>
+              <a href="blog-details.html" class="read-more-link">Read More <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 3: SIDEBAR + MAIN CONTENT ==================== -->
+<section class="section-padded">
+  <div class="container">
+    <div class="row g-5">
+
+      <!-- Main Content (8-col) -->
+      <div class="col-lg-8">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+          <h2 class="section-title mb-0" style="font-size:1.6rem;">Latest Articles</h2>
+          <span class="text-muted small">Showing 6 of 24 articles</span>
+        </div>
+
+        <!-- Horizontal Post 1 -->
+        <div class="h-post">
+          <div class="h-post-img">
+            <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=500&h=400&fit=crop" alt="SPF Guide" loading="lazy" />
+          </div>
+          <div class="h-post-body">
+            <span class="h-post-cat">Skincare Tips</span>
+            <h3 class="h-post-title">Your Complete Guide to SPF: What Factor, When &amp; How Much</h3>
+            <p class="h-post-excerpt">Not all sunscreens are created equal. Our dermatologists explain SPF ratings, UVA vs UVB protection, and why reapplication timing matters more than the number on the bottle.</p>
+            <div class="h-post-meta">
+              <span><i class="bi bi-person"></i> Dr. Sarah Mitchell</span>
+              <span><i class="bi bi-calendar3"></i> Nov 8, 2026</span>
+              <span><i class="bi bi-clock"></i> 6 min read</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Horizontal Post 2 -->
+        <div class="h-post">
+          <div class="h-post-img">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500&h=400&fit=crop&crop=faces" alt="Rosacea Guide" loading="lazy" />
+          </div>
+          <div class="h-post-body">
+            <span class="h-post-cat">Treatments</span>
+            <h3 class="h-post-title">Living with Rosacea: Triggers, Treatments &amp; Lifestyle Changes</h3>
+            <p class="h-post-excerpt">Rosacea is chronic but manageable with the right clinical approach. We cover the four subtypes, common dietary and environmental triggers, and both topical and laser treatment options available at our clinic.</p>
+            <div class="h-post-meta">
+              <span><i class="bi bi-person"></i> Dr. Michael Torres</span>
+              <span><i class="bi bi-calendar3"></i> Oct 25, 2026</span>
+              <span><i class="bi bi-clock"></i> 11 min read</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Horizontal Post 3 -->
+        <div class="h-post">
+          <div class="h-post-img">
+            <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&h=400&fit=crop" alt="Retinol Guide" loading="lazy" />
+          </div>
+          <div class="h-post-body">
+            <span class="h-post-cat">Research</span>
+            <h3 class="h-post-title">Retinol vs Retinoids: The Clinical Difference &amp; Which Works Faster</h3>
+            <p class="h-post-excerpt">The retinoid family is one of dermatology's most research-backed categories. We break down OTC retinol, tretinoin, adapalene, and prescription retinoids — and when each is appropriate.</p>
+            <div class="h-post-meta">
+              <span><i class="bi bi-person"></i> Dr. Priya Sharma</span>
+              <span><i class="bi bi-calendar3"></i> Oct 12, 2026</span>
+              <span><i class="bi bi-clock"></i> 9 min read</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Horizontal Post 4 -->
+        <div class="h-post">
+          <div class="h-post-img">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&h=400&fit=crop&crop=faces" alt="Eczema" loading="lazy" />
+          </div>
+          <div class="h-post-body">
+            <span class="h-post-cat">Research</span>
+            <h3 class="h-post-title">Eczema in Adults: New Biologics &amp; What They Mean for Patients</h3>
+            <p class="h-post-excerpt">The FDA's approval of dupilumab and tralokinumab has transformed adult atopic dermatitis care. Here's what these biologic therapies do, who qualifies, and what a typical treatment course looks like.</p>
+            <div class="h-post-meta">
+              <span><i class="bi bi-person"></i> Dr. James Chen</span>
+              <span><i class="bi bi-calendar3"></i> Sep 20, 2026</span>
+              <span><i class="bi bi-clock"></i> 12 min read</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Horizontal Post 5 -->
+        <div class="h-post">
+          <div class="h-post-img">
+            <img src="https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=500&h=400&fit=crop" alt="Skin Barrier" loading="lazy" />
+          </div>
+          <div class="h-post-body">
+            <span class="h-post-cat">Research</span>
+            <h3 class="h-post-title">Your Skin Barrier Explained: Why It Matters More Than Your Actives</h3>
+            <p class="h-post-excerpt">A compromised barrier is behind many cases of redness, sensitivity, and breakouts. Learn the warning signs, the science, and a simple routine to rebuild it.</p>
+            <div class="h-post-meta">
+              <span><i class="bi bi-person"></i> Dr. Priya Sharma</span>
+              <span><i class="bi bi-calendar3"></i> Sep 12, 2026</span>
+              <span><i class="bi bi-clock"></i> 8 min read</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Horizontal Post 6 -->
+        <div class="h-post">
+          <div class="h-post-img">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=500&h=400&fit=crop&crop=faces" alt="Eczema vs Psoriasis" loading="lazy" />
+          </div>
+          <div class="h-post-body">
+            <span class="h-post-cat">Treatments</span>
+            <h3 class="h-post-title">Eczema vs Psoriasis: How to Tell the Difference</h3>
+            <p class="h-post-excerpt">These two chronic skin conditions often look alike but need very different care. Here's how dermatologists distinguish them and what treatment looks like for each.</p>
+            <div class="h-post-meta">
+              <span><i class="bi bi-person"></i> Dr. Sarah Mitchell</span>
+              <span><i class="bi bi-calendar3"></i> Sep 5, 2026</span>
+              <span><i class="bi bi-clock"></i> 7 min read</span>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /col-lg-8 -->
+
+      <!-- Sidebar (4-col) -->
+      <div class="col-lg-4">
+
+        <!-- Search -->
+        <div class="sidebar-card">
+          <div class="sidebar-search">
+            <span class="sidebar-title d-block">Search</span>
+            <div class="position-relative">
+              <i class="bi bi-search position-absolute" style="left:0.9rem;top:50%;transform:translateY(-50%);color:var(--gray-500);"></i>
+              <input type="text" placeholder="Find articles..." style="padding-left:2.6rem;" aria-label="Search articles" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Categories -->
+        <div class="sidebar-card">
+          <span class="sidebar-title d-block">Categories</span>
+          <ul class="cat-list">
+            <li><span><i class="bi bi-dot text-blue me-1"></i>Acne &amp; Breakouts</span><span class="cat-count">18</span></li>
+            <li><span><i class="bi bi-dot text-blue me-1"></i>Laser Treatments</span><span class="cat-count">14</span></li>
+            <li><span><i class="bi bi-dot text-blue me-1"></i>Anti-Aging</span><span class="cat-count">22</span></li>
+            <li><span><i class="bi bi-dot text-blue me-1"></i>Skincare Tips</span><span class="cat-count">31</span></li>
+            <li><span><i class="bi bi-dot text-blue me-1"></i>Treatments</span><span class="cat-count">19</span></li>
+            <li><span><i class="bi bi-dot text-blue me-1"></i>Research &amp; Science</span><span class="cat-count">11</span></li>
+            <li><span><i class="bi bi-dot text-blue me-1"></i>Hair Restoration</span><span class="cat-count">9</span></li>
+            <li><span><i class="bi bi-dot text-blue me-1"></i>Pigmentation</span><span class="cat-count">13</span></li>
+          </ul>
+        </div>
+
+        <!-- Recent Posts -->
+        <div class="sidebar-card">
+          <span class="sidebar-title d-block">Recent Posts</span>
+          <a class="recent-post" href="blog-details.html">
+            <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=112&h=100&fit=crop" alt="Laser Resurfacing" />
+            <div>
+              <div class="recent-post-title">The Science Behind Laser Resurfacing: What You Need to Know</div>
+              <div class="recent-post-date">Nov 10, 2026</div>
+            </div>
+          </a>
+          <a class="recent-post" href="blog-details.html">
+            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=112&h=100&fit=crop&crop=faces" alt="Winter Skincare" />
+            <div>
+              <div class="recent-post-title">Winter Skincare: How to Protect Sensitive Skin</div>
+              <div class="recent-post-date">Nov 5, 2026</div>
+            </div>
+          </a>
+          <a class="recent-post" href="blog-details.html">
+            <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=112&h=100&fit=crop&crop=faces" alt="Chemical Peels" />
+            <div>
+              <div class="recent-post-title">How Chemical Peels Transform Your Skin in 30 Days</div>
+              <div class="recent-post-date">Nov 2, 2026</div>
+            </div>
+          </a>
+          <a class="recent-post" href="blog-details.html">
+            <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=112&h=100&fit=crop&crop=faces" alt="Acne Myths" />
+            <div>
+              <div class="recent-post-title">Top 5 Myths About Acne — Debunked by Dermatologists</div>
+              <div class="recent-post-date">Oct 28, 2026</div>
+            </div>
+          </a>
+          <a class="recent-post" href="blog-details.html">
+            <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=112&h=100&fit=crop&crop=faces" alt="Botox vs Fillers" />
+            <div>
+              <div class="recent-post-title">Botox vs Fillers: Which Anti-Aging Treatment Is Right for You?</div>
+              <div class="recent-post-date">Oct 15, 2026</div>
+            </div>
+          </a>
+        </div>
+
+        <!-- Tags Cloud -->
+        <div class="sidebar-card">
+          <span class="sidebar-title d-block">Popular Tags</span>
+          <div class="tags-cloud">
+            <span class="tag-chip">Acne</span>
+            <span class="tag-chip">Laser</span>
+            <span class="tag-chip">Anti-Aging</span>
+            <span class="tag-chip">Botox</span>
+            <span class="tag-chip">PRP</span>
+            <span class="tag-chip">Chemical Peel</span>
+            <span class="tag-chip">Pigmentation</span>
+            <span class="tag-chip">SPF</span>
+            <span class="tag-chip">Rosacea</span>
+            <span class="tag-chip">Retinol</span>
+            <span class="tag-chip">Eczema</span>
+            <span class="tag-chip">Filler</span>
+            <span class="tag-chip">Dermatology</span>
+            <span class="tag-chip">Sensitive Skin</span>
+            <span class="tag-chip">Melasma</span>
+            <span class="tag-chip">Hair Loss</span>
+          </div>
+        </div>
+
+        <!-- CTA Card -->
+        <div class="cta-sidebar">
+          <i class="bi bi-calendar2-heart fs-2 mb-2 d-block" style="color:rgba(255,255,255,0.8);"></i>
+          <h5>Ready for a Skin Consultation?</h5>
+          <p>Get a personalised assessment from one of our board-certified dermatologists. Same-week appointments available.</p>
+          <a href="appointment.html" class="btn-cta-white">Book a Consultation</a>
+        </div>
+
+      </div><!-- /col-lg-4 -->
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 4: VIDEO BLOG ==================== -->
+<section class="section-padded video-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="section-label"><i class="bi bi-play-circle me-1"></i> Video Content</p>
+      <h2 class="section-title">Watch &amp; Learn</h2>
+      <p class="section-desc mx-auto">Expert dermatology education in visual format — from your morning routine to in-clinic procedures explained clearly.</p>
+    </div>
+    <div class="row g-4">
+
+      <!-- Video 1 -->
+      <div class="col-md-4">
+        <div class="video-card" data-video="https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=720&h=440&fit=crop&crop=faces" alt="Morning Skincare Routine" loading="lazy" />
+            <div class="play-btn-overlay">
+              <div class="play-circle">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+            <span class="duration-badge">12:34</span>
+          </div>
+          <div class="video-info">
+            <div class="video-title">Morning Skincare Routine: The Dermatologist-Approved 5-Step Method</div>
+            <div class="video-stats mt-2">
+              <span><i class="bi bi-eye"></i> 48.2K views</span>
+              <span><i class="bi bi-hand-thumbs-up"></i> 2.1K likes</span>
+              <span><i class="bi bi-calendar3"></i> Oct 30, 2026</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video 2 -->
+      <div class="col-md-4">
+        <div class="video-card" data-video="https://www.w3schools.com/html/mov_bbb.mp4">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=720&h=440&fit=crop" alt="Laser Treatment" loading="lazy" />
+            <div class="play-btn-overlay">
+              <div class="play-circle">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+            <span class="duration-badge">18:07</span>
+          </div>
+          <div class="video-info">
+            <div class="video-title">What Happens During Laser Treatment: A Full Clinical Walkthrough</div>
+            <div class="video-stats mt-2">
+              <span><i class="bi bi-eye"></i> 72.5K views</span>
+              <span><i class="bi bi-hand-thumbs-up"></i> 3.8K likes</span>
+              <span><i class="bi bi-calendar3"></i> Nov 1, 2026</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video 3 -->
+      <div class="col-md-4">
+        <div class="video-card" data-video="https://www.w3schools.com/html/movie.mp4">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=720&h=440&fit=crop&crop=faces" alt="Acne Myths" loading="lazy" />
+            <div class="play-btn-overlay">
+              <div class="play-circle">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+            <span class="duration-badge">09:52</span>
+          </div>
+          <div class="video-info">
+            <div class="video-title">Acne Myths Debunked: 7 Things You Were Told That Are Simply Wrong</div>
+            <div class="video-stats mt-2">
+              <span><i class="bi bi-eye"></i> 91.3K views</span>
+              <span><i class="bi bi-hand-thumbs-up"></i> 5.2K likes</span>
+              <span><i class="bi bi-calendar3"></i> Oct 15, 2026</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== VIDEO PLAYER MODAL ==================== -->
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content video-modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="videoModalTitle">Watch &amp; Learn</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <video id="videoPlayer" controls playsinline preload="metadata"></video>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SECTION 5: NEWSLETTER ==================== -->
+<section class="newsletter-section">
+  <div class="container">
+    <div class="row g-5 align-items-center">
+      <div class="col-lg-6">
+        <p class="section-label"><i class="bi bi-envelope-heart me-1"></i> Weekly Newsletter</p>
+        <h2 class="newsletter-title">Get Skincare Insights Delivered to Your Inbox</h2>
+        <p class="mb-3" style="color:var(--charcoal);opacity:0.8;font-size:0.95rem;">Join over 12,000 readers who start their week with clinically accurate, easy-to-understand skin health advice.</p>
+        <ul class="benefits-list">
+          <li>
+            <span class="benefit-icon"><i class="bi bi-lightbulb-fill"></i></span>
+            <span><strong>Weekly expert tips</strong> from our board-certified dermatologists, written in plain language</span>
+          </li>
+          <li>
+            <span class="benefit-icon"><i class="bi bi-tag-fill"></i></span>
+            <span><strong>Exclusive treatment deals</strong> and priority booking for new procedures at the clinic</span>
+          </li>
+          <li>
+            <span class="benefit-icon"><i class="bi bi-journal-medical"></i></span>
+            <span><strong>New research updates</strong> — the latest published studies translated into actionable advice</span>
+          </li>
+          <li>
+            <span class="benefit-icon"><i class="bi bi-calendar2-check"></i></span>
+            <span><strong>Seasonal skin guides</strong> tailored to your climate and lifestyle for year-round skin health</span>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center gap-3">
+          <div class="d-flex">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=faces" alt="Subscriber" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--white);margin-right:-10px;" />
+            <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?w=100&h=100&fit=crop&crop=faces" alt="Subscriber" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--white);margin-right:-10px;" />
+            <img src="https://images.unsplash.com/photo-1547425260-76bcadfb4f2c?w=100&h=100&fit=crop&crop=faces" alt="Subscriber" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--white);" />
+          </div>
+          <span style="font-size:0.88rem;color:var(--charcoal);">Join <strong>12,400+</strong> skincare enthusiasts</span>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="newsletter-form-card">
+          <h4 style="font-size:1.3rem;margin-bottom:0.3rem;">Subscribe to Our Newsletter</h4>
+          <p style="font-size:0.88rem;color:var(--gray-600);margin-bottom:1.5rem;">Free, weekly, and unsubscribe anytime.</p>
+          <form>
+            <div class="form-floating-custom">
+              <input type="text" placeholder="Your full name" required aria-label="Full name" />
+            </div>
+            <div class="form-floating-custom">
+              <input type="email" placeholder="Your email address" required aria-label="Email address" />
+            </div>
+            <div class="form-floating-custom">
+              <select style="width:100%;padding:0.85rem 1rem;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);font-size:0.95rem;color:var(--charcoal);background:var(--ivory);outline:none;" aria-label="Interest area">
+                <option>Skin interest area (optional)</option>
+                <option>Acne &amp; Breakouts</option>
+                <option>Anti-Aging</option>
+                <option>Laser Treatments</option>
+                <option>Hair Restoration</option>
+                <option>Sensitive Skin</option>
+                <option>All Topics</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-subscribe">Subscribe Now <i class="bi bi-arrow-right ms-2"></i></button>
+          </form>
+          <p class="privacy-note"><i class="bi bi-shield-lock-fill" style="color:var(--blue);"></i> We respect your privacy. No spam, ever. Unsubscribe with one click.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 6: TRENDING TOPICS ==================== -->
+<section class="section-padded bg-ivory">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="section-label"><i class="bi bi-graph-up-arrow me-1"></i> Trending Now</p>
+      <h2 class="section-title">Trending Topics</h2>
+      <p class="section-desc mx-auto">Browse our curated article collections by skin concern or treatment area.</p>
+    </div>
+    <div class="row g-4 mb-5">
+      <div class="col-6 col-md-4">
+        <div class="topic-card">
+          <img src="https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=720&h=400&fit=crop&crop=faces" alt="Acne Solutions" loading="lazy" />
+          <div class="topic-overlay">
+            <div class="topic-name">Acne Solutions</div>
+            <div class="topic-count">18 articles</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="topic-card">
+          <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=720&h=400&fit=crop&crop=faces" alt="Anti-Aging Secrets" loading="lazy" />
+          <div class="topic-overlay">
+            <div class="topic-name">Anti-Aging Secrets</div>
+            <div class="topic-count">22 articles</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="topic-card">
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=720&h=400&fit=crop" alt="Laser Treatments" loading="lazy" />
+          <div class="topic-overlay">
+            <div class="topic-name">Laser Treatments</div>
+            <div class="topic-count">14 articles</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="topic-card">
+          <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=720&h=400&fit=crop&crop=faces" alt="Sensitive Skin" loading="lazy" />
+          <div class="topic-overlay">
+            <div class="topic-name">Sensitive Skin</div>
+            <div class="topic-count">16 articles</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="topic-card">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=720&h=400&fit=crop&crop=faces" alt="Hair Restoration" loading="lazy" />
+          <div class="topic-overlay">
+            <div class="topic-name">Hair Restoration</div>
+            <div class="topic-count">9 articles</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="topic-card">
+          <img src="https://images.unsplash.com/photo-1556228578-8c89e6adf883?w=720&h=400&fit=crop" alt="Summer Skin Care" loading="lazy" />
+          <div class="topic-overlay">
+            <div class="topic-name">Summer Skin Care</div>
+            <div class="topic-count">12 articles</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="dc-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="dc-logo">
+          <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="15" fill="rgba(84,124,155,0.2)" stroke="#4A7090" stroke-width="1.5"/>
+            <path d="M16 8c0 0-6 4-6 10a6 6 0 0 0 12 0C22 12 16 8 16 8z" fill="#4A7090" opacity="0.9"/>
+          </svg>DermaCare
+        </div>
+        <p class="dc-desc">Premium dermatological care combining clinical excellence with personalised attention. Your skin's health is our commitment.</p>
+        <div class="d-flex gap-3 mt-3">
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-instagram"></i></a>
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-facebook"></i></a>
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" style="color:rgba(255,255,255,0.8);font-size:1.2rem;"><i class="bi bi-youtube"></i></a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-sm-6">
+        <div class="dc-heading">Services</div>
+        <ul class="dc-links">
+          <li><a href="services.html">Acne Treatment</a></li>
+          <li><a href="services.html">Laser Therapy</a></li>
+          <li><a href="services.html">Skin Rejuvenation</a></li>
+          <li><a href="services.html">Pigmentation Care</a></li>
+          <li><a href="services.html">Anti-Aging</a></li>
+          <li><a href="services.html">Hair &amp; Scalp</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-2 col-sm-6">
+        <div class="dc-heading">Company</div>
+        <ul class="dc-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="home2.html">Home 2</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="appointment.html">Book Appointment</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <div class="dc-heading">Contact</div>
+        <ul class="dc-links">
+          <li><i class="bi bi-geo-alt me-2"></i>123 Wellness Avenue, Suite 400</li>
+          <li><i class="bi bi-telephone me-2"></i>+1 (800) DERMA-00</li>
+          <li><i class="bi bi-envelope me-2"></i>hello@dermacare.clinic</li>
+          <li class="mt-2"><i class="bi bi-clock me-2"></i>Mon–Sat: 8 AM – 7 PM</li>
+          <li><span style="padding-left:1.4rem;">Sun: 10 AM – 4 PM</span></li>
+        </ul>
+      </div>
+    </div>
+    <hr class="dc-divider" />
+    <div class="d-flex flex-wrap justify-content-between align-items-center dc-bottom">
+      <span>© 2024 DermaCare Clinic. All rights reserved.</span>
+      <span class="d-flex gap-3">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Custom JS -->
+<script src="/assets/js/main.js"></script>
+<script>
+  // Theme Toggle
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  const html = document.documentElement;
+  const saved = localStorage.getItem('dermacare-theme') || 'light';
+  html.setAttribute('data-theme', saved);
+  themeIcon.className = saved === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-stars';
+  themeToggle.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme');
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('dermacare-theme', next);
+    themeIcon.className = next === 'dark' ? 'bi bi-sun-fill' : 'bi bi-moon-stars';
+  });
+
+  // Filter Pills
+  document.querySelectorAll('.filter-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+    });
+  });
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.blog-card, .h-post, .video-card, .topic-card, .sidebar-card');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = e.target.style.transform.replace('translateY(20px)', 'translateY(0)');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  revealEls.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+
+  // Navbar scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('mainNav');
+    if (window.scrollY > 60) {
+      nav.style.boxShadow = '0 4px 24px rgba(41,45,50,0.1)';
+    } else {
+      nav.style.boxShadow = 'none';
+    }
+  });
+
+  // ===== Watch & Learn video player =====
+  const dcVideoModalEl = document.getElementById('videoModal');
+  const dcVideoPlayer = document.getElementById('videoPlayer');
+  if (dcVideoModalEl && dcVideoPlayer) {
+    const dcVideoModal = new bootstrap.Modal(dcVideoModalEl);
+    document.querySelectorAll('.video-card[data-video]').forEach((card) => {
+      card.setAttribute('tabindex', '0');
+      card.setAttribute('role', 'button');
+      card.addEventListener('click', () => {
+        const titleEl = card.querySelector('.video-title');
+        const posterEl = card.querySelector('.video-thumb img');
+        document.getElementById('videoModalTitle').textContent = titleEl ? titleEl.textContent.trim() : 'Watch & Learn';
+        dcVideoPlayer.src = card.dataset.video;
+        if (posterEl) dcVideoPlayer.poster = posterEl.src;
+        dcVideoModal.show();
+      });
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+    dcVideoModalEl.addEventListener('shown.bs.modal', () => {
+      const playPromise = dcVideoPlayer.play();
+      if (playPromise && playPromise.catch) playPromise.catch(() => {});
+    });
+    dcVideoModalEl.addEventListener('hidden.bs.modal', () => {
+      dcVideoPlayer.pause();
+      dcVideoPlayer.removeAttribute('src');
+      dcVideoPlayer.removeAttribute('poster');
+      dcVideoPlayer.load();
+    });
+  }
+
+  // ===== Pass the selected article to the details page =====
+  const blogDetailsUrl = 'blog-details.html';
+  const pickText = (el) => (el ? el.textContent.replace(/\s+/g, ' ').trim() : '');
+
+  function getPostData(card) {
+    const data = { img: '', title: '', category: '', excerpt: '', author: '', authorImg: '', date: '', read: '' };
+
+    const mainImg = card.querySelector('.blog-card-img img, .h-post-img img, .featured-banner > img');
+    if (mainImg) data.img = mainImg.getAttribute('src') || '';
+
+    data.title = pickText(card.querySelector('.blog-card-title, .h-post-title, .featured-banner-title'));
+    data.category = pickText(card.querySelector('.cat-badge, .h-post-cat')) || card.dataset.category || 'Dermatology';
+    data.excerpt = pickText(card.querySelector('.blog-card-excerpt, .h-post-excerpt, .featured-excerpt'));
+
+    const authorMini = card.querySelector('.author-mini');
+    if (authorMini) {
+      data.author = pickText(authorMini.querySelector('.author-mini-name'));
+      const avatar = authorMini.querySelector('img');
+      if (avatar) data.authorImg = avatar.getAttribute('src') || '';
+      const meta = pickText(authorMini.querySelector('.author-mini-date'));
+      const parts = meta.split(/[•·]/).map((s) => s.trim()).filter(Boolean);
+      data.date = parts[0] || '';
+      data.read = parts[1] || '';
+    }
+
+    const featuredAuthor = card.querySelector('.featured-author strong');
+    if (featuredAuthor) {
+      data.author = pickText(featuredAuthor);
+      const avatar = card.querySelector('.featured-author img');
+      if (avatar) data.authorImg = avatar.getAttribute('src') || '';
+    }
+    const featuredDates = card.querySelectorAll('.featured-date');
+    if (featuredDates.length >= 2) {
+      data.date = pickText(featuredDates[0]);
+      data.read = pickText(featuredDates[1]);
+    }
+
+    const metaSpans = card.querySelectorAll('.h-post-meta span');
+    if (metaSpans.length >= 3) {
+      data.author = pickText(metaSpans[0]);
+      data.date = pickText(metaSpans[1]);
+      data.read = pickText(metaSpans[2]);
+    }
+
+    if (data.read && !/read/i.test(data.read)) data.read += ' read';
+
+    if (data.img) {
+      data.img = data.img
+        .replace(/([?&])w=\d+/, '$1w=1600')
+        .replace(/([?&])h=\d+/, '$1h=900');
+    }
+    return data;
+  }
+
+  function openBlogDetails(card) {
+    const data = getPostData(card);
+    try { sessionStorage.setItem('dcBlogPost', JSON.stringify(data)); } catch (err) {}
+
+    const params = new URLSearchParams();
+    Object.keys(data).forEach((key) => {
+      if (data[key]) params.set(key, data[key]);
+    });
+    window.location.href = blogDetailsUrl + (params.toString() ? '?' + params.toString() : '');
+  }
+
+  document.querySelectorAll('.blog-card, .h-post, .featured-banner').forEach((card) => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', (e) => {
+      e.preventDefault();
+      openBlogDetails(card);
+    });
+  });
+</script>
+</body>
+</html>
